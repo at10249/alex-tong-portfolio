@@ -1,0 +1,75 @@
+"use client";
+
+import { useAppState } from "@/context/AppStateContext";
+
+export function ChatHeader() {
+  const { downloadCV } = useAppState();
+
+  return (
+    <header
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        padding: "13px 20px",
+        borderBottom: "1px solid var(--border)",
+        flexShrink: 0,
+        overflow: "hidden",
+      }}
+    >
+      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#3f9d6b", flex: "none" }} />
+      <span
+        style={{
+          fontFamily: "var(--mono)",
+          fontSize: "11.5px",
+          color: "var(--muted)",
+          minWidth: 0,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        }}
+      >
+        claude.whoisalextong.com
+      </span>
+      <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
+        <a
+          href="https://www.linkedin.com/in/alexkevintong"
+          target="_blank"
+          rel="noopener"
+          style={{
+            fontFamily: "var(--font)",
+            fontWeight: 500,
+            fontSize: "11.5px",
+            padding: "7px 13px",
+            border: "1px solid var(--border)",
+            borderRadius: "var(--r-sm)",
+            color: "var(--text)",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+            flex: "none",
+          }}
+        >
+          LinkedIn
+        </a>
+        <button
+          onClick={downloadCV}
+          style={{
+            fontFamily: "var(--font)",
+            fontWeight: 500,
+            fontSize: "11.5px",
+            padding: "7px 13px",
+            borderRadius: "var(--r-sm)",
+            background: "var(--accent)",
+            color: "var(--accent-ink)",
+            border: "none",
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+            flex: "none",
+          }}
+        >
+          Download CV
+        </button>
+      </div>
+    </header>
+  );
+}

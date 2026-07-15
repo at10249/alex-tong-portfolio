@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.28);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes atblink {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes atrise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.at-msg {
+  animation: atrise 0.28s ease both;
+}
+
+.at-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: atblink 1s infinite;
+}
+
+textarea.at-input {
+  outline: none;
+  border: none;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+}
+
+textarea.at-input::placeholder {
+  color: var(--faint);
+  font-style: italic;
+}
+
+textarea.at-input:disabled {
+  color: var(--faint);
+  cursor: not-allowed;
+}
+
+button {
+  font: inherit;
+}

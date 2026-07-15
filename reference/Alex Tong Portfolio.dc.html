@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:rgba(128,128,128,.28);border-radius:6px}
+  ::-webkit-scrollbar-track{background:transparent}
+  @keyframes atblink{0%,100%{opacity:.25}50%{opacity:1}}
+  @keyframes atrise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .at-msg{animation:atrise .28s ease both}
+  .at-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:atblink 1s infinite}
+  textarea::placeholder{color:var(--faint);font-style:italic}
+  textarea{outline:none;border:none;resize:none;background:transparent;color:var(--text);font-family:inherit}
+</style>
+</helmet>
+
+<div style="{{ rootStyle }}">
+
+  <!-- ===================== LEFT SIDEBAR ===================== -->
+  <aside style="display:flex;flex-direction:column;min-height:0;background:var(--panel);border-right:1px solid var(--border)">
+    <div style="display:flex;align-items:center;gap:10px;padding:16px 16px 14px">
+      <img src="assets/alex.jpeg" alt="Alex Tong" style="width:30px;height:30px;border-radius:var(--r-sm);object-fit:cover;object-position:50% 12%;filter:var(--photo-filter)">
+      <div style="font-family:var(--display);font-weight:600;font-size:14.5px;color:var(--text);letter-spacing:.2px">{{ brandName }}</div>
+      <button onClick="{{ newChat }}" title="New chat" style="margin-left:auto;width:28px;height:28px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--muted);font-size:16px;cursor:pointer;display:grid;place-items:center">+</button>
+    </div>
+
+    <div style="padding:8px 16px 6px;font-family:var(--mono);font-weight:600;font-size:9.5px;letter-spacing:1.2px;color:var(--faint);text-transform:uppercase">Conversations</div>
+    <nav style="display:flex;flex-direction:column;gap:2px;padding:0 8px;overflow-y:auto;flex-shrink:0">
+      <sc-for list="{{ convos }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.onClick }}" style="{{ c.style }}">
+          <span style="{{ c.dotStyle }}">{{ c.dot }}</span>
+          <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.title }}</span>
+        </button>
+      </sc-for>
+    </nav>
+
+    <div style="margin-top:auto;padding:12px 12px 10px;display:flex;flex-direction:column;gap:10px">
+      <!-- Available Tools connector -->
+      <div style="border:1px solid var(--border);border-radius:var(--r-md);background:var(--panel2);overflow:hidden">
+        <button onClick="{{ toggleTools }}" style="width:100%;padding:11px 12px;display:flex;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;border-bottom:1px solid var(--border)">
+          <span style="width:7px;height:7px;border-radius:50%;background:#3f9d6b;box-shadow:0 0 6px rgba(63,157,107,.6)"></span>
+          <span style="font-family:var(--mono);font-weight:600;font-size:11px;color:var(--text);letter-spacing:.3px">Available Tools</span>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--faint)">{{ toolCountLabel }}</span>
+        </button>
+        <sc-if value="{{ toolsClosed }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:10px 12px;display:flex;flex-wrap:wrap;gap:5px">
+            <sc-for list="{{ visibleTools }}" as="t" hint-placeholder-count="6">
+              <span style="font-family:var(--mono);font-weight:500;font-size:10px;padding:3px 7px;border-radius:6px;background:var(--chip);color:var(--chip-text);border:1px solid transparent;white-space:nowrap">{{ t }}</span>
+            </sc-for>
+            <button onClick="{{ toggleTools }}" style="font-family:var(--mono);font-weight:500;font-size:10px;padding:3px 7px;border-radius:6px;background:transparent;border:1px dashed var(--border);color:var(--faint);cursor:pointer">{{ toolsToggleLabel }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ toolsOpen }}" hint-placeholder-val="{{ false }}">
+          <div style="max-height:48vh;overflow-y:auto;padding:10px 12px 12px">
+            <sc-for list="{{ toolGroups }}" as="g" hint-placeholder-count="4">
+              <div style="margin-top:11px">
+                <div style="font-family:var(--mono);font-weight:600;font-size:8.5px;letter-spacing:1px;color:var(--faint);text-transform:uppercase">{{ g.name }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:6px">
+                  <sc-for list="{{ g.tools }}" as="t" hint-placeholder-count="4">
+                    <span style="{{ t.style }}">{{ t.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <button onClick="{{ toggleTools }}" style="margin-top:12px;font-family:var(--mono);font-weight:500;font-size:10px;padding:4px 9px;border-radius:6px;background:transparent;border:1px dashed var(--border);color:var(--faint);cursor:pointer">{{ toolsToggleLabel }}</button>
+          </div>
+        </sc-if>
+      </div>
+      <button onClick="{{ openSettings }}" style="display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:var(--r-sm);border:none;background:transparent;color:var(--muted);cursor:pointer;font-family:var(--font);font-size:12.5px;font-weight:500">
+        <span style="font-size:14px">&#9881;</span> Settings
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== CENTER CHAT ===================== -->
+  <main style="display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--bg)">
+    <header style="display:flex;align-items:center;gap:10px;padding:13px 20px;border-bottom:1px solid var(--border);flex-shrink:0;overflow:hidden">
+      <span style="width:7px;height:7px;border-radius:50%;background:#3f9d6b;flex:none"></span>
+      <span style="font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">claude.whoisalextong.com</span>
+      <div style="margin-left:auto;display:flex;gap:8px;flex:none">
+        <a href="https://www.linkedin.com/in/alexkevintong" target="_blank" rel="noopener" style="font-family:var(--font);font-weight:500;font-size:11.5px;padding:7px 13px;border:1px solid var(--border);border-radius:var(--r-sm);color:var(--text);text-decoration:none;white-space:nowrap;flex:none">LinkedIn</a>
+        <button onClick="{{ downloadCV }}" style="font-family:var(--font);font-weight:500;font-size:11.5px;padding:7px 13px;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);border:none;cursor:pointer;white-space:nowrap;flex:none">Download CV</button>
+      </div>
+    </header>
+
+    <!-- messages / welcome -->
+    <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column">
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 56px">
+          <img src="assets/alex.jpeg" alt="Alex Tong" style="width:64px;height:64px;border-radius:18px;object-fit:cover;object-position:50% 12%;margin-bottom:22px;filter:var(--photo-filter)">
+          <div style="font-family:var(--display);font-weight:400;font-size:30px;line-height:1.2;letter-spacing:-.3px;color:var(--text);margin-bottom:12px">{{ heroTitle }}</div>
+          <div style="font-family:var(--font);font-size:13.5px;line-height:1.6;color:var(--muted);max-width:430px">Head of Technical Deployment Strategy at Pentatonic. Strategy brain, operator&rsquo;s hands, AI enthusiast. Pick a conversation on the left or ask your own question.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasMessages }}" hint-placeholder-val="{{ false }}">
+        <div style="max-width:760px;width:100%;margin:0 auto;padding:26px 28px 8px;display:flex;flex-direction:column;gap:20px">
+          <sc-for list="{{ messages }}" as="m" hint-placeholder-count="2">
+            <div class="at-msg" style="{{ m.rowStyle }}">
+              <sc-if value="{{ m.isBot }}" hint-placeholder-val="{{ true }}">
+                <img src="assets/alex.jpeg" alt="Alex Tong" style="width:26px;height:26px;flex:none;border-radius:var(--r-sm);object-fit:cover;object-position:50% 12%;filter:var(--photo-filter)">
+              </sc-if>
+              <div style="{{ m.bubbleStyle }}">
+                {{ m.content }}
+                <sc-if value="{{ m.artifact }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ m.openArtifact }}" style="margin-top:12px;display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:var(--r-md);padding:9px 11px;background:var(--panel2);cursor:pointer;text-align:left;max-width:280px">
+                    <span style="width:30px;height:30px;flex:none;border-radius:var(--r-sm);background:var(--chip);display:grid;place-items:center;color:var(--accent);font-size:15px">&#9636;</span>
+                    <span style="min-width:0">
+                      <span style="display:block;font-family:var(--font);font-weight:600;font-size:11.5px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ m.artifactTitle }}</span>
+                      <span style="display:block;font-family:var(--font);font-size:10px;color:var(--faint)">Click to open &rarr;</span>
+                    </span>
+                  </button>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:9px;align-items:center">
+              <img src="assets/alex.jpeg" alt="Alex Tong" style="width:26px;height:26px;flex:none;border-radius:var(--r-sm);object-fit:cover;object-position:50% 12%;filter:var(--photo-filter)">
+              <div style="display:flex;gap:5px;color:var(--muted);padding:8px 2px">
+                <span class="at-dot"></span><span class="at-dot" style="animation-delay:.2s"></span><span class="at-dot" style="animation-delay:.4s"></span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- input -->
+    <div style="padding:12px 28px 22px;flex-shrink:0">
+      <div style="max-width:760px;margin:0 auto">
+        <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;justify-content:center">
+            <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="4">
+              <button onClick="{{ s.onClick }}" style="font-family:var(--font);font-size:11.5px;font-weight:500;padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:var(--panel2);color:var(--muted);cursor:pointer">{{ s.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <div style="border:1px solid var(--border);border-radius:var(--r-lg);background:var(--panel2);padding:12px 14px;box-shadow:0 4px 18px -10px rgba(0,0,0,.22)">
+          <div style="display:flex;align-items:flex-end;gap:10px">
+            <sc-if value="{{ isTerminal }}" hint-placeholder-val="{{ false }}">
+              <span style="font-family:var(--mono);font-size:13px;color:var(--accent);padding-bottom:2px">$</span>
+            </sc-if>
+            <textarea rows="1" value="{{ draft }}" onChange="{{ onDraftChange }}" onKeyDown="{{ onKey }}" placeholder="{{ placeholder }}" style="flex:1;font-size:13.5px;line-height:1.45;max-height:120px;padding:2px 0"></textarea>
+            <button onClick="{{ onSend }}" title="Send" style="width:32px;height:32px;flex:none;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);border:none;cursor:pointer;font-size:15px;display:grid;place-items:center">&uarr;</button>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:9px;font-family:var(--mono);font-size:9.5px;color:var(--faint)">claude.whoisalextong.com &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== RIGHT: ARTIFACTS ===================== -->
+  <sc-if value="{{ showArtifactPanel }}" hint-placeholder-val="{{ false }}">
+    <section style="display:flex;flex-direction:column;min-height:0;background:var(--panel);border-left:1px solid var(--border);position:relative">
+      <div onMouseDown="{{ startResize }}" style="position:absolute;left:-3px;top:0;bottom:0;width:8px;cursor:ew-resize;z-index:5"></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--panel2)">
+        <div style="min-width:0">
+          <div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ openTitle }}</div>
+          <div style="font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:2px">{{ openMeta }}</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:6px">
+          <button onClick="{{ downloadCV }}" title="Download" style="width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:13px">&#8595;</button>
+          <button onClick="{{ closeArtifact }}" title="Close" style="width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:15px">&times;</button>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;overflow-y:auto;padding:16px">
+        <div style="background:var(--doc-bg);border:1px solid var(--border);border-radius:var(--r-md);padding:26px 28px;box-shadow:0 1px 3px rgba(0,0,0,.05)">
+          {{ openContent }}
+        </div>
+      </div>
+    </section>
+  </sc-if>
+  <sc-if value="{{ showArtifactList }}" hint-placeholder-val="{{ true }}">
+    <section style="display:flex;flex-direction:column;min-height:0;background:var(--panel);border-left:1px solid var(--border)">
+      <div style="padding:16px 16px 12px;font-family:var(--mono);font-weight:600;font-size:9.5px;letter-spacing:1.2px;color:var(--faint);text-transform:uppercase">Artifacts</div>
+      <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:0 12px 16px">
+        <sc-for list="{{ artifactList }}" as="a" hint-placeholder-count="6">
+          <button onClick="{{ a.onOpen }}" style="text-align:left;border:1px solid var(--border);border-radius:var(--r-md);background:var(--panel2);padding:12px;cursor:pointer;display:flex;gap:11px;align-items:flex-start">
+            <span style="width:30px;height:30px;flex:none;border-radius:var(--r-sm);background:var(--chip);display:grid;place-items:center;color:var(--accent);font-size:15px">&#9636;</span>
+            <span style="min-width:0">
+              <span style="display:block;font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">{{ a.title }}</span>
+              <span style="display:block;font-family:var(--mono);font-size:9.5px;color:var(--faint);margin-top:4px;text-transform:uppercase;letter-spacing:.5px">{{ a.meta }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ===================== SETTINGS MODAL ===================== -->
+  <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeSettings }}" style="position:fixed;inset:0;background:rgba(0,0,0,.42);display:grid;place-items:center;z-index:50">
+      <div onClick="{{ stop }}" style="width:400px;max-width:92vw;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5);overflow:hidden">
+        <div style="padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center">
+          <span style="font-family:var(--display);font-weight:600;font-size:16px;color:var(--text)">Settings</span>
+          <button onClick="{{ closeSettings }}" style="margin-left:auto;width:26px;height:26px;border-radius:var(--r-sm);border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:15px">&times;</button>
+        </div>
+        <div style="padding:18px 20px">
+          <div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text);margin-bottom:3px">Appearance</div>
+          <div style="font-family:var(--font);font-size:11.5px;color:var(--muted);margin-bottom:14px">Switch the whole interface between two personalities.</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <button onClick="{{ setWarm }}" style="{{ warmOptStyle }}">
+              <span style="width:34px;height:34px;border-radius:9px;background:#c0673c;flex:none"></span>
+              <span style="text-align:left"><span style="display:block;font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">Warm Studio</span><span style="display:block;font-family:var(--font);font-size:11px;color:var(--muted)">Paper &amp; clay, assistant-app feel</span></span>
+              <span style="{{ warmCheck }}">&#10003;</span>
+            </button>
+            <button onClick="{{ setTerminal }}" style="{{ termOptStyle }}">
+              <span style="width:34px;height:34px;border-radius:9px;background:#14130f;border:1px solid #3a382f;flex:none;display:grid;place-items:center;color:#f0d9a0;font-family:'IBM Plex Mono';font-size:13px">&gt;_</span>
+              <span style="text-align:left"><span style="display:block;font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">Terminal</span><span style="display:block;font-family:var(--font);font-size:11px;color:var(--muted)">Dark, monospace, command-line</span></span>
+              <span style="{{ termCheck }}">&#10003;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:&quot;100%&quot;}}">
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    let saved = 'warm';
+    try { saved = localStorage.getItem('at-theme') || 'warm'; } catch(e){}
+    this.state = { theme: saved, messages: [], draft: '', openArtifact: null, panelWidth: 460, settingsOpen: false, toolsOpen: false, loading: false, activeConvo: null };
+  }
+
+  componentDidMount(){
+    this._move = (e) => {
+      if(!this._resizing) return;
+      const w = Math.min(760, Math.max(340, window.innerWidth - e.clientX));
+      this.setState({ panelWidth: w });
+    };
+    this._up = () => { this._resizing = false; document.body.style.userSelect=''; };
+    window.addEventListener('mousemove', this._move);
+    window.addEventListener('mouseup', this._up);
+  }
+  componentWillUnmount(){
+    window.removeEventListener('mousemove', this._move);
+    window.removeEventListener('mouseup', this._up);
+  }
+
+  themes(){
+    return {
+      warm: {
+        '--bg':'#f4f0e8','--panel':'#efe9dd','--panel2':'#fbf9f4','--doc-bg':'#ffffff',
+        '--text':'#2b2823','--muted':'#8a8378','--faint':'#a49b8b','--accent':'#c0673c','--accent-ink':'#ffffff',
+        '--border':'rgba(0,0,0,.09)','--chip':'#f0eadd','--chip-text':'#5c554c',
+        '--active-bg':'#fbf9f4','--active-text':'#2b2823','--photo-filter':'none',
+        '--font':"'IBM Plex Sans',system-ui,sans-serif",'--display':"'Spectral',Georgia,serif",'--mono':"'IBM Plex Mono',monospace",
+        '--r-sm':'8px','--r-md':'11px','--r-lg':'14px'
+      },
+      terminal: {
+        '--bg':'#14130f','--panel':'#1a1915','--panel2':'#100f0c','--doc-bg':'#1c1b16',
+        '--text':'#e8e4d8','--muted':'#9a9486','--faint':'#6f6a5c','--accent':'#f0d9a0','--accent-ink':'#14130f',
+        '--border':'rgba(255,255,255,.08)','--chip':'#26241d','--chip-text':'#c9c3b5',
+        '--active-bg':'#26241d','--active-text':'#f0d9a0','--photo-filter':'grayscale(1) sepia(.4) saturate(1.5) brightness(.92) contrast(1.05)',
+        '--font':"'IBM Plex Mono',monospace",'--display':"'IBM Plex Mono',monospace",'--mono':"'IBM Plex Mono',monospace",
+        '--r-sm':'6px','--r-md':'8px','--r-lg':'10px'
+      }
+    }[this.state.theme];
+  }
+
+  data(){
+    const link=(id,label)=>`<b data-art="${id}" style="color:var(--accent);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px">${label}</b>`;
+    const em=(t)=>`<b style="color:var(--accent);font-weight:600">${t}</b>`;
+    const FT='the world\u2019s most recognized and trusted ethical &amp; sustainability certification label NGO';
+    return {
+      toolGroups: [
+        { name:'AI & Automation', tools:[['Claude Code'],['ChatGPT'],['Hermes'],['OpenClaw'],['FinAI'],['N8N']] },
+        { name:'Analytics & Research', tools:[['SPSS'],['Tableau'],['Google Analytics'],['R'],['STATA']] },
+        { name:'Sales, CRM & Growth', tools:[['HubSpot'],['Sales Navigator'],['Apollo'],['HeyReach'],['Google Ads'],['Amazon PPC'],['Amazon SC'],['Shopify'],['Wix']] },
+        { name:'Productivity & Docs', tools:[['Microsoft Office'],['Google Workspace'],['Notion'],['Keynote'],['Slack'],['Microsoft Teams']] },
+        { name:'Project & Ops', tools:[['Jira'],['Linear'],['Monday.com'],['ServiceNow'],['Airtable'],['Figma'],['Miro'],['GitHub'],['Asana'],['ClickUp'],['Trello']] }
+      ],
+      convos: [
+        { id:'brag', title:'The braggadocious summary', q:'Give me a summary of Alex Tong. Make it as braggadocious as possible.', artifact:'bio',
+          a:`Buckle up. ${em('Alex Tong')} is Head of Technical Deployment Strategy at ${link('pentatonic','Pentatonic')}, where he leads the strategy and execution behind the company\u2019s circular economy programs \u2014 turning take-back, reuse, and recycling initiatives into operational reality for global brands. He is ${link('lego-takeback','LEGO')}\u2019s dedicated account owner, having spearheaded the strategy and end-to-end implementation of the ${link('lego-takeback','LEGO Brick Take Back Program')} in 2024 and 2025, and the ${link('lego-replay','LEGO Replay UK Program')} in 2026 \u2014 and, increasingly, he\u2019s exploring how ${em('agentic AI')} and ${em('Physical AI')} can accelerate the circular economy.<br><br>Alex graduated with ${em('Dean\u2019s Honors and two Bachelor of Science degrees')} from ${link('berkeley','UC Berkeley')} before joining ${link('que','que Bottle')}, one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter, as a Founder\u2019s Associate \u2014 later managing product and operations before serving as ${em('Director of European Operations')}. During this time, he completed a Master\u2019s at the ${link('bonn','University of Bonn')} \u2014 Germany\u2019s #1-ranked university for Economics \u2014 while simultaneously working as a ${em('Brand, Trademark, and Licensing Graduate Student Assistant')} at the NGO, ${link('fairtrade','Fairtrade International')}, the world\u2019s most recognized and trusted ethical and sustainability certification label. He then consulted for ${link('leafymade','Leafymade')}, an early-stage sustainability startup incubated at Uppsala University\u2019s Innovation Centre, before joining ${link('razor','Razor Group')}, one of Europe\u2019s fastest-growing e-commerce unicorns backed by BlackRock, as Product Growth Manager, driving product growth across the company\u2019s portfolio of acquired consumer brands.<br><br>${em('TL;DR:')} strategy brain, operator\u2019s hands, AI enthusiast. Full dossier \u2192` },
+        { id:'lego', title:'Current work @ Pentatonic', q:'What is Alex Tong currently working on at Pentatonic?', artifact:'lego-takeback',
+          a:`At ${link('pentatonic','Pentatonic')}, Alex is Head of Technical Deployment Strategy and ${em('LEGO\u2019s dedicated account owner')}. His remit runs across the business \u2014 ${em('operational partner management')}, ${em('business development')} and end-to-end technical deployment \u2014 turning circular-economy strategy into programs that actually ship and run. He works hand-in-hand with operational partners to keep those programs live, and spends a good part of his time exploring how ${em('agentic AI')} and ${em('Physical AI')} can accelerate the circular economy.<br><br>For LEGO specifically he led the ${link('lego-takeback','LEGO Brick Take Back')} pilots (2024\u20132025) and the ${link('lego-replay','LEGO Replay UK Program')} (2026), owning everything from proposal design to operational roll-out. He has also led strategic consulting projects for other similar brands.<br><br>Open the case studies for the play-by-play \u2192` },
+        { id:'que', title:'Early-stage startups', q:'What did Alex Tong do at early-stage startups?', artifact:'que',
+          a:`Alex has spent real time in the trenches of young ventures.<br><br>At ${link('que','que Bottle')} he joined as a ${em('Founder\u2019s Associate')} when it was a Kickstarter breakout, then owned ${em('product &amp; operations')} before becoming ${em('Director of European Operations')} \u2014 standing up the EU side of one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter. Scrappy start-up scaling, supply chain, ops, the works.<br><br>He later consulted for ${link('leafymade','Leafymade')}, an ${em('early-stage sustainability startup incubated at Uppsala University\u2019s Innovation Centre')}, advising on strategy for the young venture before joining the <b style="color:var(--text);font-weight:600">growth-stage unicorn startup</b>, ${link('razor','Razor Group')}.` },
+        { id:'work', title:'Location', q:'Where is Alex Tong based and open to working?', artifact:null,
+          a:`Alex is ${em('based between Berlin and London')}, and works from ${em('California, Germany, and worldwide (remotely)')}. But who knows where next \u2014 he collects time zones the way other people collect fridge magnets.<br><br>Best way to reach him: the ${em('LinkedIn')} button up top, or grab the CV.` },
+        { id:'bonn', title:'Formal education', q:'What is Alex Tong\u2019s formal education?', artifact:'thesis',
+          a:`He started at ${link('berkeley','UC Berkeley')}, graduating with ${em('Dean\u2019s Honors and two B.S. degrees')} (Environmental Economics &amp; Policy; Society &amp; Environment). He then crossed the Atlantic for his ${em('M.Sc. in Agricultural &amp; Food Economics (Market &amp; Consumer Research)')} at the ${link('bonn','University of Bonn')} \u2014 ${em('Germany\u2019s #1-ranked university for Economics')} and consistently ${em('top-3 worldwide for agricultural research')}, exactly where his resource-economics focus lives. So Berkeley \u2192 Bonn was about following the best faculty for the field, not the flag on the building.<br><br>${em('Funny story on the timeline:')} his experiment-based thesis needed university lab facilities, and the German government shut those for roughly a year at the height of the COVID response. No lab, no experiments \u2014 he waited it out and finished the real research rather than cutting corners.<br><br>Read the thesis ${link('thesis','abstract')} \u2192` }
+      ],
+      artifacts: {
+        'bio': { title:'Alex Tong \u2014 Bio / CV', meta:'DOCUMENT \u00b7 2 pages', html:this.bioHtml() },
+        'pentatonic': { title:'Pentatonic', meta:'COMPANY \u00b7 CURRENT', html:this.companyHtml('Pentatonic','Head of Technical Deployment Strategy \u00b7 2022\u2013now',`Circular-economy technology company building take-back, reuse and recycling programs for global brands. As Head of Technical Deployment Strategy and ${this.aLink('lego-takeback','LEGO')}\u2019s dedicated account owner, Alex\u2019s remit runs across the business \u2014 operational partner management, business development and end-to-end technical deployment \u2014 turning circular-economy strategy into programs that actually ship and run.<br><br>He works hand-in-hand with operational partners to keep those programs live, has led strategic consulting projects for other similar brands, and spends a good part of his time exploring how <b style="color:var(--text);font-weight:600">agentic AI and Physical AI</b> can accelerate the circular economy.<br><br>For LEGO specifically he led the ${this.aLink('lego-takeback','LEGO Brick Take Back')} pilots (2024\u20132025) and the ${this.aLink('lego-replay','LEGO Replay UK Program')} (2026), owning everything from proposal design to operational roll-out. He has also led strategic consulting projects for other similar brands.`,'https://pentatonic.com','About','Startup','assets/thumbs/pentatonic.png') },
+        'lego-takeback': { title:'LEGO Brick Take Back', meta:'CASE STUDY \u00b7 2024\u201325', html:this.caseHtml('LEGO Brick Take Back Program','2024 &amp; 2025 pilots','Pentatonic \u00d7 LEGO','The program ran as <b style="color:var(--text);font-weight:600">two pilots</b> \u2014 one in 2024 and one in 2025. Alex <b style="color:var(--text);font-weight:600">spearheaded and won the competitive RFP</b>, then owned the work end-to-end across both pilots, from the initial proposal to post-pilot analysis.',['Spearheaded and won the competitive RFP to land the program','Led the design of the pilot proposal','Found and onboarded operational partners \u2014 multi-stakeholder and supplier management throughout','Ran the roll-out','Owned ongoing program management','Led the post-pilot analysis and roadmapping'],'https://legobricktakeback.com/en-US','LEGO® Brick Take Back','','assets/thumbs/lego-takeback.jpeg') },
+        'lego-replay': { title:'LEGO Replay UK', meta:'CASE STUDY \u00b7 2026', html:this.caseHtml('LEGO Replay UK Program','2026','Pentatonic \u00d7 LEGO','As LEGO\u2019s <b style="color:var(--text);font-weight:600">dedicated account owner</b>, Alex led the <b style="color:var(--text);font-weight:600">UK launch</b> of LEGO Replay and set its long-range direction \u2014 serving as the lead point of contact for both the LEGO client and the project\u2019s suppliers.',['Led the blueprinting and roadmapping for the project\u2019s 5-year development','Found and onboarded the operational partners \u2014 multi-stakeholder and supplier management end-to-end','Managed production while serving as the lead contact for the LEGO client and the project\u2019s suppliers'],'https://www.lego.com/en-us/aboutus/news/2024/january/lego-replay-uk','LEGO® Replay UK — About Us','','assets/thumbs/lego-replay.jpeg') },
+        'que': { title:'que Bottle \u2014 Scaling from Kickstarter Success', meta:'CASE STUDY', html:this.caseHtml('Scaling from Kickstarter Success','2017\u20132020','Founder\u2019s Associate \u2192 Director, EU Operations','Alex helped scale one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter, from early team member to running <b style="color:var(--text);font-weight:600">European operations</b>.',['Founder\u2019s Associate \u2192 Product &amp; Operations Lead \u2192 Director of European Operations','Built out EU operations, supply chain and fulfilment','Owned product and operational execution during rapid growth'],'https://www.getque.com/','About','Early-stage startup','assets/thumbs/que.jpeg') },
+        'berkeley': { title:'UC Berkeley', meta:'EDUCATION \u00b7 2012\u201316', html:this.companyHtml('University of California, Berkeley','2\u00d7 B.S. \u00b7 2012\u20132016','<b style="color:var(--text);font-weight:600">Two Bachelor of Science degrees</b> \u2014 Environmental Economics &amp; Policy, and Society &amp; Environment \u2014 graduating with <b style="color:var(--text);font-weight:600">Dean\u2019s Honors</b>. Included a semester study-abroad at Lund University.','https://www.berkeley.edu/about/by-the-numbers/','About','Education','assets/thumbs/berkeley.jpeg') },
+        'bonn': { title:'University of Bonn', meta:'EDUCATION \u00b7 2017\u201320', html:this.companyHtml('University of Bonn','M.Sc., Agricultural and Food Economics \u00b7 2017\u20132020',`<b style="color:var(--text);font-weight:600">Germany\u2019s #1-ranked university for Economics</b> and consistently a <b style="color:var(--text);font-weight:600">top-3 worldwide program for agricultural research</b> \u2014 the natural home for Alex\u2019s resource-economics focus. His core study spanned <b style="color:var(--text);font-weight:600">Resource and Environmental Economics</b> and <b style="color:var(--text);font-weight:600">Market and Consumer Research</b>.<br><br>His ${this.aLink('thesis','master\u2019s thesis')} used eye-tracking technology in a controlled lab setting and a mixed-methods triangulation across three data streams \u2014 survey stated preferences, choice-experiment selections and eye-tracking data \u2014 feeding a regression model to study how credible sustainability labels drive consumer choice.<div data-art="thesis" style="display:flex;align-items:center;gap:10px;margin-top:16px;border:1px solid var(--border);border-radius:var(--r-md);padding:11px 12px;cursor:pointer;background:var(--panel2)"><span style="width:30px;height:30px;flex:none;border-radius:var(--r-sm);background:var(--chip);display:grid;place-items:center;color:var(--accent);font-size:15px">&#9636;</span><span style="min-width:0"><span style="display:block;font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--faint)">Artifact</span><span style="display:block;font-family:var(--font);font-weight:600;font-size:12px;color:var(--text)">Master&rsquo;s Thesis &mdash; Abstract</span></span><span style="margin-left:auto;color:var(--accent);font-size:14px">&rarr;</span></div>`,'https://www.uni-bonn.de/en/university/about-the-university/national-and-international-rankings/rankings','About','Education','assets/thumbs/bonn.jpeg') },
+        'fairtrade': { title:'Fairtrade International', meta:'NGO \u00b7 2019\u201321', html:this.companyHtml('Fairtrade International','Brand, Trademark, and Licensing Graduate Student Assistant \u00b7 2019\u20132021','The <b style="color:var(--text);font-weight:600">world\u2019s most recognized and trusted</b> ethical and sustainability certification label NGO. Alex worked here while completing his master\u2019s at the University of Bonn \u2014 supporting brand, trademark and licensing across the label. The role sat at the <b style="color:var(--text);font-weight:600">intersection of NGOs, marketing operations and certification processes</b>, coordinating across multiple stakeholders.','https://www.fairtrade.net/en/fairtrade-remains-the-go-to-ethical-label-for-shoppers.html','Fairtrade remains the “go-to” ethical label for shoppers','','assets/thumbs/fairtrade.jpeg') },
+        'razor': { title:'Razor Group', meta:'COMPANY \u00b7 2022', html:this.companyHtml('Razor Group','Product Growth Manager \u00b7 2022','One of <b style="color:var(--text);font-weight:600">Europe\u2019s fastest-growing e-commerce unicorns</b>, backed by <b style="color:var(--text);font-weight:600">BlackRock</b>. Alex drove product growth across the company\u2019s portfolio of acquired consumer brands.','https://www.razor-group.com/about-us','About','Growth-stage startup','assets/thumbs/razor.jpeg') },
+        'leafymade': { title:'Leafymade', meta:'CONSULTING', html:this.companyHtml('Leafymade','Consultant','An <b style="color:var(--text);font-weight:600">early-stage sustainability startup</b> incubated at Uppsala University\u2019s Innovation Centre. Alex consulted on strategy for the young venture before joining Razor Group. Leafymade has since closed operations. See the Uppsala University Innovation Centre for more.','https://uic.se/en/','About UIC','Early-stage startup,Education','assets/thumbs/leafymade.jpeg') },
+        'thesis': { title:'Master\u2019s Thesis \u2014 Abstract', meta:'RESEARCH \u00b7 UNI BONN', html:this.thesisHtml() },
+        'timeline': { title:'Full Timeline', meta:'EXPERIENCE', html:this.timelineHtml() }
+      }
+    };
+  }
+
+  aLink(id,label){ return `<b data-art="${id}" style="color:var(--accent);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px">${label}</b>`; }
+
+  linkBtn(link,label){
+    if(link && link!=='#'){
+      return `<a href="${link}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-family:var(--font);font-weight:500;font-size:11.5px;padding:8px 13px;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-ink);text-decoration:none">${label} \u2192</a>`;
+    }
+    return `<div style="margin-top:16px;font-family:var(--mono);font-size:10px;color:var(--faint);border:1px dashed var(--border);border-radius:6px;padding:7px 10px;display:inline-block">link coming soon \u2014 send me the URL to wire up</div>`;
+  }
+
+  sourceCard(link,label){
+    if(!link||link==='#') return this.linkBtn(link,label);
+    const domain=link.replace(/^https?:\/\//,'').replace(/\/.*$/,'');
+    return `<a href="${link}" target="_blank" rel="noopener" style="display:block;margin-top:16px;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;text-decoration:none;background:var(--panel2)">
+      <div style="display:flex;align-items:center;gap:6px;padding:8px 11px;background:var(--chip);border-bottom:1px solid var(--border)"><span style="width:8px;height:8px;border-radius:50%;background:#e0725a"></span><span style="width:8px;height:8px;border-radius:50%;background:#d9b45a"></span><span style="width:8px;height:8px;border-radius:50%;background:#7bb585"></span><span style="margin-left:6px;font-family:var(--mono);font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${domain}</span></div>
+      <div style="padding:12px 13px"><div style="font-family:var(--font);font-size:8.5px;font-weight:600;letter-spacing:1px;color:var(--faint);text-transform:uppercase;margin-bottom:5px">Source</div><div style="font-family:var(--font);font-weight:600;font-size:12px;line-height:1.4;color:var(--text)">${label}</div><div style="margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--accent)">Open source ↗</div></div>
+    </a>`;
+  }
+
+  bioHtml(){
+    const p='font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)';
+    const lab='font-family:var(--mono);font-weight:600;font-size:9.5px;letter-spacing:1.2px;color:var(--faint);text-transform:uppercase';
+    const rows=[
+      ['pentatonic','Pentatonic','Head of Technical Deployment Strategy','Leads strategy and execution behind Pentatonic\u2019s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. LEGO\u2019s dedicated account owner; spearheaded the LEGO Brick Take Back Program (2024\u20132025) and the LEGO Replay UK Program (2026).'],
+      ['berkeley','UC Berkeley','B.S., Environmental Economics &amp; Policy; B.S., Society &amp; Environment','Graduated with Dean\u2019s Honors.'],
+      ['que','que Bottle','Founder\u2019s Associate \u2192 Product and Operations Lead \u2192 Director of European Operations','Helped scale one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter.'],
+      ['bonn','University of Bonn','M.Sc., Agricultural and Food Economics','Germany\u2019s #1-ranked university for Economics.'],
+      ['fairtrade','Fairtrade International','Brand, Trademark, and Licensing Graduate Student Assistant','Worked at the world\u2019s most recognized and trusted ethical and sustainability certification label NGO.'],
+      ['leafymade','Leafymade','Consultant','Early-stage sustainability startup incubated at Uppsala University\u2019s Innovation Centre.'],
+      ['razor','Razor Group','Product Growth Manager','Drove product growth across the portfolio of one of Europe\u2019s fastest-growing e-commerce unicorns, backed by BlackRock.']
+    ].map(r=>`<div style="padding:12px 0;border-top:1px solid var(--border)"><div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">${this.aLink(r[0],r[1])}<span style="color:var(--muted);font-weight:400">&nbsp; \u2014 &nbsp;${r[2]}</span></div><div style="${p};font-size:11.5px;margin-top:5px">${r[3]}</div></div>`).join('');
+    return `<div style="display:flex;align-items:center;gap:16px">
+        <img src="assets/alex.jpeg" alt="Alex Tong" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter)">
+        <div>
+          <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">Alex Tong</div>
+          <div style="font-family:var(--font);font-weight:500;font-size:12px;color:var(--accent);margin-top:3px">Head of Technical Deployment Strategy, Pentatonic</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:5px">Berlin \u00b7 London &nbsp;&middot;&nbsp; Open to CA, Germany &amp; remote</div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);margin:18px 0"></div>
+      <div style="${p}">Alex Tong is Head of Technical Deployment Strategy at ${this.aLink('pentatonic','Pentatonic')}, where he leads the strategy and execution behind the company\u2019s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. He is LEGO\u2019s dedicated account owner, having spearheaded the strategy and end-to-end implementation of the ${this.aLink('lego-takeback','LEGO Brick Take Back Program')} in 2024 and 2025, and the ${this.aLink('lego-replay','LEGO Replay UK Program')} in 2026 \u2014 and, increasingly, he is exploring how <b style="color:var(--text);font-weight:600">agentic AI and Physical AI</b> can accelerate the circular economy.</div>
+      <div style="${p};margin-top:12px">Alex graduated with Dean\u2019s Honors and two Bachelor of Science degrees from ${this.aLink('berkeley','UC Berkeley')} before joining ${this.aLink('que','que Bottle')}, one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter, as a Founder\u2019s Associate, later managing product and operations before serving as Director of European Operations. During this time, he completed a Master\u2019s at the ${this.aLink('bonn','University of Bonn')} \u2014 Germany\u2019s #1-ranked university for Economics \u2014 while working as a Brand, Trademark, and Licensing Graduate Student Assistant at the NGO, ${this.aLink('fairtrade','Fairtrade International')}, the world\u2019s most recognized and trusted ethical and sustainability certification label. He then consulted for ${this.aLink('leafymade','Leafymade')}, an early-stage sustainability startup incubated at Uppsala University\u2019s Innovation Centre, before joining ${this.aLink('razor','Razor Group')}, one of Europe\u2019s fastest-growing e-commerce unicorns backed by BlackRock, as Product Growth Manager, driving product growth across the company\u2019s portfolio of acquired consumer brands.</div>
+      <div style="${lab};margin:22px 0 2px">Experience &amp; Education</div>${rows}`;
+  }
+
+  chipTag(t){ if(!t) return ''; const pills=t.split(',').map(x=>`<span style="font-family:var(--mono);font-size:8.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:3px 8px">${x.trim()}</span>`).join(''); return `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px">${pills}</div>`; }
+
+  banner(img){ return img?`<img src="${img}" alt="" style="width:100%;height:170px;object-fit:cover;border-radius:var(--r-md);margin-top:14px;border:1px solid var(--border)">`:''; }
+
+  companyHtml(name,sub,blurb,link,label,chip,img){
+    const p='font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)';
+    return `${this.chipTag(chip)}<div style="font-family:var(--display);font-weight:700;font-size:20px;color:var(--text)">${name}</div>
+      <div style="font-family:var(--font);font-weight:500;font-size:11.5px;color:var(--accent);margin-top:4px">${sub}</div>
+      ${this.banner(img)}
+      <div style="${p};margin-top:14px">${blurb}</div>
+      ${this.sourceCard(link,label)}`;
+  }
+
+  caseHtml(title,years,sub,intro,points,link,label,chip,img){
+    const p='font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)';
+    const li=points.map(x=>`<li style="${p};margin-bottom:8px">${x}</li>`).join('');
+    return `${this.chipTag(chip)}<div style="font-family:var(--display);font-weight:700;font-size:20px;color:var(--text)">${title}</div>
+      <div style="font-family:var(--font);font-weight:500;font-size:11.5px;color:var(--accent);margin-top:4px">${sub} \u00b7 ${years}</div>
+      ${this.banner(img)}
+      <div style="${p};margin-top:16px">${intro}</div>
+      <ul style="margin:14px 0 0;padding-left:18px">${li}</ul>
+      ${this.sourceCard(link,label)}`;
+  }
+
+  thesisHtml(){
+    const p='font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)';
+    const lab='font-family:var(--mono);font-weight:600;font-size:9.5px;letter-spacing:1.2px;color:var(--faint);text-transform:uppercase';
+    const em=(t)=>`<b style="color:var(--text);font-weight:600">${t}</b>`;
+    return `${this.chipTag('Education')}<div style="${lab}">M.Sc. Thesis \u00b7 University of Bonn</div>
+      <div style="font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--text);margin-top:6px">Visual Attention and Consumer Valuation of Sustainability Labels: An Eye-Tracking Study in Food Markets</div>
+      <div style="font-family:var(--font);font-weight:500;font-size:11px;color:var(--accent);margin-top:6px">Agricultural &amp; Food Economics \u2014 Market &amp; Consumer Research</div>
+      <div style="${lab};margin:18px 0 6px">Abstract</div>
+      <div style="${p}">This thesis examines how consumers visually process and value credible sustainability and ethical-certification labels on food packaging. Its core methodology is an innovative use of ${em('eye-tracking technology')} in a ${em('controlled laboratory setting')}: by recording precisely where, when, and for how long participants fixate on packaging and label elements, the study links measured visual attention to consumers\u2019 valuation and ${em('willingness-to-pay')}.</div>
+      <div style="${p};margin-top:12px">The most novel contribution is a ${em('mixed-methods triangulation')} across three data streams: each participant\u2019s ${em('stated preferences')} (from a survey), their ${em('revealed choices')} (from a choice experiment), and their ${em('eye-tracking data')} were analysed together to see where what people say, what they choose, and what they actually look at converge \u2014 or diverge. Those three streams were then fed into a ${em('regression model')}, the primary output of the work, quantifying how visual attention and label credibility predict valuation.</div>
+      <div style="${p};margin-top:12px">${em('Twelve binary logistic regression sub-models')} were built across three model families to test this: ${em('nine were confirmed')} with strong, statistically significant fit (up to ${em('R\u00b2McF = 0.43')}), establishing that both the presence of a sustainability label and ${em('longer eye-gaze duration')} significantly increased the likelihood of choosing the labeled product, and that environmental concern and attitude further shaped that choice. Two sub-models, testing whether attitude, environmental concern, and environmental knowledge drive eye-gaze duration itself, returned only weak, inconclusive support and were flagged as needing further research, while one additional exploratory variant failed to reach significance at all.</div>
+      <div style="${p};margin-top:12px">The results show that credible, trusted labels capture ${em('earlier and more sustained visual attention')}, and that this attention helps explain the ${em('price premium')} consumers place on them \u2014 evidence that label design and ${em('perceived credibility, not mere presence')}, drive sustainable choice. The work sits at the intersection of resource economics and consumer research.</div>
+      <div style="${lab};margin:18px 0 6px">Method &amp; note</div>
+      <div style="${p}">Built around eye-tracking apparatus run in the university\u2019s economics laboratory, paired with survey and choice-experiment instruments. The research timeline was extended when German government COVID-response measures closed the required lab facilities for roughly a year \u2014 the study was completed once facilities reopened.</div>
+      <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">STILL TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels get more eye time and more purchases, and that eye time predicts the price premium people\u2019ll pay. why people look longer in the first place though? still fuzzy.</div></div>
+      <div style="${p};margin-top:16px;font-weight:500;color:var(--text)">Full text available upon request.</div>
+      ${this.linkBtn('https://www.linkedin.com/in/alexkevintong','Contact Alex on LinkedIn')}`;
+  }
+
+  timelineHtml(){
+    const rows=[
+      ['Nov 2025 \u2013 now','pentatonic','Pentatonic','Head of Technical Deployment Strategy',0],
+      ['Aug 2023 \u2013 Nov 2025','pentatonic','Pentatonic','Circularity Lead',0],
+      ['Sep 2022 \u2013 Aug 2023','pentatonic','Pentatonic','Circular Economy Strategic Consultant',0],
+      ['Mar 2022 \u2013 Aug 2022','razor','Razor Group','Product Growth Manager',0],
+      ['2021 \u2013 2022','leafymade','Leafymade','Consultant',0],
+      ['Jul 2019 \u2013 Sep 2021','fairtrade','Fairtrade International','Brand, Trademark, and Licensing Graduate Student Assistant',0],
+      ['Oct 2017 \u2013 Dec 2020','bonn','University of Bonn','M.Sc., Agricultural and Food Economics',1],
+      ['Jun 2018 \u2013 Mar 2020','que','que Bottle','Director of European Operations',0],
+      ['Jun 2017 \u2013 Jun 2018','que','que Bottle','Product &amp; Operations Lead',0],
+      ['Jan 2017 \u2013 Jun 2017','que','que Bottle','Founder\u2019s Associate',0],
+      ['Jan 2016','','Lund University','Semester study abroad',1],
+      ['2012 \u2013 2016','berkeley','UC Berkeley','B.S. Environmental Economics &amp; Policy; B.S. Society &amp; Environment',1]
+    ].map(r=>{const tm={pentatonic:'assets/thumbs/pentatonic.png',razor:'assets/thumbs/razor.jpeg',leafymade:'assets/thumbs/leafymade.jpeg',fairtrade:'assets/thumbs/fairtrade.jpeg',que:'assets/thumbs/que.jpeg',bonn:'assets/thumbs/bonn.jpeg',berkeley:'assets/thumbs/berkeley.jpeg'};const th=tm[r[1]]||(r[2]==='Lund University'?'assets/thumbs/berkeley.jpeg':'');return `<div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--border)"><div style="flex:none;width:120px"><div style="font-family:var(--mono);font-size:10px;color:var(--faint)">${r[0]}</div>${th?`<img src="${th}" alt="" style="width:100px;height:62px;border-radius:6px;object-fit:cover;border:1px solid var(--border);margin-top:8px">`:''}</div><div style="flex:1;min-width:0"><div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">${r[3]}${r[4]?` <span style="font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.5px;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 4px;vertical-align:middle;margin-left:4px">EDU</span>`:''}</div><div style="font-family:var(--font);font-size:11px">${r[1]?this.aLink(r[1],r[2]):r[2]}</div></div></div>`;}).join('');
+    return `<div style="font-family:var(--display);font-weight:700;font-size:20px;color:var(--text)">Full timeline</div>
+      <div style="font-family:var(--font);font-size:11.5px;color:var(--muted);margin:6px 0 14px">Roles and studies in reverse-chronological order \u2014 the Bonn M.Sc. (2017\u20132020) ran alongside que Bottle and Fairtrade.</div>${rows}`;
+  }
+
+  decksHtml(){
+    const p='font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)';
+    return `<div style="font-family:var(--display);font-weight:700;font-size:20px;color:var(--text)">Pluto &amp; Rosetta \u2014 selected work</div>
+      <div style="${p};margin-top:10px">Client deliverables from Pentatonic\u2019s circular-economy programs \u2014 Project Pluto (multi-phase take-back strategy) and Project Rosetta (Pentatonic \u00d7 L\u2019Or\u00e9al). Excerpts available on request.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">
+        <div style="height:120px;border-radius:10px;background:repeating-linear-gradient(135deg,var(--chip),var(--chip) 11px,var(--panel2) 11px,var(--panel2) 22px);border:1px solid var(--border);display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--faint)">Pluto deck</div>
+        <div style="height:120px;border-radius:10px;background:repeating-linear-gradient(135deg,var(--chip),var(--chip) 11px,var(--panel2) 11px,var(--panel2) 22px);border:1px solid var(--border);display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--faint)">Rosetta deck</div>
+      </div>`;
+  }
+
+  node(html){
+    return React.createElement('div',{
+      style:{fontFamily:'var(--font)',fontSize:'13px',lineHeight:'1.65',color:'var(--text)'},
+      onClick:(e)=>{ const el=e.target.closest && e.target.closest('[data-art]'); if(el){ const id=el.getAttribute('data-art'); if(this.data().artifacts[id]) this.setState({openArtifact:id}); } },
+      dangerouslySetInnerHTML:{__html:html}
+    });
+  }
+
+  send(text,fresh){
+    text=(text||'').trim(); if(!text) return;
+    const d=this.data();
+    const base = fresh ? [] : this.state.messages;
+    const msgs=base.concat([{role:'user',text}]);
+    this.setState({ messages:msgs, draft:'' });
+    const hit=d.convos.find(c=>c.q===text) || d.convos.find(c=>c.title.toLowerCase()===text.toLowerCase());
+    if(hit){
+      setTimeout(()=>{
+        const nm=this.state.messages.concat([{role:'bot',html:hit.a,artifact:hit.artifact}]);
+        const ns={messages:nm}; if(hit.artifact) ns.openArtifact=hit.artifact;
+        this.setState(ns);
+      },420);
+      return;
+    }
+    this.setState({loading:true});
+    this.ask(text);
+  }
+  async ask(text){
+    const sys=`You are the portfolio chatbot for Alex Tong, answering visitor questions about him in a confident, warm, lightly witty tone (short, 2-4 sentences).
+Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO's dedicated account owner; led the LEGO Brick Take Back Program (2024-2025) and LEGO Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (BlackRock-backed unicorn). Consultant for Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
+Rules: Never invent employers or facts. If you cannot answer a question (or it's outside what you know about Alex), be gracious and ALWAYS end your reply with exactly: "You can contact Alex to ask him directly!"`;
+    let out='';
+    try{
+      out=await window.claude.complete({ system:sys, messages:[{role:'user',content:text}], max_tokens:400 });
+    }catch(e){ out="I couldn\u2019t reach the live model just now \u2014 but ask about Pentatonic, LEGO, que Bottle, or where Alex is open to work and I\u2019ve got you covered. You can contact Alex to ask him directly!"; }
+    const safe=(out||'').replace(/</g,'&lt;').replace(/&lt;br&gt;/g,'<br>').replace(/\n/g,'<br>');
+    this.setState({ loading:false, messages:this.state.messages.concat([{role:'bot',html:safe,artifact:null}]) });
+  }
+
+  renderVals(){
+    const s=this.state, d=this.data(), isTerm=s.theme==='terminal';
+    const rightW = s.openArtifact ? s.panelWidth : 300;
+    const rootStyle = Object.assign({}, this.themes(), {
+      display:'grid', gridTemplateColumns:`280px minmax(0,1fr) ${rightW}px`,
+      height:'100vh', width:'100%', overflow:'hidden',
+      background:'var(--bg)', color:'var(--text)', fontFamily:'var(--font)'
+    });
+
+    const convItem=(c)=>{
+      const active=s.activeConvo===c.id;
+      return {
+        title:c.title, dot:active?'\u25CF':'',
+        dotStyle:{color:'var(--accent)',fontSize:'8px',width:'10px',flex:'none'},
+        style:{display:'flex',alignItems:'center',gap:'8px',width:'100%',textAlign:'left',padding:'9px 11px',borderRadius:'var(--r-sm)',border:'none',cursor:'pointer',fontFamily:'var(--font)',fontSize:'12.5px',fontWeight:active?'600':'400',color:active?'var(--active-text)':'var(--muted)',background:active?'var(--active-bg)':'transparent',boxShadow:active?'0 1px 2px rgba(0,0,0,.05)':'none'},
+        onClick:()=>{ this.setState({activeConvo:c.id, messages:[], openArtifact:null, loading:false}); this.send(c.q, true); }
+      };
+    };
+
+    const messages=s.messages.map((m)=>{
+      const isBot=m.role==='bot';
+      return {
+        isBot,
+        rowStyle: isBot ? {display:'flex',gap:'10px',maxWidth:'100%'} : {display:'flex',justifyContent:'flex-end'},
+        bubbleStyle: isBot
+          ? {fontFamily:'var(--font)',fontSize:'13px',lineHeight:'1.65',color:'var(--text)',maxWidth:'640px'}
+          : {background:'var(--accent)',color:'var(--accent-ink)',borderRadius:'var(--r-lg) var(--r-lg) 4px var(--r-lg)',padding:'10px 14px',fontFamily:'var(--font)',fontSize:'13px',lineHeight:'1.5',maxWidth:'80%'},
+        content: isBot ? this.node(m.html) : m.text,
+        artifact: isBot && m.artifact ? true : false,
+        artifactTitle: isBot && m.artifact ? (d.artifacts[m.artifact]||{}).title : '',
+        openArtifact: ()=>{ if(m.artifact) this.setState({openArtifact:m.artifact}); }
+      };
+    });
+
+    const chipC={fontFamily:'var(--mono)',fontWeight:'500',fontSize:'10px',padding:'3px 7px',borderRadius:'6px',background:'var(--chip)',color:'var(--chip-text)',border:'1px solid transparent',whiteSpace:'nowrap'};
+    const chipS={fontFamily:'var(--mono)',fontWeight:'500',fontSize:'10px',padding:'3px 7px',borderRadius:'6px',background:'transparent',color:'var(--faint)',border:'1px dashed var(--border)',whiteSpace:'nowrap'};
+    const toolGroups=d.toolGroups.map(g=>({ name:g.name, tools:g.tools.map(t=>({label:t[0], style:t[1]?chipS:chipC})) }));
+    const flatTools=d.toolGroups.reduce((a,g)=>a.concat(g.tools),[]);
+    const openObj = s.openArtifact ? d.artifacts[s.openArtifact] : null;
+    const optBase={display:'flex',alignItems:'center',gap:'12px',width:'100%',textAlign:'left',padding:'11px 12px',borderRadius:'11px',cursor:'pointer',background:'var(--panel2)'};
+    const thumbs={fairtrade:'assets/thumbs/fairtrade.jpeg','lego-takeback':'assets/thumbs/lego-takeback.jpeg','lego-replay':'assets/thumbs/lego-replay.jpeg',que:'assets/thumbs/que.jpeg',razor:'assets/thumbs/razor.jpeg'};
+    const railKeys=['bio','pentatonic','lego-replay','lego-takeback','razor','leafymade','fairtrade','thesis','bonn','que','berkeley','timeline'];
+
+    return {
+      rootStyle, isTerminal:isTerm,
+      photo:'assets/alex.jpeg',
+      brandName:'Alex Tong',
+      heroTitle:'Ask me anything about Alex Tong.',
+      newChat:()=>this.setState({messages:[],activeConvo:null,draft:'',openArtifact:null}),
+      convos:d.convos.map(convItem),
+      toolGroups,
+      visibleTools:d.toolGroups.map(g=>g.tools[0][0]),
+      toolCountLabel:flatTools.length+' tools',
+      toolsOpen:s.toolsOpen,
+      toolsClosed:!s.toolsOpen,
+      toolsToggleLabel: s.toolsOpen ? 'Show less' : ('+'+(flatTools.length-d.toolGroups.length)+' more'),
+      toggleTools:()=>this.setState({toolsOpen:!s.toolsOpen}),
+      isEmpty:s.messages.length===0,
+      hasMessages:s.messages.length>0,
+      messages, loading:s.loading,
+      suggestions:d.convos.map(c=>({label:c.title,onClick:()=>this.send(c.q)})),
+      draft:s.draft,
+      onDraftChange:(e)=>this.setState({draft:e.target.value}),
+      onKey:(e)=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); this.send(s.draft); } },
+      onSend:()=>this.send(s.draft),
+      placeholder: s.messages.length===0 ? 'Give me a summary of Alex Tong. Make it as braggadocious as possible.' : 'Ask anything about Alex\u2026',
+      showArtifactPanel: !!openObj,
+      showArtifactList: !openObj,
+      openTitle: openObj?openObj.title:'',
+      openMeta: openObj?openObj.meta:'',
+      openContent: openObj?this.node(openObj.html):null,
+      artifactList: railKeys.map(k=>({title:d.artifacts[k].title,meta:d.artifacts[k].meta,thumb:thumbs[k]||'',noThumb:!thumbs[k],onOpen:()=>this.setState({openArtifact:k})})),
+      closeArtifact:()=>this.setState({openArtifact:null}),
+      startResize:(e)=>{ e.preventDefault(); this._resizing=true; document.body.style.userSelect='none'; },
+      downloadCV:()=>{ window.open('https://www.linkedin.com/in/alexkevintong','_blank'); },
+      settingsOpen:s.settingsOpen,
+      openSettings:()=>this.setState({settingsOpen:true}),
+      closeSettings:()=>this.setState({settingsOpen:false}),
+      stop:(e)=>e.stopPropagation(),
+      setWarm:()=>{ try{localStorage.setItem('at-theme','warm')}catch(e){} this.setState({theme:'warm'}); },
+      setTerminal:()=>{ try{localStorage.setItem('at-theme','terminal')}catch(e){} this.setState({theme:'terminal'}); },
+      warmOptStyle:Object.assign({},optBase,{border:'2px solid '+(isTerm?'var(--border)':'var(--accent)')}),
+      termOptStyle:Object.assign({},optBase,{border:'2px solid '+(isTerm?'var(--accent)':'var(--border)')}),
+      warmCheck:{marginLeft:'auto',color:'var(--accent)',fontSize:'14px',opacity:isTerm?0:1},
+      termCheck:{marginLeft:'auto',color:'var(--accent)',fontSize:'14px',opacity:isTerm?1:0}
+    };
+  }
+}
+</script>
+</body>
+</html>
