@@ -30,10 +30,12 @@ const toggleChipStyle: React.CSSProperties = {
 };
 
 export function Sidebar() {
-  const { newChat, activeConvo, sendConversation, toolsOpen, toggleTools, openSettings } = useAppState();
+  const { newChat, activeConvo, sendConversation, toolsOpen, toggleTools, openSettings, mobileSidebarOpen, showArtifactList } =
+    useAppState();
 
   return (
     <aside
+      className={`app-sidebar${mobileSidebarOpen ? " is-open" : ""}`}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -220,6 +222,26 @@ export function Sidebar() {
             </div>
           )}
         </div>
+
+        <button
+          onClick={showArtifactList}
+          className="mobile-artifacts-nav"
+          style={{
+            alignItems: "center",
+            gap: "9px",
+            padding: "9px 10px",
+            borderRadius: "var(--r-sm)",
+            border: "none",
+            background: "transparent",
+            color: "var(--muted)",
+            cursor: "pointer",
+            fontFamily: "var(--font)",
+            fontSize: "12.5px",
+            fontWeight: 500,
+          }}
+        >
+          <span style={{ fontSize: "14px" }}>▤</span> Artifacts
+        </button>
 
         <button
           onClick={openSettings}

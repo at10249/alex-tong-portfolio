@@ -78,3 +78,131 @@ textarea.at-input:disabled {
 button {
   font: inherit;
 }
+
+/* ---------------------------------------------------------------------
+   Responsive layout. Structural switching (grid vs. stacked/drawer) lives
+   entirely in this stylesheet, gated by a single breakpoint, so it never
+   fights the inline theme-variable styles the components set — those only
+   ever declare custom properties (--bg, --right-pane-width, etc.), never
+   layout properties, which keeps the cascade here authoritative.
+   ------------------------------------------------------------------- */
+
+.app-root {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr) var(--right-pane-width, 300px);
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+/* `display` for these two lives entirely here (never inline on the
+   components) specifically so the mobile media query below can toggle it
+   with plain cascade rules instead of fighting inline-style specificity. */
+.app-main {
+  display: flex;
+}
+
+.app-right-pane {
+  display: flex;
+}
+
+.app-sidebar-backdrop {
+  display: none;
+}
+
+.mobile-menu-btn,
+.mobile-artifacts-nav,
+.back-to-chat-btn {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .app-root {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: min(85vw, 320px);
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .app-sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 8px 0 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .app-sidebar-backdrop.is-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.42);
+    z-index: 35;
+  }
+
+  .app-main {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .app-main.is-active {
+    display: flex;
+  }
+
+  .app-right-pane {
+    display: none;
+  }
+
+  .app-right-pane.is-active {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    width: 100%;
+  }
+
+  .resize-handle {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: grid;
+  }
+
+  .mobile-artifacts-nav {
+    display: flex;
+  }
+
+  .back-to-chat-btn {
+    display: inline-flex;
+  }
+
+  .empty-state-pad {
+    padding: 32px 20px !important;
+  }
+
+  .chat-thread-pad {
+    padding: 18px 16px 8px !important;
+  }
+
+  .chat-input-pad {
+    padding: 10px 16px 18px !important;
+  }
+
+  .doc-card-pad {
+    padding: 20px 18px !important;
+  }
+}

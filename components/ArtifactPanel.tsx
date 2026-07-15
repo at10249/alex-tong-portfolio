@@ -5,15 +5,15 @@ import { artifacts } from "@/lib/content/artifacts";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
-  const { openArtifactId, closeArtifactPanel, startResize, downloadCV } = useAppState();
+  const { openArtifactId, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
   if (!openArtifactId) return null;
   const artifact = artifacts[openArtifactId];
   if (!artifact) return null;
 
   return (
     <section
+      className={`app-right-pane${mobileView === "artifact" ? " is-active" : ""}`}
       style={{
-        display: "flex",
         flexDirection: "column",
         minHeight: 0,
         background: "var(--panel)",
@@ -23,6 +23,7 @@ export function ArtifactPanel() {
     >
       <div
         onMouseDown={startResize}
+        className="resize-handle"
         style={{ position: "absolute", left: "-3px", top: 0, bottom: 0, width: "8px", cursor: "ew-resize", zIndex: 5 }}
       />
       <div
@@ -35,6 +36,26 @@ export function ArtifactPanel() {
           background: "var(--panel2)",
         }}
       >
+        <button
+          onClick={backToChat}
+          title="Back to chat"
+          className="back-to-chat-btn"
+          style={{
+            width: 26,
+            height: 26,
+            flex: "none",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "var(--r-sm)",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--muted)",
+            cursor: "pointer",
+            fontSize: "15px",
+          }}
+        >
+          ‹
+        </button>
         <div style={{ minWidth: 0 }}>
           <div
             style={{
@@ -90,6 +111,7 @@ export function ArtifactPanel() {
       </div>
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px" }}>
         <div
+          className="doc-card-pad"
           style={{
             background: "var(--doc-bg)",
             border: "1px solid var(--border)",

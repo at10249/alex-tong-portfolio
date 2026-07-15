@@ -23,6 +23,11 @@ const SCRIPTED_ANSWER_DELAY_MS = 420;
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : () => {};
 
+// Which full-screen view the mobile (stacked) layout shows. Irrelevant on
+// desktop, where chat and the right pane are always both visible — see the
+// `.app-main` / `.app-right-pane` media query in globals.css.
+export type MobileView = "chat" | "artifact" | "artifact-list";
+
 type AppStateValue = {
   theme: ThemeName;
   messages: ChatMessage[];
@@ -35,6 +40,8 @@ type AppStateValue = {
   loading: boolean;
   activeConvo: string | null;
   llmAvailable: boolean;
+  mobileView: MobileView;
+  mobileSidebarOpen: boolean;
 
   setDraft: (v: string) => void;
   newChat: () => void;
@@ -50,6 +57,10 @@ type AppStateValue = {
   closeArtifactPanel: () => void;
   startResize: (e: React.MouseEvent) => void;
   downloadCV: () => void;
+  toggleMobileSidebar: () => void;
+  closeMobileSidebar: () => void;
+  showArtifactList: () => void;
+  backToChat: () => void;
 };
 
 const AppStateContext = createContext<AppStateValue | null>(null);
@@ -65,6 +76,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false);
   const [activeConvo, setActiveConvo] = useState<string | null>(null);
   const [llmAvailable, setLlmAvailable] = useState(true);
+  const [mobileView, setMobileView] = useState<MobileView>("chat");
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const resizingRef = useRef(false);
 
@@ -106,7 +119,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const pushBotMessage = useCallback((html: string, artifact: string | null = null) => {
     setMessages((prev) => [...prev, { role: "bot", html, artifact }]);
-    if (artifact) setOpenArtifactId(artifact);
+    if (artifact) {
+      setOpenArtifactId(artifact);
+      setMobileView("artifact");
+    }
   }, []);
 
   const askDeepSeek = useCallback(
@@ -192,6 +208,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setActiveConvo(null);
     setDraft("");
     setOpenArtifactId(null);
+    setMobileView("chat");
+    setMobileSidebarOpen(false);
   }, []);
 
   const sendConversation = useCallback(
@@ -199,6 +217,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setActiveConvo(conv.id);
       setOpenArtifactId(null);
       setLoading(false);
+      setMobileView("chat");
+      setMobileSidebarOpen(false);
       performSend(conv.q, true);
     },
     [performSend]
@@ -226,10 +246,27 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   );
 
   const toggleTools = useCallback(() => setToolsOpen((v) => !v), []);
-  const openSettings = useCallback(() => setSettingsOpen(true), []);
+  const openSettings = useCallback(() => {
+    setSettingsOpen(true);
+    setMobileSidebarOpen(false);
+  }, []);
   const closeSettings = useCallback(() => setSettingsOpen(false), []);
-  const openArtifactById = useCallback((id: string) => setOpenArtifactId(id), []);
-  const closeArtifactPanel = useCallback(() => setOpenArtifactId(null), []);
+  const openArtifactById = useCallback((id: string) => {
+    setOpenArtifactId(id);
+    setMobileView("artifact");
+    setMobileSidebarOpen(false);
+  }, []);
+  const closeArtifactPanel = useCallback(() => {
+    setOpenArtifactId(null);
+    setMobileView("chat");
+  }, []);
+  const toggleMobileSidebar = useCallback(() => setMobileSidebarOpen((v) => !v), []);
+  const closeMobileSidebar = useCallback(() => setMobileSidebarOpen(false), []);
+  const showArtifactList = useCallback(() => {
+    setMobileView("artifact-list");
+    setMobileSidebarOpen(false);
+  }, []);
+  const backToChat = useCallback(() => setMobileView("chat"), []);
 
   const startResize = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -256,6 +293,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       loading,
       activeConvo,
       llmAvailable,
+      mobileView,
+      mobileSidebarOpen,
       setDraft,
       newChat,
       sendConversation,
@@ -270,6 +309,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       closeArtifactPanel,
       startResize,
       downloadCV,
+      toggleMobileSidebar,
+      closeMobileSidebar,
+      showArtifactList,
+      backToChat,
     }),
     [
       theme,
@@ -283,6 +326,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       loading,
       activeConvo,
       llmAvailable,
+      mobileView,
+      mobileSidebarOpen,
       newChat,
       sendConversation,
       sendSuggestion,
@@ -296,6 +341,10 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       closeArtifactPanel,
       startResize,
       downloadCV,
+      toggleMobileSidebar,
+      closeMobileSidebar,
+      showArtifactList,
+      backToChat,
     ]
   );
 

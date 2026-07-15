@@ -3,7 +3,7 @@
 import { useAppState } from "@/context/AppStateContext";
 
 export function ChatHeader() {
-  const { downloadCV } = useAppState();
+  const { downloadCV, toggleMobileSidebar } = useAppState();
 
   return (
     <header
@@ -17,6 +17,25 @@ export function ChatHeader() {
         overflow: "hidden",
       }}
     >
+      <button
+        onClick={toggleMobileSidebar}
+        title="Menu"
+        className="mobile-menu-btn"
+        style={{
+          width: 30,
+          height: 30,
+          flex: "none",
+          borderRadius: "var(--r-sm)",
+          border: "1px solid var(--border)",
+          background: "transparent",
+          color: "var(--muted)",
+          cursor: "pointer",
+          fontSize: "14px",
+          placeItems: "center",
+        }}
+      >
+        ☰
+      </button>
       <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#3f9d6b", flex: "none" }} />
       <span
         style={{

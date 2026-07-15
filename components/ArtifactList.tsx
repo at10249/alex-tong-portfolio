@@ -4,23 +4,54 @@ import { useAppState } from "@/context/AppStateContext";
 import { artifacts, railKeys } from "@/lib/content/artifacts";
 
 export function ArtifactList() {
-  const { openArtifactId, openArtifactById } = useAppState();
+  const { openArtifactId, openArtifactById, mobileView, backToChat } = useAppState();
   if (openArtifactId) return null;
 
   return (
-    <section style={{ display: "flex", flexDirection: "column", minHeight: 0, background: "var(--panel)", borderLeft: "1px solid var(--border)" }}>
+    <section
+      className={`app-right-pane${mobileView === "artifact-list" ? " is-active" : ""}`}
+      style={{ flexDirection: "column", minHeight: 0, background: "var(--panel)", borderLeft: "1px solid var(--border)" }}
+    >
       <div
         style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
           padding: "16px 16px 12px",
-          fontFamily: "var(--mono)",
-          fontWeight: 600,
-          fontSize: "9.5px",
-          letterSpacing: "1.2px",
-          color: "var(--faint)",
-          textTransform: "uppercase",
         }}
       >
-        Artifacts
+        <button
+          onClick={backToChat}
+          title="Back to chat"
+          className="back-to-chat-btn"
+          style={{
+            width: 26,
+            height: 26,
+            flex: "none",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "var(--r-sm)",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--muted)",
+            cursor: "pointer",
+            fontSize: "15px",
+          }}
+        >
+          ‹
+        </button>
+        <div
+          style={{
+            fontFamily: "var(--mono)",
+            fontWeight: 600,
+            fontSize: "9.5px",
+            letterSpacing: "1.2px",
+            color: "var(--faint)",
+            textTransform: "uppercase",
+          }}
+        >
+          Artifacts
+        </div>
       </div>
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px", padding: "0 12px 16px" }}>
         {railKeys.map((key) => {

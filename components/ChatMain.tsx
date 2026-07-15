@@ -7,11 +7,14 @@ import { MessageThread } from "./MessageThread";
 import { ChatInput } from "./ChatInput";
 
 export function ChatMain() {
-  const { messages } = useAppState();
+  const { messages, mobileView } = useAppState();
   const isEmpty = messages.length === 0;
 
   return (
-    <main style={{ display: "flex", flexDirection: "column", minHeight: 0, minWidth: 0, background: "var(--bg)" }}>
+    <main
+      className={`app-main${mobileView === "chat" ? " is-active" : ""}`}
+      style={{ flexDirection: "column", minHeight: 0, minWidth: 0, background: "var(--bg)" }}
+    >
       <ChatHeader />
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
         {isEmpty ? <EmptyState /> : <MessageThread />}

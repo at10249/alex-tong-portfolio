@@ -22,6 +22,7 @@ export function MessageThread() {
 
   return (
     <div
+      className="chat-thread-pad"
       style={{
         maxWidth: "760px",
         width: "100%",

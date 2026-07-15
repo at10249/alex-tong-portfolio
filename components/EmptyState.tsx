@@ -5,6 +5,7 @@ import Image from "next/image";
 export function EmptyState() {
   return (
     <div
+      className="empty-state-pad"
       style={{
         flex: 1,
         display: "flex",

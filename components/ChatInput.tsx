@@ -15,7 +15,7 @@ export function ChatInput() {
       : "Ask anything about Alex…";
 
   return (
-    <div style={{ padding: "12px 28px 22px", flexShrink: 0 }}>
+    <div className="chat-input-pad" style={{ padding: "12px 28px 22px", flexShrink: 0 }}>
       <div style={{ maxWidth: "760px", margin: "0 auto" }}>
         {isEmpty && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "12px", justifyContent: "center" }}>

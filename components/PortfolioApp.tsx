@@ -9,22 +9,23 @@ import { ArtifactList } from "./ArtifactList";
 import { SettingsModal } from "./SettingsModal";
 
 export function PortfolioApp() {
-  const { theme, rightPaneWidth } = useAppState();
+  const { theme, rightPaneWidth, mobileSidebarOpen, closeMobileSidebar } = useAppState();
 
+  // Layout (grid vs. stacked/drawer) lives entirely in the .app-root CSS
+  // rule in globals.css so it can respond to a media query — only the
+  // per-theme custom properties and the drag-resizable pane width are set
+  // here, since those are runtime values, not structural layout.
   const rootStyle: CSSVarStyle = {
     ...themes[theme],
-    display: "grid",
-    gridTemplateColumns: `280px minmax(0,1fr) ${rightPaneWidth}px`,
-    height: "100vh",
-    width: "100%",
-    overflow: "hidden",
-    background: "var(--bg)",
-    color: "var(--text)",
-    fontFamily: "var(--font)",
+    "--right-pane-width": `${rightPaneWidth}px`,
   };
 
   return (
-    <div style={rootStyle}>
+    <div className="app-root" style={rootStyle}>
+      <div
+        className={`app-sidebar-backdrop${mobileSidebarOpen ? " is-open" : ""}`}
+        onClick={closeMobileSidebar}
+      />
       <Sidebar />
       <ChatMain />
       <ArtifactPanel />
