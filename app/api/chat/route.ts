@@ -7,6 +7,7 @@ import { isAllowedOrigin } from "@/lib/originCheck";
 export const runtime = "nodejs";
 
 const MAX_QUESTION_LENGTH = 800;
+const DEEPSEEK_TIMEOUT_MS = 15_000;
 
 function clientKey(req: NextRequest): string {
   const forwardedFor = req.headers.get("x-forwarded-for");
@@ -51,6 +52,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), DEEPSEEK_TIMEOUT_MS);
+
   try {
     const r = await fetch("https://api.deepseek.com/chat/completions", {
       method: "POST",
@@ -66,6 +70,7 @@ export async function POST(req: NextRequest) {
           { role: "user", content: trimmedQuestion },
         ],
       }),
+      signal: controller.signal,
     });
 
     if (!r.ok) {
@@ -83,7 +88,13 @@ export async function POST(req: NextRequest) {
     const text: string = json?.choices?.[0]?.message?.content ?? "";
     return NextResponse.json({ text });
   } catch (err) {
-    console.error("[/api/chat] Request to DeepSeek failed:", err);
+    if (err instanceof Error && err.name === "AbortError") {
+      console.error(`[/api/chat] DeepSeek request timed out after ${DEEPSEEK_TIMEOUT_MS}ms`);
+    } else {
+      console.error("[/api/chat] Request to DeepSeek failed:", err);
+    }
     return NextResponse.json({ error: "upstream_error" }, { status: 502 });
+  } finally {
+    clearTimeout(timeout);
   }
 }

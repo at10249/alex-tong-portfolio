@@ -114,7 +114,11 @@ export function Sidebar() {
       >
         Conversations
       </div>
-      <nav style={{ display: "flex", flexDirection: "column", gap: "2px", padding: "0 8px", overflowY: "auto", flexShrink: 0 }}>
+      <nav
+        tabIndex={0}
+        aria-label="Conversations"
+        style={{ display: "flex", flexDirection: "column", gap: "2px", padding: "0 8px", overflowY: "auto", flexShrink: 0 }}
+      >
         {conversations.map((c) => {
           const active = activeConvo === c.id;
           return (
@@ -219,6 +223,8 @@ export function Sidebar() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15 }}
+                tabIndex={0}
+                aria-label="Available tools list"
                 style={{ maxHeight: "48vh", overflowY: "auto", padding: "10px 12px 12px" }}
               >
                 {toolGroups.map((g) => (

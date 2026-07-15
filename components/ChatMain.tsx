@@ -24,7 +24,12 @@ export function ChatMain() {
       style={{ flexDirection: "column", minHeight: 0, minWidth: 0, background: "var(--bg)" }}
     >
       <ChatHeader />
-      <div ref={scrollRef} style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
+      <div
+        ref={scrollRef}
+        tabIndex={0}
+        aria-label="Conversation"
+        style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}
+      >
         {isEmpty ? <EmptyState /> : <MessageThread />}
       </div>
       <ChatInput />

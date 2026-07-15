@@ -60,7 +60,11 @@ export function ArtifactList() {
           Artifacts
         </div>
       </div>
-      <div style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px", padding: "0 12px 16px" }}>
+      <div
+        tabIndex={0}
+        aria-label="Artifact list"
+        style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px", padding: "0 12px 16px" }}
+      >
         {railKeys.map((key) => {
           const a = artifacts[key];
           if (!a) return null;

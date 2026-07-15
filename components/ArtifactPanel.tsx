@@ -120,7 +120,7 @@ export function ArtifactPanel() {
           </motion.button>
         </div>
       </div>
-      <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px" }}>
+      <div tabIndex={0} aria-label="Artifact content" style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px" }}>
         <div
           className="doc-card-pad"
           style={{

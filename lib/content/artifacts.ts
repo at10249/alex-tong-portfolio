@@ -237,7 +237,7 @@ export const artifacts: Record<string, Artifact> = {
       "https://pentatonic.com",
       "About",
       "Startup",
-      "/assets/thumbs/pentatonic.png"
+      "/assets/thumbs/pentatonic.jpg"
     ),
   },
   "lego-takeback": {

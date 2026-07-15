@@ -39,7 +39,7 @@ export const timelineEntries: TimelineEntry[] = [
 ];
 
 export const timelineThumbnails: Record<string, string> = {
-  pentatonic: "/assets/thumbs/pentatonic.png",
+  pentatonic: "/assets/thumbs/pentatonic.jpg",
   razor: "/assets/thumbs/razor.jpeg",
   leafymade: "/assets/thumbs/leafymade.jpeg",
   fairtrade: "/assets/thumbs/fairtrade.jpeg",
