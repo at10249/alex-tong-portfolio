@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { isBalanceError, isDeepseekExhausted, markDeepseekExhausted } from "@/lib/deepseekCircuit";
+import { isAllowedOrigin } from "@/lib/originCheck";
 
 export const runtime = "nodejs";
 
@@ -14,12 +15,16 @@ function clientKey(req: NextRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  if (!isAllowedOrigin(req)) {
+    return NextResponse.json({ error: "forbidden_origin" }, { status: 403 });
+  }
+
   if (isDeepseekExhausted()) {
     return NextResponse.json({ error: "insufficient_balance" }, { status: 503 });
   }
 
   const key = clientKey(req);
-  const { allowed, retryAfterSeconds } = checkRateLimit(key);
+  const { allowed, retryAfterSeconds } = await checkRateLimit(key);
   if (!allowed) {
     return NextResponse.json(
       { error: "rate_limited" },
@@ -42,6 +47,7 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
+    console.error("[/api/chat] DEEPSEEK_API_KEY is not set");
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
@@ -63,17 +69,21 @@ export async function POST(req: NextRequest) {
     });
 
     if (!r.ok) {
+      const body = await r.text().catch(() => "");
       if (isBalanceError(r.status)) {
+        console.error(`[/api/chat] DeepSeek balance error (${r.status}):`, body);
         markDeepseekExhausted();
         return NextResponse.json({ error: "insufficient_balance" }, { status: 503 });
       }
+      console.error(`[/api/chat] DeepSeek upstream error (${r.status}):`, body);
       return NextResponse.json({ error: "upstream_error" }, { status: 502 });
     }
 
     const json = await r.json();
     const text: string = json?.choices?.[0]?.message?.content ?? "";
     return NextResponse.json({ text });
-  } catch {
+  } catch (err) {
+    console.error("[/api/chat] Request to DeepSeek failed:", err);
     return NextResponse.json({ error: "upstream_error" }, { status: 502 });
   }
 }

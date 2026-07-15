@@ -52,6 +52,7 @@ export function SettingsModal() {
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={closeSettings}
+                aria-label="Close settings"
                 style={{
                   marginLeft: "auto",
                   width: 26,

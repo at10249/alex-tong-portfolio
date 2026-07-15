@@ -45,6 +45,7 @@ export function ArtifactPanel() {
           whileTap={{ scale: 0.9 }}
           onClick={backToChat}
           title="Back to chat"
+          aria-label="Back to chat"
           className="back-to-chat-btn"
           style={{
             width: 26,
@@ -85,6 +86,7 @@ export function ArtifactPanel() {
             whileTap={{ scale: 0.9 }}
             onClick={downloadCV}
             title="Download"
+            aria-label="Download CV"
             style={{
               width: 26,
               height: 26,
@@ -102,6 +104,7 @@ export function ArtifactPanel() {
             whileTap={{ scale: 0.9 }}
             onClick={closeArtifactPanel}
             title="Close"
+            aria-label="Close artifact"
             style={{
               width: 26,
               height: 26,

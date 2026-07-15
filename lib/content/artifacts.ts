@@ -1,4 +1,5 @@
 import { aLink, banner, chipTag, linkBtn, sourceCard, strongText } from "./html";
+import { timelineEntries, timelineThumbnails } from "./timeline";
 
 export type Artifact = {
   title: string;
@@ -194,50 +195,18 @@ function thesisHtml(): string {
 }
 
 function timelineHtml(): string {
-  const thumbMap: Record<string, string> = {
-    pentatonic: "/assets/thumbs/pentatonic.png",
-    razor: "/assets/thumbs/razor.jpeg",
-    leafymade: "/assets/thumbs/leafymade.jpeg",
-    fairtrade: "/assets/thumbs/fairtrade.jpeg",
-    que: "/assets/thumbs/que.jpeg",
-    bonn: "/assets/thumbs/bonn.jpeg",
-    berkeley: "/assets/thumbs/berkeley.jpeg",
-  };
-
-  const rows = (
-    [
-      ["Nov 2025 – now", "pentatonic", "Pentatonic", "Head of Technical Deployment Strategy", 0],
-      ["Aug 2023 – Nov 2025", "pentatonic", "Pentatonic", "Circularity Lead", 0],
-      ["Sep 2022 – Aug 2023", "pentatonic", "Pentatonic", "Circular Economy Strategic Consultant", 0],
-      ["Mar 2022 – Aug 2022", "razor", "Razor Group", "Product Growth Manager", 0],
-      ["2021 – 2022", "leafymade", "Leafymade", "Consultant", 0],
-      [
-        "Jul 2019 – Sep 2021",
-        "fairtrade",
-        "Fairtrade International",
-        "Brand, Trademark, and Licensing Graduate Student Assistant",
-        0,
-      ],
-      ["Oct 2017 – Dec 2020", "bonn", "University of Bonn", "M.Sc., Agricultural and Food Economics", 1],
-      ["Jun 2018 – Mar 2020", "que", "que Bottle", "Director of European Operations", 0],
-      ["Jun 2017 – Jun 2018", "que", "que Bottle", "Product &amp; Operations Lead", 0],
-      ["Jan 2017 – Jun 2017", "que", "que Bottle", "Founder’s Associate", 0],
-      ["Jan 2016", "", "Lund University", "Semester study abroad", 1],
-      ["2012 – 2016", "berkeley", "UC Berkeley", "B.S. Environmental Economics &amp; Policy; B.S. Society &amp; Environment", 1],
-    ] as const
-  )
-    .map((r) => {
-      const [date, id, name, role, isEdu] = r;
-      const thumb = (id && thumbMap[id]) || (name === "Lund University" ? "/assets/thumbs/berkeley.jpeg" : "");
-      return `<div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--border)"><div style="flex:none;width:120px"><div style="font-family:var(--mono);font-size:10px;color:var(--faint)">${date}</div>${
+  const rows = timelineEntries
+    .map((entry) => {
+      const thumb = timelineThumbnails[entry.companyId] || (entry.name === "Lund University" ? "/assets/thumbs/berkeley.jpeg" : "");
+      return `<div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--border)"><div style="flex:none;width:120px"><div style="font-family:var(--mono);font-size:10px;color:var(--faint)">${entry.date}</div>${
         thumb
           ? `<img src="${thumb}" alt="" style="width:100px;height:62px;border-radius:6px;object-fit:cover;border:1px solid var(--border);margin-top:8px">`
           : ""
-      }</div><div style="flex:1;min-width:0"><div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">${role}${
-        isEdu
+      }</div><div style="flex:1;min-width:0"><div style="font-family:var(--font);font-weight:600;font-size:12.5px;color:var(--text)">${entry.role}${
+        entry.isEducation
           ? ` <span style="font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:.5px;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 4px;vertical-align:middle;margin-left:4px">EDU</span>`
           : ""
-      }</div><div style="font-family:var(--font);font-size:11px">${id ? aLink(id, name) : name}</div></div></div>`;
+      }</div><div style="font-family:var(--font);font-size:11px">${entry.companyId ? aLink(entry.companyId, entry.name) : entry.name}</div></div></div>`;
     })
     .join("");
 

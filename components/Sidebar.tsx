@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
 import { toolGroups, flatToolCount } from "@/lib/content/tools";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const chipStyle: React.CSSProperties = {
   fontFamily: "var(--mono)",
@@ -33,10 +34,16 @@ const toggleChipStyle: React.CSSProperties = {
 export function Sidebar() {
   const { newChat, activeConvo, sendConversation, toolsOpen, toggleTools, openSettings, mobileSidebarOpen, showArtifactList } =
     useAppState();
+  const isMobile = useIsMobile();
 
   return (
     <aside
       className={`app-sidebar${mobileSidebarOpen ? " is-open" : ""}`}
+      // Off-canvas via `transform`, not `display:none`, so it stays visible
+      // to CSS transitions — but that also leaves it in the tab order and
+      // accessibility tree. `inert` removes it from both while it's hidden
+      // on mobile; on desktop it's never inert since it's never off-canvas.
+      inert={isMobile && !mobileSidebarOpen}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -75,6 +82,7 @@ export function Sidebar() {
           whileTap={{ scale: 0.88, rotate: 90 }}
           onClick={newChat}
           title="New chat"
+          aria-label="Start new chat"
           style={{
             marginLeft: "auto",
             width: 28,

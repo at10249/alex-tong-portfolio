@@ -29,6 +29,7 @@ export function ArtifactList() {
           whileTap={{ scale: 0.9 }}
           onClick={backToChat}
           title="Back to chat"
+          aria-label="Back to chat"
           className="back-to-chat-btn"
           style={{
             width: 26,

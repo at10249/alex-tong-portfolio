@@ -277,7 +277,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const downloadCV = useCallback(() => {
-    window.open("https://www.linkedin.com/in/alexkevintong", "_blank", "noopener");
+    window.open("/api/cv", "_blank", "noopener");
   }, []);
 
   const rightPaneWidth = openArtifactId ? panelWidth : LIST_MODE_WIDTH;
