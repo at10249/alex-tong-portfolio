@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts } from "@/lib/content/artifacts";
 import { RichHtml } from "./RichHtml";
@@ -37,9 +38,11 @@ export function MessageThread() {
         const isBot = m.role === "bot";
         const artifact = isBot && m.artifact ? artifacts[m.artifact] : null;
         return (
-          <div
+          <motion.div
             key={i}
-            className="at-msg"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
             style={isBot ? { display: "flex", gap: "10px", maxWidth: "100%" } : { display: "flex", justifyContent: "flex-end" }}
           >
             {isBot && <Image src="/assets/alex.jpeg" alt="Alex Tong" width={26} height={26} style={avatarStyle} />}
@@ -61,7 +64,8 @@ export function MessageThread() {
             >
               {isBot ? <RichHtml html={m.html ?? ""} /> : m.text}
               {artifact && m.artifact && (
-                <button
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
                   onClick={() => openArtifactById(m.artifact as string)}
                   style={{
                     marginTop: "12px",
@@ -111,10 +115,10 @@ export function MessageThread() {
                       Click to open →
                     </span>
                   </span>
-                </button>
+                </motion.button>
               )}
             </div>
-          </div>
+          </motion.div>
         );
       })}
 

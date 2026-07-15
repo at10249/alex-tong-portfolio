@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
 
@@ -20,8 +21,10 @@ export function ChatInput() {
         {isEmpty && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "12px", justifyContent: "center" }}>
             {conversations.map((c) => (
-              <button
+              <motion.button
                 key={c.id}
+                whileTap={{ scale: 0.95 }}
+                whileHover={{ y: -1 }}
                 onClick={() => sendSuggestion(c)}
                 style={{
                   fontFamily: "var(--font)",
@@ -36,7 +39,7 @@ export function ChatInput() {
                 }}
               >
                 {c.title}
-              </button>
+              </motion.button>
             ))}
           </div>
         )}
@@ -64,7 +67,8 @@ export function ChatInput() {
               placeholder={placeholder}
               style={{ flex: 1, fontSize: "13.5px", lineHeight: 1.45, maxHeight: "120px", padding: "2px 0" }}
             />
-            <button
+            <motion.button
+              whileTap={llmAvailable ? { scale: 0.88 } : undefined}
               onClick={sendDraft}
               disabled={!llmAvailable}
               title="Send"
@@ -84,7 +88,7 @@ export function ChatInput() {
               }}
             >
               ↑
-            </button>
+            </motion.button>
           </div>
         </div>
         <div style={{ textAlign: "center", marginTop: "9px", fontFamily: "var(--mono)", fontSize: "9.5px", color: "var(--faint)" }}>

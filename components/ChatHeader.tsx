@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 
 export function ChatHeader() {
@@ -17,7 +18,8 @@ export function ChatHeader() {
         overflow: "hidden",
       }}
     >
-      <button
+      <motion.button
+        whileTap={{ scale: 0.9 }}
         onClick={toggleMobileSidebar}
         title="Menu"
         className="mobile-menu-btn"
@@ -35,7 +37,7 @@ export function ChatHeader() {
         }}
       >
         ☰
-      </button>
+      </motion.button>
       <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#3f9d6b", flex: "none" }} />
       <span
         style={{
@@ -51,7 +53,8 @@ export function ChatHeader() {
         claude.whoisalextong.com
       </span>
       <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
-        <a
+        <motion.a
+          whileTap={{ scale: 0.95 }}
           href="https://www.linkedin.com/in/alexkevintong"
           target="_blank"
           rel="noopener"
@@ -69,8 +72,9 @@ export function ChatHeader() {
           }}
         >
           LinkedIn
-        </a>
-        <button
+        </motion.a>
+        <motion.button
+          whileTap={{ scale: 0.95 }}
           onClick={downloadCV}
           style={{
             fontFamily: "var(--font)",
@@ -87,7 +91,7 @@ export function ChatHeader() {
           }}
         >
           Download CV
-        </button>
+        </motion.button>
       </div>
     </header>
   );

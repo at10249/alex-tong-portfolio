@@ -119,10 +119,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
   const pushBotMessage = useCallback((html: string, artifact: string | null = null) => {
     setMessages((prev) => [...prev, { role: "bot", html, artifact }]);
-    if (artifact) {
-      setOpenArtifactId(artifact);
-      setMobileView("artifact");
-    }
+    // Desktop's right pane auto-opens (it's always visible, so this just
+    // updates its content). Mobile deliberately does NOT jump to the
+    // full-screen artifact view here — the visitor stays on the chat
+    // response and taps the inline artifact chip/entity link if they want
+    // to open it (see openArtifactById, which does switch mobileView).
+    if (artifact) setOpenArtifactId(artifact);
   }, []);
 
   const askDeepSeek = useCallback(

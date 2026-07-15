@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
 import { toolGroups, flatToolCount } from "@/lib/content/tools";
@@ -70,7 +71,8 @@ export function Sidebar() {
         >
           Alex Tong
         </div>
-        <button
+        <motion.button
+          whileTap={{ scale: 0.88, rotate: 90 }}
           onClick={newChat}
           title="New chat"
           style={{
@@ -88,7 +90,7 @@ export function Sidebar() {
           }}
         >
           +
-        </button>
+        </motion.button>
       </div>
 
       <div
@@ -108,8 +110,10 @@ export function Sidebar() {
         {conversations.map((c) => {
           const active = activeConvo === c.id;
           return (
-            <button
+            <motion.button
               key={c.id}
+              whileTap={{ scale: 0.98 }}
+              layout
               onClick={() => sendConversation(c)}
               style={{
                 display: "flex",
@@ -133,7 +137,7 @@ export function Sidebar() {
                 {active ? "●" : ""}
               </span>
               <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.title}</span>
-            </button>
+            </motion.button>
           );
         })}
       </nav>
@@ -147,7 +151,8 @@ export function Sidebar() {
             overflow: "hidden",
           }}
         >
-          <button
+          <motion.button
+            whileTap={{ scale: 0.98 }}
             onClick={toggleTools}
             style={{
               width: "100%",
@@ -176,54 +181,71 @@ export function Sidebar() {
             <span style={{ marginLeft: "auto", fontFamily: "var(--mono)", fontSize: "10px", color: "var(--faint)" }}>
               {flatToolCount} tools
             </span>
-          </button>
+          </motion.button>
 
-          {!toolsOpen && (
-            <div style={{ padding: "10px 12px", display: "flex", flexWrap: "wrap", gap: "5px" }}>
-              {toolGroups.map((g) => (
-                <span key={g.name} style={chipStyle}>
-                  {g.tools[0]}
-                </span>
-              ))}
-              <button onClick={toggleTools} style={toggleChipStyle}>
-                {`+${flatToolCount - toolGroups.length} more`}
-              </button>
-            </div>
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            {!toolsOpen && (
+              <motion.div
+                key="collapsed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                style={{ padding: "10px 12px", display: "flex", flexWrap: "wrap", gap: "5px" }}
+              >
+                {toolGroups.map((g) => (
+                  <span key={g.name} style={chipStyle}>
+                    {g.tools[0]}
+                  </span>
+                ))}
+                <motion.button whileTap={{ scale: 0.94 }} onClick={toggleTools} style={toggleChipStyle}>
+                  {`+${flatToolCount - toolGroups.length} more`}
+                </motion.button>
+              </motion.div>
+            )}
 
-          {toolsOpen && (
-            <div style={{ maxHeight: "48vh", overflowY: "auto", padding: "10px 12px 12px" }}>
-              {toolGroups.map((g) => (
-                <div key={g.name} style={{ marginTop: "11px" }}>
-                  <div
-                    style={{
-                      fontFamily: "var(--mono)",
-                      fontWeight: 600,
-                      fontSize: "8.5px",
-                      letterSpacing: "1px",
-                      color: "var(--faint)",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {g.name}
+            {toolsOpen && (
+              <motion.div
+                key="expanded"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                style={{ maxHeight: "48vh", overflowY: "auto", padding: "10px 12px 12px" }}
+              >
+                {toolGroups.map((g) => (
+                  <div key={g.name} style={{ marginTop: "11px" }}>
+                    <div
+                      style={{
+                        fontFamily: "var(--mono)",
+                        fontWeight: 600,
+                        fontSize: "8.5px",
+                        letterSpacing: "1px",
+                        color: "var(--faint)",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {g.name}
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "6px" }}>
+                      {g.tools.map((t) => (
+                        <span key={t} style={chipStyle}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "6px" }}>
-                    {g.tools.map((t) => (
-                      <span key={t} style={chipStyle}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              <button onClick={toggleTools} style={{ ...toggleChipStyle, marginTop: "12px", padding: "4px 9px" }}>
-                Show less
-              </button>
-            </div>
-          )}
+                ))}
+                <motion.button whileTap={{ scale: 0.96 }} onClick={toggleTools} style={{ ...toggleChipStyle, marginTop: "12px", padding: "4px 9px" }}>
+                  Show less
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        <button
+        <motion.button
+          whileTap={{ scale: 0.98 }}
           onClick={showArtifactList}
           className="mobile-artifacts-nav"
           style={{
@@ -241,9 +263,10 @@ export function Sidebar() {
           }}
         >
           <span style={{ fontSize: "14px" }}>▤</span> Artifacts
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileTap={{ scale: 0.98 }}
           onClick={openSettings}
           style={{
             display: "flex",
@@ -261,7 +284,7 @@ export function Sidebar() {
           }}
         >
           <span style={{ fontSize: "14px" }}>⚙</span> Settings
-        </button>
+        </motion.button>
       </div>
     </aside>
   );

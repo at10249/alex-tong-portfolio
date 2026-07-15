@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts } from "@/lib/content/artifacts";
 import { RichHtml } from "./RichHtml";
@@ -11,8 +12,12 @@ export function ArtifactPanel() {
   if (!artifact) return null;
 
   return (
-    <section
+    <motion.section
       className={`app-right-pane${mobileView === "artifact" ? " is-active" : ""}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
       style={{
         flexDirection: "column",
         minHeight: 0,
@@ -36,7 +41,8 @@ export function ArtifactPanel() {
           background: "var(--panel2)",
         }}
       >
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           onClick={backToChat}
           title="Back to chat"
           className="back-to-chat-btn"
@@ -55,7 +61,7 @@ export function ArtifactPanel() {
           }}
         >
           ‹
-        </button>
+        </motion.button>
         <div style={{ minWidth: 0 }}>
           <div
             style={{
@@ -75,7 +81,8 @@ export function ArtifactPanel() {
           </div>
         </div>
         <div style={{ marginLeft: "auto", display: "flex", gap: "6px" }}>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={downloadCV}
             title="Download"
             style={{
@@ -90,8 +97,9 @@ export function ArtifactPanel() {
             }}
           >
             ↓
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={closeArtifactPanel}
             title="Close"
             style={{
@@ -106,7 +114,7 @@ export function ArtifactPanel() {
             }}
           >
             ×
-          </button>
+          </motion.button>
         </div>
       </div>
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "16px" }}>
@@ -123,6 +131,6 @@ export function ArtifactPanel() {
           <RichHtml html={artifact.html} />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

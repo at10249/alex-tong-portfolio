@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts, railKeys } from "@/lib/content/artifacts";
 
@@ -8,8 +9,12 @@ export function ArtifactList() {
   if (openArtifactId) return null;
 
   return (
-    <section
+    <motion.section
       className={`app-right-pane${mobileView === "artifact-list" ? " is-active" : ""}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
       style={{ flexDirection: "column", minHeight: 0, background: "var(--panel)", borderLeft: "1px solid var(--border)" }}
     >
       <div
@@ -20,7 +25,8 @@ export function ArtifactList() {
           padding: "16px 16px 12px",
         }}
       >
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           onClick={backToChat}
           title="Back to chat"
           className="back-to-chat-btn"
@@ -39,7 +45,7 @@ export function ArtifactList() {
           }}
         >
           ‹
-        </button>
+        </motion.button>
         <div
           style={{
             fontFamily: "var(--mono)",
@@ -58,8 +64,10 @@ export function ArtifactList() {
           const a = artifacts[key];
           if (!a) return null;
           return (
-            <button
+            <motion.button
               key={key}
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ y: -1 }}
               onClick={() => openArtifactById(key)}
               style={{
                 textAlign: "left",
@@ -106,10 +114,10 @@ export function ArtifactList() {
                   {a.meta}
                 </span>
               </span>
-            </button>
+            </motion.button>
           );
         })}
       </div>
-    </section>
+    </motion.section>
   );
 }

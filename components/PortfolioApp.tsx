@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { themes, type CSSVarStyle } from "@/lib/theme";
 import { Sidebar } from "./Sidebar";
@@ -9,7 +10,7 @@ import { ArtifactList } from "./ArtifactList";
 import { SettingsModal } from "./SettingsModal";
 
 export function PortfolioApp() {
-  const { theme, rightPaneWidth, mobileSidebarOpen, closeMobileSidebar } = useAppState();
+  const { theme, rightPaneWidth, mobileSidebarOpen, closeMobileSidebar, openArtifactId } = useAppState();
 
   // Layout (grid vs. stacked/drawer) lives entirely in the .app-root CSS
   // rule in globals.css so it can respond to a media query — only the
@@ -22,14 +23,24 @@ export function PortfolioApp() {
 
   return (
     <div className="app-root" style={rootStyle}>
-      <div
-        className={`app-sidebar-backdrop${mobileSidebarOpen ? " is-open" : ""}`}
-        onClick={closeMobileSidebar}
-      />
+      <AnimatePresence>
+        {mobileSidebarOpen && (
+          <motion.div
+            key="backdrop"
+            className="app-sidebar-backdrop is-open"
+            onClick={closeMobileSidebar}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+      </AnimatePresence>
       <Sidebar />
       <ChatMain />
-      <ArtifactPanel />
-      <ArtifactList />
+      <AnimatePresence mode="wait" initial={false}>
+        {openArtifactId ? <ArtifactPanel key="panel" /> : <ArtifactList key="list" />}
+      </AnimatePresence>
       <SettingsModal />
     </div>
   );
