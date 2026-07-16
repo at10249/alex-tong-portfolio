@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     width: 54,
     height: 54,
     objectFit: "cover",
+    objectPosition: "50% 12%",
   },
   headerText: {
     marginLeft: 14,
@@ -41,13 +42,15 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: "Helvetica-Bold",
     fontSize: 22,
+    lineHeight: 1.2,
     color: TEXT,
   },
   title: {
     fontFamily: "Helvetica-Bold",
     fontSize: 10.5,
+    lineHeight: 1.2,
     color: ACCENT,
-    marginTop: 3,
+    marginTop: 6,
   },
   meta: {
     fontSize: 8.5,
