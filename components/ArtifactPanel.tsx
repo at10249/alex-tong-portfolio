@@ -3,48 +3,38 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts } from "@/lib/content/artifacts";
-import { useIsMobile } from "@/lib/useIsMobile";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
   const { openArtifactId, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
-  const isMobile = useIsMobile();
   if (!openArtifactId) return null;
   const artifact = artifacts[openArtifactId];
   if (!artifact) return null;
 
-  // On mobile this is a full-screen overlay that stays mounted across a
-  // "back to chat" (openArtifactId persists so re-opening doesn't lose
-  // state) — only mobileView flips. So the slide has to react to that
-  // flip on every render, not just on mount/unmount like the desktop fade.
+  // The mobile slide (and the `position: fixed` full-screen overlay it
+  // needs) is handled entirely by CSS (`.app-right-pane.is-active` in
+  // globals.css), not Framer/JS — a JS "is this mobile" check needs an
+  // effect to confirm via matchMedia, so it's briefly wrong on the very
+  // first render on an actual mobile device. That previously either fought
+  // this element's `position` (when set inline) or left an in-flight
+  // Framer transition stranded at the wrong value — including a visible
+  // flash of the panel at its "active" position before snapping away.
+  // CSS media queries have no such lag. Framer here only does the
+  // (breakpoint-independent) opacity crossfade on mount/unmount.
   const activeOnMobile = mobileView === "artifact";
 
   return (
     <motion.section
-      className="app-right-pane"
-      // Every variant always states `opacity` explicitly (even where it's
-      // just 1, unchanging) — useIsMobile() defaults to false on first
-      // render and flips shortly after mount, so a render can briefly take
-      // the desktop branch before switching to mobile. If mobile's animate
-      // target omitted opacity entirely, Framer would abandon that fade
-      // mid-flight and leave it stranded wherever it happened to be
-      // (observed stuck at 0 — a fully invisible "blank page" panel).
-      initial={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
-      animate={isMobile ? { x: activeOnMobile ? 0 : "100%", opacity: 1 } : { opacity: 1, x: 0 }}
-      exit={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
-      transition={{ duration: isMobile ? 0.28 : 0.18, ease: "easeOut" }}
+      className={`app-right-pane${activeOnMobile ? " is-active" : ""}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
       style={{
         flexDirection: "column",
         minHeight: 0,
         background: "var(--panel)",
         borderLeft: "1px solid var(--border)",
-        // Desktop needs `relative` so the resize handle can anchor against
-        // it. Mobile needs the CSS class's `fixed` (full-screen overlay,
-        // out of .app-root's flex flow) — an inline style here would beat
-        // that class rule and silently break it, which is exactly what
-        // squeezed the chat's scroll area to 0 height whenever an artifact
-        // auto-opened alongside a scripted answer on mobile.
-        position: isMobile ? "fixed" : "relative",
       }}
     >
       <div

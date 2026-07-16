@@ -3,29 +3,24 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts, railKeys } from "@/lib/content/artifacts";
-import { useIsMobile } from "@/lib/useIsMobile";
 
 export function ArtifactList() {
   const { openArtifactId, openArtifactById, mobileView, backToChat } = useAppState();
-  const isMobile = useIsMobile();
   if (openArtifactId) return null;
 
-  // Same reactive-slide reasoning as ArtifactPanel — this stays mounted
-  // whenever no artifact is open, so the mobile slide has to key off
-  // mobileView on every render, not just mount/unmount.
+  // See ArtifactPanel's identical comment — the mobile slide is pure CSS
+  // (`.app-right-pane.is-active`), not JS/Framer, so there's no
+  // useIsMobile() lag that could show/hide it in the wrong place for a
+  // frame on first render.
   const activeOnMobile = mobileView === "artifact-list";
 
   return (
     <motion.section
-      className="app-right-pane"
-      // See ArtifactPanel's identical comment: opacity must be stated
-      // explicitly in every branch so a render that briefly takes the
-      // desktop path (useIsMobile() defaults false on first render) before
-      // switching to mobile can't strand the fade mid-flight.
-      initial={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
-      animate={isMobile ? { x: activeOnMobile ? 0 : "100%", opacity: 1 } : { opacity: 1, x: 0 }}
-      exit={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
-      transition={{ duration: isMobile ? 0.28 : 0.18, ease: "easeOut" }}
+      className={`app-right-pane${activeOnMobile ? " is-active" : ""}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
       style={{ flexDirection: "column", minHeight: 0, background: "var(--panel)", borderLeft: "1px solid var(--border)" }}
     >
       <div
