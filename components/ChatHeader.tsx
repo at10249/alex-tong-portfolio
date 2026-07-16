@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
+import { SITE_HOST } from "@/lib/siteConfig";
 
 export function ChatHeader() {
   const { downloadCV, toggleMobileSidebar, showArtifactList } = useAppState();
@@ -73,7 +74,7 @@ export function ChatHeader() {
           whiteSpace: "nowrap",
         }}
       >
-        claude.whoisalextong.com
+        {SITE_HOST}
       </span>
       <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
         <motion.a

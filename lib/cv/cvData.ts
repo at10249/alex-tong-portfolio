@@ -3,12 +3,14 @@
 // as the rest of the site (see lib/content/artifacts.ts's bioHtml() and
 // lib/content/timeline.ts, which this also reuses directly).
 
+import { SITE_HOST } from "@/lib/siteConfig";
+
 export const cvHeader = {
   name: "Alex Tong",
   title: "Head of Technical Deployment Strategy, Pentatonic",
   location: "Berlin · London — open to California, Germany & remote",
   linkedin: "linkedin.com/in/alexkevintong",
-  site: "claude.whoisalextong.com",
+  site: SITE_HOST,
 };
 
 export const cvSummary =

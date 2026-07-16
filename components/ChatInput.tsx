@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
+import { SITE_HOST } from "@/lib/siteConfig";
 
 export function ChatInput() {
   const { messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
@@ -92,7 +93,7 @@ export function ChatInput() {
           </div>
         </div>
         <div style={{ textAlign: "center", marginTop: "9px", fontFamily: "var(--mono)", fontSize: "9.5px", color: "var(--faint)" }}>
-          claude.whoisalextong.com &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile
+          {SITE_HOST} &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile
         </div>
       </div>
     </div>
