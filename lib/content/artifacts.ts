@@ -155,6 +155,7 @@ function thesisHtml(): string {
   return `${chipTag("Education")}<div style="${lab}">M.Sc. Thesis · University of Bonn</div>
       <div style="font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--text);margin-top:6px">Visual Attention and Consumer Valuation of Sustainability Labels: An Eye-Tracking Study in Food Markets</div>
       <div style="font-family:var(--font);font-weight:500;font-size:11px;color:var(--accent);margin-top:6px">Agricultural &amp; Food Economics — Market &amp; Consumer Research</div>
+      <div style="${p};margin-top:4px">Grade: ${strongText("1.3 — sehr gut")}, Germany’s highest grade band.</div>
       <div style="${lab};margin:18px 0 6px">Abstract</div>
       <div style="${p}">This thesis examines how consumers visually process and value credible sustainability and ethical-certification labels on food packaging. Its core methodology is an innovative use of ${strongText(
         "eye-tracking technology"
@@ -191,7 +192,9 @@ function thesisHtml(): string {
         "perceived credibility, not mere presence"
       )}, drive sustainable choice. The work sits at the intersection of resource economics and consumer research.</div>
       <div style="${lab};margin:18px 0 6px">Method &amp; note</div>
-      <div style="${p}">Built around eye-tracking apparatus run in the university’s economics laboratory, paired with survey and choice-experiment instruments. The research timeline was extended when German government COVID-response measures closed the required lab facilities for roughly a year — the study was completed once facilities reopened.</div>
+      <div style="${p}">Built around a ${strongText(
+        "Tobii Pro X3-120"
+      )} eye tracker run in the university’s economics laboratory, paired with survey and choice-experiment instruments. The research timeline was extended when German government COVID-response measures closed the required lab facilities for roughly a year — the study was completed once facilities reopened.</div>
       <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">STILL TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels get more eye time and more purchases, and that eye time predicts the price premium people’ll pay. why people look longer in the first place though? still fuzzy.</div></div>
       <div style="${p};margin-top:16px;font-weight:500;color:var(--text)">Full text available upon request.</div>
       ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Contact Alex on LinkedIn")}`;
