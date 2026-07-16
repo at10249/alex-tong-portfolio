@@ -21,6 +21,7 @@ export function EmptyState() {
         alt="Alex Tong"
         width={64}
         height={64}
+        priority
         style={{
           width: 64,
           height: 64,
