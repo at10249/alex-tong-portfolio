@@ -266,6 +266,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const toggleMobileSidebar = useCallback(() => setMobileSidebarOpen((v) => !v), []);
   const closeMobileSidebar = useCallback(() => setMobileSidebarOpen(false), []);
   const showArtifactList = useCallback(() => {
+    // PortfolioApp renders ArtifactPanel whenever openArtifactId is set,
+    // regardless of mobileView — scripted answers auto-open one, so
+    // without clearing it here ArtifactList would never actually mount,
+    // just an already-open ArtifactPanel sliding off-screen: a blank gap
+    // where the list should be.
+    setOpenArtifactId(null);
     setMobileView("artifact-list");
     setMobileSidebarOpen(false);
   }, []);
