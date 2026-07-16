@@ -18,9 +18,13 @@ export function ArtifactList() {
   return (
     <motion.section
       className="app-right-pane"
-      initial={isMobile ? { x: "100%" } : { opacity: 0 }}
-      animate={isMobile ? { x: activeOnMobile ? 0 : "100%" } : { opacity: 1 }}
-      exit={isMobile ? { x: "100%" } : { opacity: 0 }}
+      // See ArtifactPanel's identical comment: opacity must be stated
+      // explicitly in every branch so a render that briefly takes the
+      // desktop path (useIsMobile() defaults false on first render) before
+      // switching to mobile can't strand the fade mid-flight.
+      initial={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
+      animate={isMobile ? { x: activeOnMobile ? 0 : "100%", opacity: 1 } : { opacity: 1, x: 0 }}
+      exit={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
       transition={{ duration: isMobile ? 0.28 : 0.18, ease: "easeOut" }}
       style={{ flexDirection: "column", minHeight: 0, background: "var(--panel)", borderLeft: "1px solid var(--border)" }}
     >

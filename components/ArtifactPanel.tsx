@@ -22,9 +22,16 @@ export function ArtifactPanel() {
   return (
     <motion.section
       className="app-right-pane"
-      initial={isMobile ? { x: "100%" } : { opacity: 0 }}
-      animate={isMobile ? { x: activeOnMobile ? 0 : "100%" } : { opacity: 1 }}
-      exit={isMobile ? { x: "100%" } : { opacity: 0 }}
+      // Every variant always states `opacity` explicitly (even where it's
+      // just 1, unchanging) — useIsMobile() defaults to false on first
+      // render and flips shortly after mount, so a render can briefly take
+      // the desktop branch before switching to mobile. If mobile's animate
+      // target omitted opacity entirely, Framer would abandon that fade
+      // mid-flight and leave it stranded wherever it happened to be
+      // (observed stuck at 0 — a fully invisible "blank page" panel).
+      initial={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
+      animate={isMobile ? { x: activeOnMobile ? 0 : "100%", opacity: 1 } : { opacity: 1, x: 0 }}
+      exit={isMobile ? { x: "100%", opacity: 1 } : { opacity: 0, x: 0 }}
       transition={{ duration: isMobile ? 0.28 : 0.18, ease: "easeOut" }}
       style={{
         flexDirection: "column",
