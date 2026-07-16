@@ -5,6 +5,9 @@ export type Artifact = {
   title: string;
   meta: string;
   html: string;
+  // Other artifact ids substantively referenced by this one — rendered as
+  // chips at the bottom of the panel, same affordance as a chat message's.
+  related?: string[];
 };
 
 const p = "font-family:var(--font);font-size:12.5px;line-height:1.75;color:var(--muted)";
@@ -219,6 +222,7 @@ export const artifacts: Record<string, Artifact> = {
   pentatonic: {
     title: "Pentatonic",
     meta: "COMPANY · CURRENT",
+    related: ["lego-takeback", "lego-replay"],
     html: companyHtml(
       "Pentatonic",
       "Head of Technical Deployment Strategy · 2022–now",

@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts } from "@/lib/content/artifacts";
+import { ArtifactChip } from "./ArtifactChip";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
-  const { openArtifactId, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
+  const { openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
   if (!openArtifactId) return null;
   const artifact = artifacts[openArtifactId];
   if (!artifact) return null;
@@ -146,6 +147,30 @@ export function ArtifactPanel() {
         >
           <RichHtml html={artifact.html} />
         </div>
+        {!!artifact.related?.length && (
+          <div style={{ marginTop: "14px" }}>
+            <div
+              style={{
+                fontFamily: "var(--font)",
+                fontWeight: 600,
+                fontSize: "9.5px",
+                letterSpacing: "1px",
+                textTransform: "uppercase",
+                color: "var(--faint)",
+                marginBottom: "8px",
+              }}
+            >
+              Related
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              {artifact.related.map((id) => {
+                const related = artifacts[id];
+                if (!related) return null;
+                return <ArtifactChip key={id} title={related.title} onClick={() => openArtifactById(id)} />;
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </motion.section>
   );
