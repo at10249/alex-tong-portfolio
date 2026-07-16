@@ -11,7 +11,8 @@ export function useCurrentHost(): string {
   const [host, setHost] = useState(SITE_HOST);
 
   useEffect(() => {
-    setHost(window.location.host);
+    const update = () => setHost(window.location.host);
+    update();
   }, []);
 
   return host;
