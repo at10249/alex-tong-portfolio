@@ -3,21 +3,29 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { artifacts } from "@/lib/content/artifacts";
+import { useIsMobile } from "@/lib/useIsMobile";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
   const { openArtifactId, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
+  const isMobile = useIsMobile();
   if (!openArtifactId) return null;
   const artifact = artifacts[openArtifactId];
   if (!artifact) return null;
 
+  // On mobile this is a full-screen overlay that stays mounted across a
+  // "back to chat" (openArtifactId persists so re-opening doesn't lose
+  // state) — only mobileView flips. So the slide has to react to that
+  // flip on every render, not just on mount/unmount like the desktop fade.
+  const activeOnMobile = mobileView === "artifact";
+
   return (
     <motion.section
-      className={`app-right-pane${mobileView === "artifact" ? " is-active" : ""}`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.18, ease: "easeOut" }}
+      className="app-right-pane"
+      initial={isMobile ? { x: "100%" } : { opacity: 0 }}
+      animate={isMobile ? { x: activeOnMobile ? 0 : "100%" } : { opacity: 1 }}
+      exit={isMobile ? { x: "100%" } : { opacity: 0 }}
+      transition={{ duration: isMobile ? 0.28 : 0.18, ease: "easeOut" }}
       style={{
         flexDirection: "column",
         minHeight: 0,

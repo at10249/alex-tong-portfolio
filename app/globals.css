@@ -160,11 +160,12 @@ button {
     display: flex;
   }
 
+  /* Always laid out full-screen on mobile — ArtifactPanel/ArtifactList slide
+     it on/off screen via Framer Motion's `x` transform instead of toggling
+     `display`, since `display` can't be transitioned. Off-screen (x: 100%)
+     is fully outside the viewport, so it's inert without needing
+     pointer-events juggling. */
   .app-right-pane {
-    display: none;
-  }
-
-  .app-right-pane.is-active {
     display: flex;
     position: fixed;
     inset: 0;

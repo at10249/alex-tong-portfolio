@@ -16,7 +16,7 @@ test("a scripted conversation answers and opens its artifact", async ({ page }) 
   await page.goto("/");
   await page.getByRole("button", { name: "The braggadocious summary" }).first().click();
 
-  await expect(page.getByText("Give me a summary of Alex Tong.")).toBeVisible();
+  await expect(page.getByText("Give me a braggadocious summary of Alex Tong.")).toBeVisible();
   await expect(page.getByText("Buckle up.")).toBeVisible({ timeout: 2000 });
   // Desktop's right pane auto-opens for a scripted answer with an artifact.
   await expect(page.locator(".app-right-pane").getByText("Alex Tong — Bio / CV")).toBeVisible();
