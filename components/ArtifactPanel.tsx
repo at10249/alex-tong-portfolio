@@ -93,24 +93,26 @@ export function ArtifactPanel() {
           </div>
         </div>
         <div style={{ marginLeft: "auto", display: "flex", gap: "6px" }}>
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={downloadCV}
-            title="Download"
-            aria-label="Download CV"
-            style={{
-              width: 26,
-              height: 26,
-              borderRadius: "var(--r-sm)",
-              border: "1px solid var(--border)",
-              background: "transparent",
-              color: "var(--muted)",
-              cursor: "pointer",
-              fontSize: "13px",
-            }}
-          >
-            ↓
-          </motion.button>
+          {openArtifactId === "bio" && (
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={downloadCV}
+              title="Download"
+              aria-label="Download CV"
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: "var(--r-sm)",
+                border: "1px solid var(--border)",
+                background: "transparent",
+                color: "var(--muted)",
+                cursor: "pointer",
+                fontSize: "13px",
+              }}
+            >
+              ↓
+            </motion.button>
+          )}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={closeArtifactPanel}
