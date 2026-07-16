@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function CVDocument({ photoSrc }: { photoSrc: string }) {
+export function CVDocument({ photoSrc, host = cvHeader.site }: { photoSrc: string; host?: string }) {
   return (
     <Document title={`${cvHeader.name} — CV`} author={cvHeader.name}>
       <Page size="A4" style={styles.page}>
@@ -162,7 +162,7 @@ export function CVDocument({ photoSrc }: { photoSrc: string }) {
             <Text style={styles.name}>{cvHeader.name}</Text>
             <Text style={styles.title}>{cvHeader.title}</Text>
             <Text style={styles.meta}>
-              {cvHeader.location} · {cvHeader.linkedin} · {cvHeader.site}
+              {cvHeader.location} · {cvHeader.linkedin} · {host}
             </Text>
           </View>
         </View>
@@ -210,7 +210,7 @@ export function CVDocument({ photoSrc }: { photoSrc: string }) {
         ))}
 
         <Text style={styles.footer}>
-          Generated from <Link src={`https://${cvHeader.site}`} style={styles.link}>{cvHeader.site}</Link> — an interactive,
+          Generated from <Link src={`https://${host}`} style={styles.link}>{host}</Link> — an interactive,
           AI-assistant-style portfolio. Ask it anything.
         </Text>
       </Page>

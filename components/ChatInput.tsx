@@ -3,10 +3,11 @@
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
-import { SITE_HOST } from "@/lib/siteConfig";
+import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatInput() {
   const { messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
+  const host = useCurrentHost();
   const isEmpty = messages.length === 0;
   const isTerminal = theme === "terminal";
 
@@ -93,7 +94,7 @@ export function ChatInput() {
           </div>
         </div>
         <div style={{ textAlign: "center", marginTop: "9px", fontFamily: "var(--mono)", fontSize: "9.5px", color: "var(--faint)" }}>
-          {SITE_HOST} &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile
+          {host} &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile
         </div>
       </div>
     </div>

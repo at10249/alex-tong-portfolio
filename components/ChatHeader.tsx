@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { SITE_HOST } from "@/lib/siteConfig";
+import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatHeader() {
   const { downloadCV, toggleMobileSidebar, showArtifactList } = useAppState();
+  const host = useCurrentHost();
 
   return (
     <header
@@ -74,7 +75,7 @@ export function ChatHeader() {
           whiteSpace: "nowrap",
         }}
       >
-        {SITE_HOST}
+        {host}
       </span>
       <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
         <motion.a
