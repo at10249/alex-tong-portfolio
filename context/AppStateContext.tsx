@@ -117,14 +117,15 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const pushBotMessage = useCallback((html: string, artifact: string | null = null) => {
-    setMessages((prev) => [...prev, { role: "bot", html, artifact }]);
-    // Desktop's right pane auto-opens (it's always visible, so this just
-    // updates its content). Mobile deliberately does NOT jump to the
-    // full-screen artifact view here — the visitor stays on the chat
-    // response and taps the inline artifact chip/entity link if they want
-    // to open it (see openArtifactById, which does switch mobileView).
-    if (artifact) setOpenArtifactId(artifact);
+  const pushBotMessage = useCallback((html: string, artifacts: string[] = []) => {
+    setMessages((prev) => [...prev, { role: "bot", html, artifacts }]);
+    // Desktop's right pane auto-opens to the FIRST/primary artifact (it's
+    // always visible, so this just updates its content) — the rest are
+    // still reachable via their own chips. Mobile deliberately does NOT
+    // jump to the full-screen artifact view here — the visitor stays on
+    // the chat response and taps a chip/entity link if they want to open
+    // one (see openArtifactById, which does switch mobileView).
+    if (artifacts[0]) setOpenArtifactId(artifacts[0]);
   }, []);
 
   const askDeepSeek = useCallback(
@@ -190,7 +191,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
 
       if (hit) {
         window.setTimeout(() => {
-          pushBotMessage(hit.a, hit.artifact);
+          pushBotMessage(hit.a, hit.artifacts);
         }, SCRIPTED_ANSWER_DELAY_MS);
         return;
       }

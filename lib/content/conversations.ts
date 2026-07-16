@@ -4,7 +4,10 @@ export type Conversation = {
   id: string;
   title: string;
   q: string;
-  artifact: string | null;
+  // Every artifact this answer discusses with real substance (not just a
+  // passing inline entity link) gets its own chip — see each entry below
+  // for the reasoning. Empty array = no chip-worthy artifact.
+  artifacts: string[];
   a: string;
 };
 
@@ -13,7 +16,10 @@ export const conversations: Conversation[] = [
     id: "brag",
     title: "The braggadocious summary",
     q: "Give me a summary of Alex Tong. Make it as braggadocious as possible.",
-    artifact: "bio",
+    // Deliberately just the one umbrella doc, not a chip per entity — this
+    // answer name-drops ~9 companies/schools, all already reachable as
+    // inline links; the bio is the single "read everything" hub for them.
+    artifacts: ["bio"],
     a: `Buckle up. ${em("Alex Tong")} is Head of Technical Deployment Strategy at ${link(
       "pentatonic",
       "Pentatonic"
@@ -59,7 +65,9 @@ export const conversations: Conversation[] = [
     id: "lego",
     title: "Current work @ Pentatonic",
     q: "What is Alex Tong currently working on at Pentatonic?",
-    artifact: "lego-takeback",
+    // Both LEGO programs get equal billing in the text (two full pilots +
+    // a whole program, each described in similar depth) — both earn a chip.
+    artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${link("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
       "LEGO’s dedicated account owner"
     )}. His remit runs across the business — ${em("operational partner management")}, ${em(
@@ -80,7 +88,10 @@ export const conversations: Conversation[] = [
     id: "que",
     title: "Early-stage startups",
     q: "What did Alex Tong do at early-stage startups?",
-    artifact: "que",
+    // que gets the full first paragraph; Leafymade gets a real descriptive
+    // sentence of its own. Razor Group is only named in passing here, so
+    // it doesn't earn a chip (same bar as the "brag" answer above).
+    artifacts: ["que", "leafymade"],
     a: `Alex has spent real time in the trenches of young ventures.<br><br>At ${link(
       "que",
       "que Bottle"
@@ -103,7 +114,9 @@ export const conversations: Conversation[] = [
     id: "work",
     title: "Location",
     q: "Where is Alex Tong based and open to working?",
-    artifact: null,
+    // Purely about location/logistics — no company or education artifact
+    // is actually discussed here, so no chip.
+    artifacts: [],
     a: `Alex is ${em("based between Berlin and London")}, and works from ${em(
       "California, Germany, and worldwide (remotely)"
     )}. But who knows where next — he collects time zones the way other people collect fridge magnets.<br><br>Best way to reach him: the ${em(
@@ -114,7 +127,11 @@ export const conversations: Conversation[] = [
     id: "bonn",
     title: "Formal education",
     q: "What is Alex Tong’s formal education?",
-    artifact: "thesis",
+    // Thesis stays first (it's the one that auto-opens on desktop,
+    // preserving the original single-artifact behavior) — Berkeley and
+    // Bonn both get a full descriptive sentence too, so they earn chips
+    // alongside it rather than staying inline-link-only.
+    artifacts: ["thesis", "berkeley", "bonn"],
     a: `He started at ${link("berkeley", "UC Berkeley")}, graduating with ${em(
       "Dean’s Honors and two B.S. degrees"
     )} (Environmental Economics &amp; Policy; Society &amp; Environment). He then crossed the Atlantic for his ${em(

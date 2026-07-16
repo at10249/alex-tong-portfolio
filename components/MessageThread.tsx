@@ -36,10 +36,11 @@ export function MessageThread() {
     >
       {messages.map((m, i) => {
         const isBot = m.role === "bot";
-        const artifact = isBot && m.artifact ? artifacts[m.artifact] : null;
+        const msgArtifacts = isBot ? (m.artifacts ?? []).map((id) => ({ id, artifact: artifacts[id] })).filter((a) => a.artifact) : [];
         return (
           <motion.div
             key={i}
+            data-role={m.role}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
@@ -63,59 +64,63 @@ export function MessageThread() {
               }
             >
               {isBot ? <RichHtml html={m.html ?? ""} /> : m.text}
-              {artifact && m.artifact && (
-                <motion.button
-                  whileTap={{ scale: 0.97 }}
-                  onClick={() => openArtifactById(m.artifact as string)}
-                  style={{
-                    marginTop: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    border: "1px solid var(--border)",
-                    borderRadius: "var(--r-md)",
-                    padding: "9px 11px",
-                    background: "var(--panel2)",
-                    cursor: "pointer",
-                    textAlign: "left",
-                    maxWidth: "280px",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 30,
-                      height: 30,
-                      flex: "none",
-                      borderRadius: "var(--r-sm)",
-                      background: "var(--chip)",
-                      display: "grid",
-                      placeItems: "center",
-                      color: "var(--accent)",
-                      fontSize: "15px",
-                    }}
-                  >
-                    ▤
-                  </span>
-                  <span style={{ minWidth: 0 }}>
-                    <span
+              {msgArtifacts.length > 0 && (
+                <div style={{ marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                  {msgArtifacts.map(({ id, artifact }) => (
+                    <motion.button
+                      key={id}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => openArtifactById(id)}
                       style={{
-                        display: "block",
-                        fontFamily: "var(--font)",
-                        fontWeight: 600,
-                        fontSize: "11.5px",
-                        color: "var(--text)",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                        whiteSpace: "nowrap",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        border: "1px solid var(--border)",
+                        borderRadius: "var(--r-md)",
+                        padding: "9px 11px",
+                        background: "var(--panel2)",
+                        cursor: "pointer",
+                        textAlign: "left",
+                        maxWidth: "280px",
                       }}
                     >
-                      {artifact.title}
-                    </span>
-                    <span style={{ display: "block", fontFamily: "var(--font)", fontSize: "10px", color: "var(--faint)" }}>
-                      Click to open →
-                    </span>
-                  </span>
-                </motion.button>
+                      <span
+                        style={{
+                          width: 30,
+                          height: 30,
+                          flex: "none",
+                          borderRadius: "var(--r-sm)",
+                          background: "var(--chip)",
+                          display: "grid",
+                          placeItems: "center",
+                          color: "var(--accent)",
+                          fontSize: "15px",
+                        }}
+                      >
+                        ▤
+                      </span>
+                      <span style={{ minWidth: 0 }}>
+                        <span
+                          style={{
+                            display: "block",
+                            fontFamily: "var(--font)",
+                            fontWeight: 600,
+                            fontSize: "11.5px",
+                            color: "var(--text)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {artifact!.title}
+                        </span>
+                        <span style={{ display: "block", fontFamily: "var(--font)", fontSize: "10px", color: "var(--faint)" }}>
+                          Click to open →
+                        </span>
+                      </span>
+                    </motion.button>
+                  ))}
+                </div>
               )}
             </div>
           </motion.div>

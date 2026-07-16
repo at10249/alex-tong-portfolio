@@ -12,11 +12,24 @@ export function ChatMain() {
   const isEmpty = messages.length === 0;
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Keep the latest reply (or the loading dots) in view — without this,
-  // new content can land below the fold and silently go unnoticed.
+  // Scroll to keep the visitor's own question in view, not to the newest
+  // content overall — jumping to the bottom of a long reply would push
+  // the question (and often the loading dots right after it) off-screen,
+  // which is disorienting right after you've just asked something. The
+  // reply then appears below it in normal flow.
+  //
+  // Re-anchors on every change (not just when the question itself was
+  // just added): right when a question is appended, its reply doesn't
+  // exist in the DOM yet, so there isn't enough content below it for the
+  // browser to scroll all the way to a top-aligned position — it clamps
+  // to whatever's scrollable at that instant. Once the reply (or the
+  // loading dots) actually renders, re-running this against the SAME
+  // target lets it finish the job.
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages.length, loading]);
+    const userMsgs = scrollRef.current?.querySelectorAll('[data-role="user"]');
+    const lastUserMsg = userMsgs?.[userMsgs.length - 1];
+    lastUserMsg?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [messages, loading]);
 
   return (
     <main
