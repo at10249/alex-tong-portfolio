@@ -15,7 +15,7 @@ export const conversations: Conversation[] = [
   {
     id: "brag",
     title: "The braggadocious summary",
-    q: "Give me a summary of Alex Tong. Make it as braggadocious as possible.",
+    q: "Give me a braggadocious summary of Alex Tong.",
     // Deliberately just the one umbrella doc, not a chip per entity — this
     // answer name-drops ~9 companies/schools, all already reachable as
     // inline links; the bio is the single "read everything" hub for them.

@@ -14,7 +14,7 @@ export function ChatInput() {
   const placeholder = !llmAvailable
     ? "Live chat is paused — pick a conversation on the left, or ask via LinkedIn."
     : isEmpty
-      ? "Give me a summary of Alex Tong. Make it as braggadocious as possible."
+      ? "Give me a braggadocious summary of Alex Tong."
       : "Ask anything about Alex…";
 
   return (
