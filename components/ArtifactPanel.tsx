@@ -31,7 +31,13 @@ export function ArtifactPanel() {
         minHeight: 0,
         background: "var(--panel)",
         borderLeft: "1px solid var(--border)",
-        position: "relative",
+        // Desktop needs `relative` so the resize handle can anchor against
+        // it. Mobile needs the CSS class's `fixed` (full-screen overlay,
+        // out of .app-root's flex flow) — an inline style here would beat
+        // that class rule and silently break it, which is exactly what
+        // squeezed the chat's scroll area to 0 height whenever an artifact
+        // auto-opened alongside a scripted answer on mobile.
+        position: isMobile ? "fixed" : "relative",
       }}
     >
       <div
