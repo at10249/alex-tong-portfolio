@@ -58,7 +58,9 @@ type AppStateValue = {
   startResize: (e: React.MouseEvent) => void;
   downloadCV: () => void;
   toggleMobileSidebar: () => void;
+  openMobileSidebar: () => void;
   closeMobileSidebar: () => void;
+  openMobileRightPane: () => void;
   showArtifactList: () => void;
   backToChat: () => void;
 };
@@ -264,7 +266,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setMobileView("chat");
   }, []);
   const toggleMobileSidebar = useCallback(() => setMobileSidebarOpen((v) => !v), []);
+  const openMobileSidebar = useCallback(() => setMobileSidebarOpen(true), []);
   const closeMobileSidebar = useCallback(() => setMobileSidebarOpen(false), []);
+  // Reveals whatever the right pane currently holds (an open artifact, or
+  // the list) without changing it — unlike showArtifactList below, which
+  // forces the list specifically. Used by the swipe gesture, where "swipe
+  // left from chat" should surface an already-open artifact rather than
+  // bumping the visitor to the list they weren't looking at.
+  const openMobileRightPane = useCallback(() => {
+    setMobileView(openArtifactId ? "artifact" : "artifact-list");
+    setMobileSidebarOpen(false);
+  }, [openArtifactId]);
   const showArtifactList = useCallback(() => {
     // PortfolioApp renders ArtifactPanel whenever openArtifactId is set,
     // regardless of mobileView — scripted answers auto-open one, so
@@ -319,7 +331,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       startResize,
       downloadCV,
       toggleMobileSidebar,
+      openMobileSidebar,
       closeMobileSidebar,
+      openMobileRightPane,
       showArtifactList,
       backToChat,
     }),
@@ -351,7 +365,9 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       startResize,
       downloadCV,
       toggleMobileSidebar,
+      openMobileSidebar,
       closeMobileSidebar,
+      openMobileRightPane,
       showArtifactList,
       backToChat,
     ]

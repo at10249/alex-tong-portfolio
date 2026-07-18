@@ -129,6 +129,10 @@ button {
     display: flex;
     flex-direction: column;
     position: relative;
+    /* Tells the browser vertical panning is native here, so it doesn't
+       wait on JS before scrolling — useSwipeNavigation.ts only ever
+       preventDefault()s once it's already axis-locked to horizontal. */
+    touch-action: pan-y;
   }
 
   .app-sidebar {

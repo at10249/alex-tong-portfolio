@@ -10,7 +10,13 @@ export default defineConfig({
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] }, testIgnore: /swipe\.spec\.ts/ },
+    // Separate project so mobile-only swipe gestures don't run against the
+    // desktop layout (no drawer/full-screen panes to swipe there) and vice
+    // versa — the desktop project explicitly ignores this spec.
+    { name: "mobile-chromium", use: { ...devices["Pixel 7"] }, testMatch: /swipe\.spec\.ts/ },
+  ],
   webServer: {
     command: "npm run build && npm run start",
     url: "http://localhost:3000",

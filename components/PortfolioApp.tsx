@@ -1,8 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { themes, type CSSVarStyle } from "@/lib/theme";
+import { useSwipeNavigation } from "@/lib/useSwipeNavigation";
 import { Sidebar } from "./Sidebar";
 import { ChatMain } from "./ChatMain";
 import { ArtifactPanel } from "./ArtifactPanel";
@@ -10,7 +12,25 @@ import { ArtifactList } from "./ArtifactList";
 import { SettingsModal } from "./SettingsModal";
 
 export function PortfolioApp() {
-  const { theme, rightPaneWidth, mobileSidebarOpen, closeMobileSidebar, openArtifactId } = useAppState();
+  const {
+    theme,
+    rightPaneWidth,
+    mobileSidebarOpen,
+    closeMobileSidebar,
+    openMobileSidebar,
+    openMobileRightPane,
+    backToChat,
+    mobileView,
+    settingsOpen,
+    openArtifactId,
+  } = useAppState();
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  useSwipeNavigation(
+    rootRef,
+    { mobileSidebarOpen, mobileView, settingsOpen },
+    { openMobileSidebar, closeMobileSidebar, openMobileRightPane, backToChat }
+  );
 
   // Layout (grid vs. stacked/drawer) lives entirely in the .app-root CSS
   // rule in globals.css so it can respond to a media query — only the
@@ -22,7 +42,7 @@ export function PortfolioApp() {
   };
 
   return (
-    <div className="app-root" style={rootStyle}>
+    <div ref={rootRef} className="app-root" style={rootStyle}>
       <AnimatePresence>
         {mobileSidebarOpen && (
           <motion.div
