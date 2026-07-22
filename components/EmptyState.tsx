@@ -49,23 +49,6 @@ export function EmptyState() {
         Head of Technical Deployment Strategy at Pentatonic. Strategy brain, operator&rsquo;s hands, AI enthusiast. Pick a
         conversation on the left or ask your own question.
       </div>
-      <div
-        className="swipe-hint"
-        style={{
-          marginTop: "20px",
-          alignItems: "center",
-          gap: "8px",
-          fontFamily: "var(--mono)",
-          fontSize: "10.5px",
-          letterSpacing: ".2px",
-          color: "var(--faint)",
-          border: "1px dashed var(--border)",
-          borderRadius: "999px",
-          padding: "7px 14px",
-        }}
-      >
-        <span aria-hidden="true">&#8596;</span>&nbsp;&nbsp;Swipe left or right to see the other panels
-      </div>
     </div>
   );
 }
