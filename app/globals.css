@@ -164,15 +164,16 @@ button {
     z-index: 35;
   }
 
+  /* Stays visible (never `display: none`) even when a drawer is open —
+     same treatment as .app-sidebar/.app-right-pane below, which are
+     fixed-position overlays floating on top rather than replacing this
+     in the flex column. That's what makes the dimmed chat visible
+     behind either drawer instead of a blank background. */
   .app-main {
-    display: none;
+    display: flex;
     flex: 1;
     min-height: 0;
     width: 100%;
-  }
-
-  .app-main.is-active {
-    display: flex;
   }
 
   /* Always laid out full-height on mobile (never `display: none`) — a
@@ -245,6 +246,14 @@ button {
 
   .chat-input-pad {
     padding: 10px 16px 18px !important;
+  }
+
+  /* Shrinks only the placeholder's own text, not the textarea's actual
+     font-size (that stays at the comfortable 13.5px set inline) — the
+     full "Give me a braggadocious summary of Alex Tong." phrase wraps to
+     a second, hidden line at that size on narrow viewports otherwise. */
+  textarea.at-input::placeholder {
+    font-size: 12px;
   }
 
   .suggestion-chip {

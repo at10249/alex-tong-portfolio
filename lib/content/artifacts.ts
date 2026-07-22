@@ -196,7 +196,7 @@ function thesisHtml(): string {
       <div style="${p}">Built around a ${strongText(
         "Tobii Pro X3-120"
       )} eye tracker run in the university’s economics laboratory, paired with survey and choice-experiment instruments. The research timeline was extended when German government COVID-response measures closed the required lab facilities for roughly a year — the study was completed once facilities reopened.</div>
-      <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">STILL TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels get more eye time and more purchases, and that eye time predicts the price premium people’ll pay. why people look longer in the first place though? still fuzzy.</div></div>
+      <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels get more eye time and more purchases, and that eye time predicts the price premium people’ll pay. why people look longer in the first place though? still fuzzy.</div></div>
       <div style="${p};margin-top:16px;font-weight:500;color:var(--text)">Full text available upon request.</div>
       ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Contact Alex on LinkedIn")}`;
 }

@@ -8,7 +8,7 @@ import { MessageThread } from "./MessageThread";
 import { ChatInput } from "./ChatInput";
 
 export function ChatMain() {
-  const { messages, loading, mobileView } = useAppState();
+  const { messages, loading } = useAppState();
   const isEmpty = messages.length === 0;
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,7 @@ export function ChatMain() {
 
   return (
     <main
-      className={`app-main${mobileView === "chat" ? " is-active" : ""}`}
+      className="app-main"
       style={{ flexDirection: "column", minHeight: 0, minWidth: 0, background: "var(--bg)" }}
     >
       <ChatHeader />
