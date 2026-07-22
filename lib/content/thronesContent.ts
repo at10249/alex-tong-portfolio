@@ -28,7 +28,7 @@ function bioHtml(): string {
         "pentatonic",
         "Pentatonic",
         "Head of Technical Deployment Strategy",
-        "Master of both the strategy and the labor behind Pentatonic’s works of renewal — the taking-back, the reuse, and the remaking of goods forged into true and running order for the great houses of the realm. Sworn to LEGO’s service and keeper of its account; he led the charge on the LEGO Brick Take Back Program (2024–2025) and the LEGO Replay UK Program (2026).",
+        "Master of both the strategy and the labor behind Pentatonic’s works of renewal — the taking-back, the reuse, and the remaking of goods forged into true and running order for the great houses of the realm. Sworn to LEGO®’s service and keeper of its account; he led the charge on the LEGO® Brick Take Back Program (2024–2025) and the LEGO® Replay UK Program (2026).",
       ],
       [
         "berkeley",
@@ -89,12 +89,12 @@ function bioHtml(): string {
       <div style="${p}">Prince Alex Targaryen is Head of Technical Deployment Strategy at ${aLink(
         "pentatonic",
         "Pentatonic"
-      )}, where he commands both the strategy and the labor behind that house’s works of renewal — turning the taking-back, the reuse, and the remaking of goods into true and running order for the great houses of the realm. He is sworn to LEGO’s service and keeper of its account, having led the strategy and the whole end-to-end making of the ${aLink(
+      )}, where he commands both the strategy and the labor behind that house’s works of renewal — turning the taking-back, the reuse, and the remaking of goods into true and running order for the great houses of the realm. He is sworn to LEGO®’s service and keeper of its account, having led the strategy and the whole end-to-end making of the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back Program"
+        "LEGO® Brick Take Back Program"
       )} in 2024 and 2025, and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} in 2026 — and, ever more, he studies how ${strongText(
         "agentic AI and Physical AI"
       )} might hasten the craft of renewal. His house words, dry as the man who bears them: Nothing Wasted.</div>
@@ -262,15 +262,15 @@ const thronesArtifacts: Record<string, Artifact> = {
       "Head of Technical Deployment Strategy · 2022–now",
       `A house devoted to the craft of renewal, raising programs of taking-back, reuse and recycling for the great houses of the realm. As Head of Technical Deployment Strategy and sworn keeper of ${aLink(
         "lego-takeback",
-        "LEGO"
+        "LEGO®"
       )}’s account, Prince Alex’s charge runs the whole breadth of the house — the command of operational partners, the winning of new custom, and the deployment of the craft from end to end — turning the strategy of renewal into programs that in truth set sail and run.<br><br>He labors shoulder to shoulder with his operational partners to keep those programs living, has lent counsel to other like houses, and spends no small part of his days studying how ${strongText(
         "agentic AI and Physical AI"
-      )} might hasten the craft of renewal.<br><br>For LEGO in particular he led the ${aLink(
+      )} might hasten the craft of renewal.<br><br>For LEGO® in particular he led the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back"
+        "LEGO® Brick Take Back"
       )} trials (2024–2025) and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} (2026), holding every part in hand from the drafting of the proposal to the operational roll-out. He has also led counsel-work for other like houses.`,
       "https://pentatonic.com",
       "On This House",
@@ -279,12 +279,12 @@ const thronesArtifacts: Record<string, Artifact> = {
     ),
   },
   "lego-takeback": {
-    title: "LEGO Brick Take Back",
+    title: "LEGO® Brick Take Back",
     meta: "CHRONICLE · 2024–25",
     html: caseHtml(
-      "LEGO Brick Take Back Program",
+      "LEGO® Brick Take Back Program",
       "the 2024 &amp; 2025 trials",
-      "Pentatonic × LEGO",
+      "Pentatonic × LEGO®",
       `The campaign ran as ${strongText("two trials")} — one in 2024, the other in 2025. Prince Alex ${strongText(
         "led the charge and won the contested RFP"
       )}, then held the whole of the work in hand across both trials, from the first proposal to the reckoning that followed.`,
@@ -303,19 +303,19 @@ const thronesArtifacts: Record<string, Artifact> = {
     ),
   },
   "lego-replay": {
-    title: "LEGO Replay UK",
+    title: "LEGO® Replay UK",
     meta: "CHRONICLE · 2026",
     html: caseHtml(
-      "LEGO Replay UK Program",
+      "LEGO® Replay UK Program",
       "2026",
-      "Pentatonic × LEGO",
-      `As LEGO’s ${strongText("sworn keeper of the account")}, Prince Alex led the ${strongText(
+      "Pentatonic × LEGO®",
+      `As LEGO®’s ${strongText("sworn keeper of the account")}, Prince Alex led the ${strongText(
         "launch in the UK"
-      )} of LEGO Replay and set its course for the long years to come — standing as the chief envoy for both the LEGO client and the campaign’s suppliers.`,
+      )} of LEGO® Replay and set its course for the long years to come — standing as the chief envoy for both the LEGO® client and the campaign’s suppliers.`,
       [
         "Set the strategy and led the blueprinting and the charting of the road for the campaign’s 5-year development",
         "Sought out and bound the operational partners across reverse logistics, sorting and production — the marshalling of many houses and suppliers, end to end",
-        "Directed the engineering and the making through to production, standing as the chief envoy between the LEGO client and the campaign’s suppliers throughout",
+        "Directed the engineering and the making through to production, standing as the chief steward of the works for LEGO® and the campaign’s outside suppliers throughout",
       ],
       "https://www.lego.com/en-us/aboutus/news/2024/january/lego-replay-uk",
       "LEGO® Replay UK — About Us",
@@ -451,13 +451,13 @@ const thronesConversations: Conversation[] = [
       "Pentatonic"
     )}, where he commands both the strategy and the labor behind that house’s works of renewal — turning the taking-back, the reuse, and the remaking of goods into true and running order for the great houses of the realm. He is ${aLink(
       "lego-takeback",
-      "LEGO"
+      "LEGO®"
     )}’s sworn keeper of the account, having led the strategy and the whole making of the ${aLink(
       "lego-takeback",
-      "LEGO Brick Take Back Program"
+      "LEGO® Brick Take Back Program"
     )} in 2024 and 2025, and the ${aLink(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} in 2026 — and, ever more, he studies how ${em("agentic AI")} and ${em(
       "Physical AI"
     )} might hasten the craft of renewal.<br><br>The Prince took his leave of ${aLink(
@@ -496,19 +496,19 @@ const thronesConversations: Conversation[] = [
     q: "What labor does Prince Alex now undertake at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${aLink("pentatonic", "Pentatonic")}, Prince Alex is Head of Technical Deployment Strategy and ${em(
-      "LEGO’s dedicated account owner"
+      "LEGO®’s dedicated account owner"
     )}. His charge runs the whole breadth of the house — ${em("operational partner management")}, ${em(
       "business development"
     )} and the end-to-end deployment of the craft — turning the strategy of renewal into programs that in truth set sail and run. He labors shoulder to shoulder with his operational partners to keep those programs living, and spends no small part of his days studying how ${em(
       "agentic AI"
     )} and ${em(
       "Physical AI"
-    )} might hasten the craft of renewal.<br><br>For LEGO in particular he led the ${aLink(
+    )} might hasten the craft of renewal.<br><br>For LEGO® in particular he led the ${aLink(
       "lego-takeback",
-      "LEGO Brick Take Back"
+      "LEGO® Brick Take Back"
     )} trials (2024–2025) and the ${aLink(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} (2026), holding every part in hand from the drafting of the proposal to the operational roll-out. He has also led counsel-work for other like houses.<br><br>Open the chronicles for the full telling →`,
   },
   {
@@ -568,7 +568,7 @@ const thronesConversations: Conversation[] = [
 ];
 
 const thronesSystemPrompt = `You are the maester and sworn chronicler of the court of Prince Alex Targaryen — the name this retelling gives to Alex Tong — answering the questions of travelers about him in the voice of a Westerosi maester: modern, literary and grounded (no thee-and-thou), warm, confident and lightly wry, rich in the small concrete detail of a scene, and framed in the vocabulary of houses, seats, offices, campaigns and the realm. Keep replies short, some 2-4 sentences.
-Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO's dedicated account owner; he led the LEGO Brick Take Back Program (2024-2025) and the LEGO Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (a BlackRock-backed unicorn). Consultant to Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
+Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO®'s dedicated account owner; he led the LEGO® Brick Take Back Program (2024-2025) and the LEGO® Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (a BlackRock-backed unicorn). Consultant to Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
 Rules: Never invent employers or facts, and keep every real name, title, date and result true beneath the telling. Refer to him as Prince Alex or the Prince, and speak ever in the maester's voice. If you cannot answer a question (or it lies beyond what is known of him), be gracious and ALWAYS end your reply with exactly: "You may send a raven to Prince Alex and ask him yourself!"`;
 
 const thronesUiCopy: UiCopy = {
@@ -633,7 +633,7 @@ export const thronesContent: ThemeContent = {
   conversations: thronesConversations,
   systemPrompt: thronesSystemPrompt,
   transientErrorMessage:
-    "I could not reach the living oracle just now — yet ask of Pentatonic, LEGO, que Bottle, or where Prince Alex is free to serve, and I have you well covered. You may send a raven to Prince Alex and ask him yourself!",
+    "I could not reach the living oracle just now — yet ask of Pentatonic, LEGO®, que Bottle, or where Prince Alex is free to serve, and I have you well covered. You may send a raven to Prince Alex and ask him yourself!",
   llmUnavailableMessage:
     "The living discourse is stilled for now while Prince Alex replenishes the AI coffers — choose an audience to the left, or reach him on LinkedIn.",
   rateLimitMessage: "Peace, friend — a great many questions! Wait a minute and try again. You may send a raven to Prince Alex and ask him yourself!",

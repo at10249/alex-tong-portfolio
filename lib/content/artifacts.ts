@@ -21,7 +21,7 @@ function bioHtml(): string {
         "pentatonic",
         "Pentatonic",
         "Head of Technical Deployment Strategy",
-        "Leads strategy and execution behind Pentatonic’s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. LEGO’s dedicated account owner; spearheaded the LEGO Brick Take Back Program (2024–2025) and the LEGO Replay UK Program (2026).",
+        "Leads strategy and execution behind Pentatonic’s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. LEGO®’s dedicated account owner; spearheaded the LEGO® Brick Take Back Program (2024–2025) and the LEGO® Replay UK Program (2026).",
       ],
       [
         "berkeley",
@@ -82,12 +82,12 @@ function bioHtml(): string {
       <div style="${p}">Alex Tong is Head of Technical Deployment Strategy at ${aLink(
         "pentatonic",
         "Pentatonic"
-      )}, where he leads the strategy and execution behind the company’s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. He is LEGO’s dedicated account owner, having spearheaded the strategy and end-to-end implementation of the ${aLink(
+      )}, where he leads the strategy and execution behind the company’s circular economy programs, turning take-back, reuse, and recycling initiatives into operational reality for global brands. He is LEGO®’s dedicated account owner, having spearheaded the strategy and end-to-end implementation of the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back Program"
+        "LEGO® Brick Take Back Program"
       )} in 2024 and 2025, and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} in 2026 — and, increasingly, he is exploring how ${strongText(
         "agentic AI and Physical AI"
       )} can accelerate the circular economy.</div>
@@ -232,15 +232,15 @@ export const artifacts: Record<string, Artifact> = {
       "Head of Technical Deployment Strategy · 2022–now",
       `Circular-economy technology company building take-back, reuse and recycling programs for global brands. As Head of Technical Deployment Strategy and ${aLink(
         "lego-takeback",
-        "LEGO"
+        "LEGO®"
       )}’s dedicated account owner, Alex’s remit runs across the business — operational partner management, business development and end-to-end technical deployment — turning circular-economy strategy into programs that actually ship and run.<br><br>He works hand-in-hand with operational partners to keep those programs live, has led strategic consulting projects for other similar brands, and spends a good part of his time exploring how ${strongText(
         "agentic AI and Physical AI"
-      )} can accelerate the circular economy.<br><br>For LEGO specifically he led the ${aLink(
+      )} can accelerate the circular economy.<br><br>For LEGO® specifically he led the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back"
+        "LEGO® Brick Take Back"
       )} pilots (2024–2025) and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} (2026), owning everything from proposal design to operational roll-out. He has also led strategic consulting projects for other similar brands.`,
       "https://pentatonic.com",
       "About",
@@ -249,12 +249,12 @@ export const artifacts: Record<string, Artifact> = {
     ),
   },
   "lego-takeback": {
-    title: "LEGO Brick Take Back",
+    title: "LEGO® Brick Take Back",
     meta: "CASE STUDY · 2024–25",
     html: caseHtml(
-      "LEGO Brick Take Back Program",
+      "LEGO® Brick Take Back Program",
       "2024 &amp; 2025 pilots",
-      "Pentatonic × LEGO",
+      "Pentatonic × LEGO®",
       `The program ran as ${strongText("two pilots")} — one in 2024 and one in 2025. Alex ${strongText(
         "spearheaded and won the competitive RFP"
       )}, then owned the work end-to-end across both pilots, from the initial proposal to post-pilot analysis.`,
@@ -273,19 +273,19 @@ export const artifacts: Record<string, Artifact> = {
     ),
   },
   "lego-replay": {
-    title: "LEGO Replay UK",
+    title: "LEGO® Replay UK",
     meta: "CASE STUDY · 2026",
     html: caseHtml(
-      "LEGO Replay UK Program",
+      "LEGO® Replay UK Program",
       "2026",
-      "Pentatonic × LEGO",
-      `As LEGO’s ${strongText("dedicated account owner")}, Alex led the ${strongText(
+      "Pentatonic × LEGO®",
+      `As LEGO®’s ${strongText("dedicated account owner")}, Alex led the ${strongText(
         "UK launch"
-      )} of LEGO Replay and set its long-range direction — serving as the lead point of contact for both the LEGO client and the project’s suppliers.`,
+      )} of LEGO® Replay and set its long-range direction — serving as the lead point of contact for both the LEGO® client and the project’s suppliers.`,
       [
         "Set the strategic direction and led the blueprinting and roadmapping for the project’s 5-year development",
         "Found and onboarded the operational partners spanning reverse logistics, sorting and production — multi-stakeholder and supplier management end-to-end",
-        "Directed the engineering and manufacturing work through to production, serving as the lead contact for the LEGO client and the project’s suppliers throughout",
+        "Directed the engineering and manufacturing work through to production, serving as the lead project manager for LEGO® and the project’s external suppliers throughout",
       ],
       "https://www.lego.com/en-us/aboutus/news/2024/january/lego-replay-uk",
       "LEGO® Replay UK — About Us",

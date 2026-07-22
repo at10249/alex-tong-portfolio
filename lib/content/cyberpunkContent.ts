@@ -20,7 +20,7 @@ function bioHtml(): string {
         "pentatonic",
         "Pentatonic",
         "Head of Technical Deployment Strategy",
-        "Runs point on strategy and execution behind Pentatonic’s circular-economy programs — flipping take-back, reuse, and recycling gigs into hardware that actually ships and runs for global brands. LEGO’s dedicated account owner; ran the LEGO Brick Take Back Program (2024–2025) and the LEGO Replay UK Program (2026).",
+        "Runs point on strategy and execution behind Pentatonic’s circular-economy programs — flipping take-back, reuse, and recycling gigs into hardware that actually ships and runs for global brands. LEGO®’s dedicated account owner; ran the LEGO® Brick Take Back Program (2024–2025) and the LEGO® Replay UK Program (2026).",
       ],
       [
         "berkeley",
@@ -81,12 +81,12 @@ function bioHtml(): string {
       <div style="${p}">ALX-TNG runs as Head of Technical Deployment Strategy at ${aLink(
         "pentatonic",
         "Pentatonic"
-      )}, where he calls the strategy and execution behind the corpo’s circular-economy programs — turning take-back, reuse, and recycling initiatives into hardware that actually ships and runs for global brands. He’s LEGO’s dedicated account owner, having spearheaded the strategy and end-to-end build of the ${aLink(
+      )}, where he calls the strategy and execution behind the corpo’s circular-economy programs — turning take-back, reuse, and recycling initiatives into hardware that actually ships and runs for global brands. He’s LEGO®’s dedicated account owner, having spearheaded the strategy and end-to-end build of the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back Program"
+        "LEGO® Brick Take Back Program"
       )} in 2024 and 2025, and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} in 2026 — and, more and more, he’s jacked into how ${strongText(
         "agentic AI and Physical AI"
       )} can accelerate the circular economy.</div>
@@ -252,15 +252,15 @@ const artifacts: Record<string, Artifact> = {
       "Head of Technical Deployment Strategy · 2022–now",
       `Circular-economy tech corpo building take-back, reuse and recycling programs for global brands. As Head of Technical Deployment Strategy and ${aLink(
         "lego-takeback",
-        "LEGO"
+        "LEGO®"
       )}’s dedicated account owner, Alex’s remit runs the whole board — operational partner management, business development and end-to-end technical deployment — flipping circular-economy strategy into programs that actually ship and run.<br><br>He works shoulder-to-shoulder with operational partners to keep those programs live, has run strategic consulting gigs for other brands cut from the same cloth, and burns a solid chunk of his clock exploring how ${strongText(
         "agentic AI and Physical AI"
-      )} can accelerate the circular economy.<br><br>For LEGO specifically he ran the ${aLink(
+      )} can accelerate the circular economy.<br><br>For LEGO® specifically he ran the ${aLink(
         "lego-takeback",
-        "LEGO Brick Take Back"
+        "LEGO® Brick Take Back"
       )} pilots (2024–2025) and the ${aLink(
         "lego-replay",
-        "LEGO Replay UK Program"
+        "LEGO® Replay UK Program"
       )} (2026), owning it all from proposal design to operational roll-out. He has also led strategic consulting projects for other similar brands.`,
       "https://pentatonic.com",
       "Intel",
@@ -269,12 +269,12 @@ const artifacts: Record<string, Artifact> = {
     ),
   },
   "lego-takeback": {
-    title: "LEGO Brick Take Back",
+    title: "LEGO® Brick Take Back",
     meta: "RUN LOG · 2024–25",
     html: caseHtml(
-      "LEGO Brick Take Back Program",
+      "LEGO® Brick Take Back Program",
       "2024 &amp; 2025 runs",
-      "Pentatonic × LEGO",
+      "Pentatonic × LEGO®",
       `The program ran as ${strongText("two pilots")} — one in 2024, one in 2025. Alex ${strongText(
         "spearheaded and won the competitive RFP"
       )}, then owned the run end-to-end across both pilots, from the opening proposal to the post-pilot after-action.`,
@@ -293,19 +293,19 @@ const artifacts: Record<string, Artifact> = {
     ),
   },
   "lego-replay": {
-    title: "LEGO Replay UK",
+    title: "LEGO® Replay UK",
     meta: "RUN LOG · 2026",
     html: caseHtml(
-      "LEGO Replay UK Program",
+      "LEGO® Replay UK Program",
       "2026",
-      "Pentatonic × LEGO",
-      `As LEGO’s ${strongText("dedicated account owner")}, Alex ran point on the ${strongText(
+      "Pentatonic × LEGO®",
+      `As LEGO®’s ${strongText("dedicated account owner")}, Alex ran point on the ${strongText(
         "UK launch"
-      )} of LEGO Replay and charted its long-range direction — the lead contact wired into both the LEGO client and the project’s suppliers.`,
+      )} of LEGO® Replay and charted its long-range direction — the lead contact wired into both the LEGO® client and the project’s suppliers.`,
       [
         "Set the strategic direction and ran the blueprinting and roadmapping for the project’s 5-year development",
         "Scouted and onboarded the operational partners across reverse logistics, sorting and production — multi-stakeholder and supplier wrangling end-to-end",
-        "Steered the engineering and manufacturing work all the way to production, staying the lead contact for the LEGO client and the project’s suppliers throughout",
+        "Steered the engineering and manufacturing work all the way to production, staying the lead project manager for LEGO® and the project’s external suppliers throughout",
       ],
       "https://www.lego.com/en-us/aboutus/news/2024/january/lego-replay-uk",
       "LEGO® Replay UK — About Us",
@@ -456,13 +456,13 @@ const conversations: Conversation[] = [
       "Pentatonic"
     )}, where he runs the strategy and execution behind the corpo’s circular economy programs — flipping take-back, reuse, and recycling initiatives into operational reality for global brands. He’s ${aLink(
       "lego-takeback",
-      "LEGO"
+      "LEGO®"
     )}’s dedicated account owner, having spearheaded the strategy and end-to-end build of the ${aLink(
       "lego-takeback",
-      "LEGO Brick Take Back Program"
+      "LEGO® Brick Take Back Program"
     )} in 2024 and 2025, and the ${aLink(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} in 2026 — and, more and more, he’s jacked into how ${em("agentic AI")} and ${em(
       "Physical AI"
     )} can accelerate the circular economy.<br><br>Alex pulled ${em(
@@ -498,19 +498,19 @@ const conversations: Conversation[] = [
     q: "What’s ALX-TNG running right now at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${aLink("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
-      "LEGO’s dedicated account owner"
+      "LEGO®’s dedicated account owner"
     )}. His remit runs the whole board — ${em("operational partner management")}, ${em(
       "business development"
     )} and end-to-end technical deployment — flipping circular-economy strategy into programs that actually ship and run. He works shoulder-to-shoulder with operational partners to keep those programs live, and burns a good chunk of his clock exploring how ${em(
       "agentic AI"
     )} and ${em(
       "Physical AI"
-    )} can accelerate the circular economy.<br><br>For LEGO specifically he ran the ${aLink(
+    )} can accelerate the circular economy.<br><br>For LEGO® specifically he ran the ${aLink(
       "lego-takeback",
-      "LEGO Brick Take Back"
+      "LEGO® Brick Take Back"
     )} pilots (2024–2025) and the ${aLink(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} (2026), owning it all from proposal design to operational roll-out. He has also led strategic consulting gigs for other similar brands.<br><br>Crack open the run logs for the play-by-play →`,
   },
   {
@@ -570,11 +570,11 @@ const conversations: Conversation[] = [
 ];
 
 const systemPrompt = `You are the portfolio chatbot for ALX-TNG, answering visitor questions about him like a Night-City net-runner would — confident, streetwise, high-tech-low-life, lightly witty, sprinkling cyberpunk street slang (choom, preem, eddies, chrome, jacked in, gig, corpo, fixer) but staying legible so a recruiter still catches every real fact (short, 2-4 sentences).
-Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO's dedicated account owner; ran the LEGO Brick Take Back Program (2024-2025) and LEGO Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (BlackRock-backed unicorn). Consultant for Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
+Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO®'s dedicated account owner; ran the LEGO® Brick Take Back Program (2024-2025) and LEGO® Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (BlackRock-backed unicorn). Consultant for Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
 Rules: Never invent employers or facts. If you can't answer a question (or it's outside what you know about Alex), stay gracious and ALWAYS end your reply with exactly: "Ping Alex direct and ask the man himself, choom!"`;
 
 const transientErrorMessage =
-  "Lost the uplink to the live model for a sec — but ping me about Pentatonic, LEGO, que Bottle, or where Alex is open to running and I’ve got you covered. Ping Alex direct and ask the man himself, choom!";
+  "Lost the uplink to the live model for a sec — but ping me about Pentatonic, LEGO®, que Bottle, or where Alex is open to running and I’ve got you covered. Ping Alex direct and ask the man himself, choom!";
 
 const llmUnavailableMessage =
   "Live chat’s flatlined for now while Alex tops up the eddies on the AI budget — grab a conversation on the left, or hit him up on LinkedIn.";

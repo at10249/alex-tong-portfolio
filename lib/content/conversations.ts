@@ -25,13 +25,13 @@ export const conversations: Conversation[] = [
       "Pentatonic"
     )}, where he leads the strategy and execution behind the company’s circular economy programs — turning take-back, reuse, and recycling initiatives into operational reality for global brands. He is ${link(
       "lego-takeback",
-      "LEGO"
+      "LEGO®"
     )}’s dedicated account owner, having spearheaded the strategy and end-to-end implementation of the ${link(
       "lego-takeback",
-      "LEGO Brick Take Back Program"
+      "LEGO® Brick Take Back Program"
     )} in 2024 and 2025, and the ${link(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} in 2026 — and, increasingly, he’s exploring how ${em("agentic AI")} and ${em(
       "Physical AI"
     )} can accelerate the circular economy.<br><br>Alex graduated with ${em(
@@ -69,19 +69,19 @@ export const conversations: Conversation[] = [
     // a whole program, each described in similar depth) — both earn a chip.
     artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${link("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
-      "LEGO’s dedicated account owner"
+      "LEGO®’s dedicated account owner"
     )}. His remit runs across the business — ${em("operational partner management")}, ${em(
       "business development"
     )} and end-to-end technical deployment — turning circular-economy strategy into programs that actually ship and run. He works hand-in-hand with operational partners to keep those programs live, and spends a good part of his time exploring how ${em(
       "agentic AI"
     )} and ${em(
       "Physical AI"
-    )} can accelerate the circular economy.<br><br>For LEGO specifically he led the ${link(
+    )} can accelerate the circular economy.<br><br>For LEGO® specifically he led the ${link(
       "lego-takeback",
-      "LEGO Brick Take Back"
+      "LEGO® Brick Take Back"
     )} pilots (2024–2025) and the ${link(
       "lego-replay",
-      "LEGO Replay UK Program"
+      "LEGO® Replay UK Program"
     )} (2026), owning everything from proposal design to operational roll-out. He has also led strategic consulting projects for other similar brands.<br><br>Open the case studies for the play-by-play →`,
   },
   {

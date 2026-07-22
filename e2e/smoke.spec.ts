@@ -85,7 +85,13 @@ test("opening an artifact un-minimizes a collapsed artifacts panel", async ({ pa
   const rightPaneWidth = async () => (await page.locator(".app-right-pane").boundingBox())?.width ?? -1;
 
   await page.getByRole("button", { name: "The braggadocious summary" }).first().click();
-  await expect(page.locator(".app-right-pane").getByText("Alex Tong — Bio / CV")).toBeVisible();
+  // Wait for the panel itself (via a control only it has), not just the
+  // artifact's title text — that same title also appears as a row in the
+  // artifact *list*, which is already showing by default before the
+  // scripted answer's delay elapses, so waiting on the text alone would
+  // resolve immediately and race the collapse click below against the
+  // still-pending auto-open.
+  await expect(page.getByRole("button", { name: "Close artifact" })).toBeVisible();
 
   await page.getByRole("button", { name: "Collapse artifacts panel" }).click();
   await expect.poll(rightPaneWidth).toBeLessThan(5);
