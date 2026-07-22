@@ -1,5 +1,10 @@
 * {
   box-sizing: border-box;
+  /* Kills the flash of solid blue mobile Chrome/Safari draw on tap for any
+     clickable element — replaced below with a themed :active press state
+     (and most buttons already have their own Framer whileTap scale, which
+     this layers under cleanly since it's a different property). */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Crossfades the Warm Studio <-> Terminal theme swap instead of an instant
@@ -78,6 +83,17 @@ textarea.at-input:disabled {
 
 button {
   font: inherit;
+}
+
+/* Themed press feedback, replacing the browser's default tap highlight —
+   dims whatever the button's own (per-theme) colors already are, so it
+   adapts automatically instead of needing a value per theme. `filter` is
+   independent of `transform`, so it layers fine under the Framer
+   whileTap scale most buttons already have, and under `color-mix`-free
+   `background`/`color` set inline without needing `!important` to win. */
+button:active,
+a:active {
+  filter: brightness(0.85);
 }
 
 /* Cyberpunk: animated neon grid + pulsing inner glow across the whole
