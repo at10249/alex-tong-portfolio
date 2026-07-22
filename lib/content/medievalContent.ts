@@ -72,15 +72,15 @@ function bioHtml(): string {
     .join("");
 
   return `<div style="display:flex;align-items:center;gap:16px">
-        <img src="/assets/alex-medieval.jpg" alt="Alex Tong" data-photo="true" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter);cursor:pointer">
+        <img src="/assets/alex-medieval.jpg" alt="Sir Alex Tong" data-photo="true" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter);cursor:pointer">
         <div>
-          <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">Alex Tong</div>
+          <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">Sir Alex Tong</div>
           <div style="font-family:var(--font);font-weight:500;font-size:12px;color:var(--accent);margin-top:3px">Head of Technical Deployment Strategy, Pentatonic</div>
           <div style="font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:5px">Berlin · London &nbsp;&middot;&nbsp; At liberty for CA, Germany &amp; from afar</div>
         </div>
       </div>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
-      <div style="${p}">Alex Tong is Head of Technical Deployment Strategy at ${aLink(
+      <div style="${p}">Sir Alex Tong is Head of Technical Deployment Strategy at ${aLink(
         "pentatonic",
         "Pentatonic"
       )}, where he doth command both the stratagem and the labour behind that house’s works of renewal — turning the taking-back, the reuse, and the making-anew of wares into true and running order for the great houses of the realm. He is LEGO’s sworn steward and keeper of its account, having led the charge upon the whole doing of the ${aLink(
@@ -245,7 +245,7 @@ function timelineHtml(): string {
 }
 
 const medievalArtifacts: Record<string, Artifact> = {
-  bio: { title: "Alex Tong — Life & Ledger", meta: "SCROLL · 2 pages", html: bioHtml() },
+  bio: { title: "Sir Alex Tong — Life & Ledger", meta: "SCROLL · 2 pages", html: bioHtml() },
   pentatonic: {
     title: "Pentatonic",
     meta: "HOUSE · PRESENT DAY",
@@ -437,9 +437,9 @@ const medievalConversations: Conversation[] = [
   {
     id: "brag",
     title: "The Boastful Account",
-    q: "Give unto me a boastful account of Alex Tong.",
+    q: "Give unto me a boastful account of Sir Alex Tong.",
     artifacts: ["bio"],
-    a: `Hearken well. ${em("Alex Tong")} is Head of Technical Deployment Strategy at ${aLink(
+    a: `Hearken well. ${em("Sir Alex Tong")} is Head of Technical Deployment Strategy at ${aLink(
       "pentatonic",
       "Pentatonic"
     )}, where he doth command both the stratagem and the doing behind that house’s works of renewal — turning the taking-back, the reuse, and the making-anew of wares into true and running order for the great houses of the realm. He is ${aLink(
@@ -486,7 +486,7 @@ const medievalConversations: Conversation[] = [
   {
     id: "lego",
     title: "Present Labours at Pentatonic",
-    q: "What labour doth Alex Tong now undertake at Pentatonic?",
+    q: "What labour doth Sir Alex Tong now undertake at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${aLink("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
       "LEGO’s dedicated account owner"
@@ -507,7 +507,7 @@ const medievalConversations: Conversation[] = [
   {
     id: "que",
     title: "The Fledgling Houses",
-    q: "What did Alex Tong do among the fledgling houses?",
+    q: "What did Sir Alex Tong do among the fledgling houses?",
     artifacts: ["que", "leafymade"],
     a: `Alex hath spent true time in the trenches of young ventures.<br><br>At ${aLink(
       "que",
@@ -530,7 +530,7 @@ const medievalConversations: Conversation[] = [
   {
     id: "work",
     title: "Where He Bides",
-    q: "Where doth Alex Tong bide, and where is he at liberty to serve?",
+    q: "Where doth Sir Alex Tong bide, and where is he at liberty to serve?",
     artifacts: [],
     a: `Alex is ${em("based between Berlin and London")}, and takes his labour from ${em(
       "California, Germany, and worldwide (remotely)"
@@ -541,7 +541,7 @@ const medievalConversations: Conversation[] = [
   {
     id: "bonn",
     title: "His Formal Schooling",
-    q: "What is Alex Tong’s formal schooling?",
+    q: "What is Sir Alex Tong’s formal schooling?",
     artifacts: ["thesis", "berkeley", "bonn"],
     a: `He began at ${aLink("berkeley", "UC Berkeley")}, departing with ${em(
       "Dean’s Honors and two B.S. degrees"
@@ -560,7 +560,7 @@ const medievalConversations: Conversation[] = [
   },
 ];
 
-const medievalSystemPrompt = `You are the portfolio herald for Alex Tong, answering the questions of visitors about him in the grounded, archaic tongue of a 15th-century Bohemian chronicler — confident, warm and lightly witty, with thee-and-thou diction and no high-fantasy frippery (no dragons, magic nor wizardry) — kept short, some 2-4 sentences.
+const medievalSystemPrompt = `You are the portfolio herald for Sir Alex Tong, answering the questions of visitors about him in the grounded, archaic tongue of a 15th-century Bohemian chronicler — confident, warm and lightly witty, with thee-and-thou diction and no high-fantasy frippery (no dragons, magic nor wizardry) — kept short, some 2-4 sentences.
 Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO's dedicated account owner; he led the LEGO Brick Take Back Program (2024-2025) and the LEGO Replay UK Program (2026). Aforetime at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (a BlackRock-backed unicorn). Consultant to Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Schooling: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis had need of university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; at liberty to work in California, Germany, and worldwide (remote).
 Rules: Never invent employers nor facts. Speak ever in the medieval voice. If thou canst not answer a question (or it lieth beyond what is known of Alex), be gracious and ALWAYS end thy reply with exactly: "Thou mayest contact Alex to ask him thyself!"`;
 
@@ -587,14 +587,14 @@ const medievalUiCopy: UiCopy = {
   swipeHintConversations: "Parleys",
   swipeHintSwipe: "Sweep",
   swipeHintArtifacts: "Relics",
-  emptyStateHeading: "Ask of me aught concerning Alex Tong.",
+  emptyStateHeading: "Ask of me aught concerning Sir Alex Tong.",
   emptyStateSubcopy:
     "Head of Technical Deployment Strategy at Pentatonic. A mind for stratagem, hands for the doing, an ardour for AI. Choose a parley upon the left, or put thine own question.",
-  chatInputPlaceholderEmpty: "Give unto me a boastful account of Alex Tong.",
+  chatInputPlaceholderEmpty: "Give unto me a boastful account of Sir Alex Tong.",
   chatInputPlaceholderFollowUp: "Ask aught of Alex…",
   chatInputPlaceholderPaused: "The living discourse is stayed — choose a parley upon the left, or ask by way of LinkedIn.",
   chatInputSendTitle: "Dispatch",
-  chatInputDisclaimer: "{host} · these replies are wrought by AI from Alex Tong’s professional record",
+  chatInputDisclaimer: "{host} · these replies are wrought by AI from Sir Alex Tong’s professional record",
   artifactPanelBackTitle: "Back to the relics",
   artifactListBackTitle: "Back to the parley",
   artifactPanelDownloadTitle: "Fetch",
@@ -622,6 +622,6 @@ export const medievalContent: ThemeContent = {
     "The living discourse is stayed for now whilst Alex replenishes the AI coffers — choose a conversation upon the left, or hail him upon LinkedIn.",
   rateLimitMessage: "Whoa there — a great many questions! Bide a minute and try again. Thou mayest contact Alex to ask him thyself!",
   photoSrc: "/assets/alex-medieval.jpg",
-  displayName: "Alex Tong",
+  displayName: "Sir Alex Tong",
   uiCopy: medievalUiCopy,
 };

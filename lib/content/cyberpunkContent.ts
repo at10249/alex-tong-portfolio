@@ -70,15 +70,15 @@ function bioHtml(): string {
     .join("");
 
   return `<div style="display:flex;align-items:center;gap:16px">
-        <img src="/assets/alex-cyberpunk.jpg" alt="Alex Tong" data-photo="true" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter);cursor:pointer">
+        <img src="/assets/alex-cyberpunk.jpg" alt="ALX-TNG" data-photo="true" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter);cursor:pointer">
         <div>
-          <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">Alex Tong</div>
+          <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">ALX-TNG</div>
           <div style="font-family:var(--font);font-weight:500;font-size:12px;color:var(--accent);margin-top:3px">Head of Technical Deployment Strategy, Pentatonic</div>
           <div style="font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:5px">Berlin · London &nbsp;&middot;&nbsp; Open to CA, Germany &amp; remote</div>
         </div>
       </div>
       <div style="height:1px;background:var(--border);margin:18px 0"></div>
-      <div style="${p}">Alex Tong runs as Head of Technical Deployment Strategy at ${aLink(
+      <div style="${p}">ALX-TNG runs as Head of Technical Deployment Strategy at ${aLink(
         "pentatonic",
         "Pentatonic"
       )}, where he calls the strategy and execution behind the corpo’s circular-economy programs — turning take-back, reuse, and recycling initiatives into hardware that actually ships and runs for global brands. He’s LEGO’s dedicated account owner, having spearheaded the strategy and end-to-end build of the ${aLink(
@@ -242,7 +242,7 @@ function timelineHtml(): string {
 }
 
 const artifacts: Record<string, Artifact> = {
-  bio: { title: "Alex Tong — Dossier / CV", meta: "DOSSIER · 2 pages", html: bioHtml() },
+  bio: { title: "ALX-TNG — Dossier / CV", meta: "DOSSIER · 2 pages", html: bioHtml() },
   pentatonic: {
     title: "Pentatonic",
     meta: "CORPO · ACTIVE RUN",
@@ -449,9 +449,9 @@ const conversations: Conversation[] = [
   {
     id: "brag",
     title: "The braggadocious data-dump",
-    q: "Give me the braggadocious data-dump on Alex Tong.",
+    q: "Give me the braggadocious data-dump on ALX-TNG.",
     artifacts: ["bio"],
-    a: `Jack in, choom. ${em("Alex Tong")} is Head of Technical Deployment Strategy at ${aLink(
+    a: `Jack in, choom. ${em("ALX-TNG")} is Head of Technical Deployment Strategy at ${aLink(
       "pentatonic",
       "Pentatonic"
     )}, where he runs the strategy and execution behind the corpo’s circular economy programs — flipping take-back, reuse, and recycling initiatives into operational reality for global brands. He’s ${aLink(
@@ -495,7 +495,7 @@ const conversations: Conversation[] = [
   {
     id: "lego",
     title: "Current run @ Pentatonic",
-    q: "What’s Alex Tong running right now at Pentatonic?",
+    q: "What’s ALX-TNG running right now at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
     a: `At ${aLink("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
       "LEGO’s dedicated account owner"
@@ -516,7 +516,7 @@ const conversations: Conversation[] = [
   {
     id: "que",
     title: "Early-stage corpos",
-    q: "What did Alex Tong pull at early-stage startups?",
+    q: "What did ALX-TNG pull at early-stage startups?",
     artifacts: ["que", "leafymade"],
     a: `Alex has logged real time in the trenches of young ventures.<br><br>At ${aLink(
       "que",
@@ -539,7 +539,7 @@ const conversations: Conversation[] = [
   {
     id: "work",
     title: "Coordinates",
-    q: "Where’s Alex Tong based, and where’s he open to running?",
+    q: "Where’s ALX-TNG based, and where’s he open to running?",
     artifacts: [],
     a: `Alex is ${em("posted up between Berlin and London")}, and runs from ${em(
       "California, Germany, and worldwide (remote)"
@@ -550,7 +550,7 @@ const conversations: Conversation[] = [
   {
     id: "bonn",
     title: "Formal creds",
-    q: "What are Alex Tong’s formal creds?",
+    q: "What are ALX-TNG’s formal creds?",
     artifacts: ["thesis", "berkeley", "bonn"],
     a: `He kicked off at ${aLink("berkeley", "UC Berkeley")}, walking out with ${em(
       "Dean’s Honors and two B.S. degrees"
@@ -569,7 +569,7 @@ const conversations: Conversation[] = [
   },
 ];
 
-const systemPrompt = `You are the portfolio chatbot for Alex Tong, answering visitor questions about him like a Night-City net-runner would — confident, streetwise, high-tech-low-life, lightly witty, sprinkling cyberpunk street slang (choom, preem, eddies, chrome, jacked in, gig, corpo, fixer) but staying legible so a recruiter still catches every real fact (short, 2-4 sentences).
+const systemPrompt = `You are the portfolio chatbot for ALX-TNG, answering visitor questions about him like a Night-City net-runner would — confident, streetwise, high-tech-low-life, lightly witty, sprinkling cyberpunk street slang (choom, preem, eddies, chrome, jacked in, gig, corpo, fixer) but staying legible so a recruiter still catches every real fact (short, 2-4 sentences).
 Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO's dedicated account owner; ran the LEGO Brick Take Back Program (2024-2025) and LEGO Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (BlackRock-backed unicorn). Consultant for Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
 Rules: Never invent employers or facts. If you can't answer a question (or it's outside what you know about Alex), stay gracious and ALWAYS end your reply with exactly: "Ping Alex direct and ask the man himself, choom!"`;
 
@@ -591,7 +591,7 @@ export const cyberpunkContent: ThemeContent = {
   llmUnavailableMessage,
   rateLimitMessage,
   photoSrc: "/assets/alex-cyberpunk.jpg",
-  displayName: "Alex Tong",
+  displayName: "ALX-TNG",
   uiCopy: {
     sidebarNewChatTitle: "New run",
     sidebarNewChatAria: "Start new run",
@@ -609,14 +609,14 @@ export const cyberpunkContent: ThemeContent = {
     swipeHintConversations: "Comms",
     swipeHintSwipe: "Flick",
     swipeHintArtifacts: "Data Shards",
-    emptyStateHeading: "Ping me anything about Alex Tong.",
+    emptyStateHeading: "Ping me anything about ALX-TNG.",
     emptyStateSubcopy:
       "Head of Technical Deployment Strategy at Pentatonic. Strategy brain, operator’s hands, chrome-deep in AI. Grab a run on the left, or ping your own question.",
-    chatInputPlaceholderEmpty: "Give me the braggadocious data-dump on Alex Tong.",
+    chatInputPlaceholderEmpty: "Give me the braggadocious data-dump on ALX-TNG.",
     chatInputPlaceholderFollowUp: "Ping anything about Alex…",
     chatInputPlaceholderPaused: "Live chat’s flatlined — grab a run on the left, or ping via LinkedIn.",
     chatInputSendTitle: "Ping",
-    chatInputDisclaimer: "{host} · responses are AI-spun from Alex Tong’s professional profile",
+    chatInputDisclaimer: "{host} · responses are AI-spun from ALX-TNG’s professional profile",
     artifactPanelBackTitle: "Back to data shards",
     artifactListBackTitle: "Back to the run",
     artifactPanelDownloadTitle: "Grab it",
