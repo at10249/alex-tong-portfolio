@@ -160,7 +160,7 @@ a:active {
 
 .app-root {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) var(--right-pane-width, 300px);
+  grid-template-columns: var(--sidebar-width, 280px) minmax(0, 1fr) var(--right-pane-width, 300px);
   height: 100vh;
   height: 100dvh;
   width: 100%;
@@ -168,6 +168,16 @@ a:active {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
+  /* Desktop collapse/expand (Sidebar/ArtifactPanel/ArtifactList's own
+     buttons) animates these two tracks smoothly. Suppressed below while
+     actively drag-resizing the right pane, which also drives
+     --right-pane-width on every mousemove — animating that too would lag
+     the pane behind the cursor instead of tracking it 1:1. */
+  transition: grid-template-columns 0.2s ease;
+}
+
+.app-root.is-resizing {
+  transition: none;
 }
 
 /* `display` for these two lives entirely here (never inline on the
@@ -187,6 +197,17 @@ a:active {
   position: relative;
 }
 
+/* Clips content when a collapsed column's track shrinks to 0 — without
+   this, the panel's own children (which don't shrink below their natural
+   size) would spill out over the chat area instead of disappearing. Only
+   applied while actually collapsed (not unconditionally) so it doesn't
+   clip the resize handle's hit area, which deliberately straddles
+   .app-right-pane's left edge (`left: -3px`) while expanded. */
+.app-sidebar.is-collapsed,
+.app-right-pane.is-collapsed {
+  overflow: hidden;
+}
+
 .app-sidebar-backdrop,
 .app-artifact-backdrop {
   display: none;
@@ -198,6 +219,15 @@ a:active {
 .back-to-chat-btn,
 .swipe-hint {
   display: none;
+}
+
+/* Desktop-only collapse/expand toggles for the sidebar and right pane —
+   opposite of the .mobile-* buttons above: visible by default, hidden on
+   mobile (which opens/closes via its own off-canvas drawer instead). */
+.desktop-panel-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 767px) {
@@ -288,6 +318,10 @@ a:active {
   }
 
   .resize-handle {
+    display: none;
+  }
+
+  .desktop-panel-toggle {
     display: none;
   }
 

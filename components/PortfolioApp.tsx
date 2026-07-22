@@ -24,6 +24,9 @@ export function PortfolioApp() {
     mobileView,
     settingsOpen,
     openArtifactId,
+    sidebarCollapsed,
+    rightPaneCollapsed,
+    resizing,
   } = useAppState();
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -39,11 +42,16 @@ export function PortfolioApp() {
   // here, since those are runtime values, not structural layout.
   const rootStyle: CSSVarStyle = {
     ...themes[theme],
-    "--right-pane-width": `${rightPaneWidth}px`,
+    "--sidebar-width": sidebarCollapsed ? "0px" : "280px",
+    "--right-pane-width": rightPaneCollapsed ? "0px" : `${rightPaneWidth}px`,
   };
 
   return (
-    <div ref={rootRef} className={`app-root theme-${theme}`} style={rootStyle}>
+    <div
+      ref={rootRef}
+      className={`app-root theme-${theme}${resizing ? " is-resizing" : ""}`}
+      style={rootStyle}
+    >
       <AnimatePresence>
         {mobileSidebarOpen && (
           <motion.div

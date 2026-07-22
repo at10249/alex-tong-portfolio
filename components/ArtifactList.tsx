@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 export function ArtifactList() {
-  const { content, openArtifactById, mobileView, backToChat } = useAppState();
+  const { content, openArtifactById, mobileView, backToChat, rightPaneCollapsed, toggleRightPaneCollapsed } = useAppState();
   const { uiCopy, artifacts, railKeys } = content;
+  const isMobile = useIsMobile();
 
   // No `if (openArtifactId) return null` guard here — the parent's
   // AnimatePresence ternary (PortfolioApp.tsx) already only renders this
@@ -26,7 +28,10 @@ export function ArtifactList() {
 
   return (
     <motion.section
-      className={`app-right-pane${activeOnMobile ? " is-active" : ""}`}
+      className={`app-right-pane${activeOnMobile ? " is-active" : ""}${rightPaneCollapsed ? " is-collapsed" : ""}`}
+      // Same reasoning as Sidebar's `inert` — a 0-width collapsed column is
+      // this component's own equivalent of mobile's off-canvas hidden state.
+      inert={isMobile ? !activeOnMobile : rightPaneCollapsed}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -75,6 +80,27 @@ export function ArtifactList() {
         >
           {uiCopy.artifactListHeader}
         </div>
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={toggleRightPaneCollapsed}
+          title={uiCopy.rightPaneCollapseTitle}
+          aria-label={uiCopy.rightPaneCollapseAria}
+          className="desktop-panel-toggle"
+          style={{
+            marginLeft: "auto",
+            width: 26,
+            height: 26,
+            flex: "none",
+            borderRadius: "var(--r-sm)",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--muted)",
+            cursor: "pointer",
+            fontSize: "13px",
+          }}
+        >
+          »
+        </motion.button>
       </div>
       <div
         tabIndex={0}

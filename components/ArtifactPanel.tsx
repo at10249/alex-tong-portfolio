@@ -3,13 +3,25 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
+import { useIsMobile } from "@/lib/useIsMobile";
 import { ArtifactChip } from "./ArtifactChip";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
-  const { content, openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, showArtifactList } =
-    useAppState();
+  const {
+    content,
+    openArtifactId,
+    openArtifactById,
+    closeArtifactPanel,
+    startResize,
+    downloadCV,
+    mobileView,
+    showArtifactList,
+    rightPaneCollapsed,
+    toggleRightPaneCollapsed,
+  } = useAppState();
   const { uiCopy } = content;
+  const isMobile = useIsMobile();
 
   // Frozen copy of the last non-null id, not the live `openArtifactId`
   // straight from context. The parent's AnimatePresence ternary
@@ -46,7 +58,10 @@ export function ArtifactPanel() {
 
   return (
     <motion.section
-      className={`app-right-pane${activeOnMobile ? " is-active" : ""}`}
+      className={`app-right-pane${activeOnMobile ? " is-active" : ""}${rightPaneCollapsed ? " is-collapsed" : ""}`}
+      // Same reasoning as Sidebar's `inert` — a 0-width collapsed column is
+      // this component's own equivalent of mobile's off-canvas hidden state.
+      inert={isMobile ? !activeOnMobile : rightPaneCollapsed}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -58,11 +73,13 @@ export function ArtifactPanel() {
         borderLeft: "1px solid var(--border)",
       }}
     >
-      <div
-        onMouseDown={startResize}
-        className="resize-handle"
-        style={{ position: "absolute", left: "-3px", top: 0, bottom: 0, width: "8px", cursor: "ew-resize", zIndex: 5 }}
-      />
+      {!rightPaneCollapsed && (
+        <div
+          onMouseDown={startResize}
+          className="resize-handle"
+          style={{ position: "absolute", left: "-3px", top: 0, bottom: 0, width: "8px", cursor: "ew-resize", zIndex: 5 }}
+        />
+      )}
       <div
         style={{
           display: "flex",
@@ -151,6 +168,25 @@ export function ArtifactPanel() {
             }}
           >
             ×
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleRightPaneCollapsed}
+            title={uiCopy.rightPaneCollapseTitle}
+            aria-label={uiCopy.rightPaneCollapseAria}
+            className="desktop-panel-toggle"
+            style={{
+              width: 26,
+              height: 26,
+              borderRadius: "var(--r-sm)",
+              border: "1px solid var(--border)",
+              background: "transparent",
+              color: "var(--muted)",
+              cursor: "pointer",
+              fontSize: "13px",
+            }}
+          >
+            »
           </motion.button>
         </div>
       </div>

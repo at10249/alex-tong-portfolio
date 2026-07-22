@@ -46,6 +46,9 @@ type AppStateValue = {
   mobileView: MobileView;
   mobileSidebarOpen: boolean;
   photoLightboxOpen: boolean;
+  sidebarCollapsed: boolean;
+  rightPaneCollapsed: boolean;
+  resizing: boolean;
 
   setDraft: (v: string) => void;
   newChat: () => void;
@@ -70,6 +73,8 @@ type AppStateValue = {
   backToChat: () => void;
   openPhotoLightbox: () => void;
   closePhotoLightbox: () => void;
+  toggleSidebarCollapsed: () => void;
+  toggleRightPaneCollapsed: () => void;
 };
 
 const AppStateContext = createContext<AppStateValue | null>(null);
@@ -94,6 +99,14 @@ export function AppStateProvider({
   const [mobileView, setMobileView] = useState<MobileView>("chat");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [photoLightboxOpen, setPhotoLightboxOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [rightPaneCollapsed, setRightPaneCollapsed] = useState(false);
+  // Only toggled at drag start/end (not per-mousemove), so it doesn't add
+  // extra re-renders beyond what panelWidth updates already cause — see
+  // its one use in globals.css, which suppresses the collapse/expand
+  // transition while this is true so a live drag stays 1:1 with the mouse
+  // instead of animating with a lag behind it.
+  const [resizing, setResizing] = useState(false);
 
   const content = themeContent[theme];
 
@@ -128,6 +141,7 @@ export function AppStateProvider({
     };
     const onUp = () => {
       resizingRef.current = false;
+      setResizing(false);
       document.body.style.userSelect = "";
     };
     window.addEventListener("mousemove", onMove);
@@ -328,10 +342,13 @@ export function AppStateProvider({
   const backToChat = useCallback(() => setMobileView("chat"), []);
   const openPhotoLightbox = useCallback(() => setPhotoLightboxOpen(true), []);
   const closePhotoLightbox = useCallback(() => setPhotoLightboxOpen(false), []);
+  const toggleSidebarCollapsed = useCallback(() => setSidebarCollapsed((v) => !v), []);
+  const toggleRightPaneCollapsed = useCallback(() => setRightPaneCollapsed((v) => !v), []);
 
   const startResize = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     resizingRef.current = true;
+    setResizing(true);
     document.body.style.userSelect = "none";
   }, []);
 
@@ -358,6 +375,9 @@ export function AppStateProvider({
       mobileView,
       mobileSidebarOpen,
       photoLightboxOpen,
+      sidebarCollapsed,
+      rightPaneCollapsed,
+      resizing,
       setDraft,
       newChat,
       sendConversation,
@@ -381,6 +401,8 @@ export function AppStateProvider({
       backToChat,
       openPhotoLightbox,
       closePhotoLightbox,
+      toggleSidebarCollapsed,
+      toggleRightPaneCollapsed,
     }),
     [
       theme,
@@ -398,6 +420,9 @@ export function AppStateProvider({
       mobileView,
       mobileSidebarOpen,
       photoLightboxOpen,
+      sidebarCollapsed,
+      rightPaneCollapsed,
+      resizing,
       newChat,
       sendConversation,
       sendSuggestion,
@@ -420,6 +445,8 @@ export function AppStateProvider({
       backToChat,
       openPhotoLightbox,
       closePhotoLightbox,
+      toggleSidebarCollapsed,
+      toggleRightPaneCollapsed,
     ]
   );
 

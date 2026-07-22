@@ -60,6 +60,26 @@ test("free-form chat calls /api/chat and renders the reply", async ({ page }) =>
   await expect(page.getByText("This is a mocked reply for CI.")).toBeVisible({ timeout: 5000 });
 });
 
+test("desktop collapse/expand buttons minimize and restore both side panels", async ({ page }) => {
+  await page.goto("/");
+
+  const sidebarWidth = async () => (await page.locator(".app-sidebar").boundingBox())?.width ?? -1;
+  const rightPaneWidth = async () => (await page.locator(".app-right-pane").boundingBox())?.width ?? -1;
+
+  expect(await sidebarWidth()).toBeGreaterThan(200);
+  expect(await rightPaneWidth()).toBeGreaterThan(200);
+
+  await page.getByRole("button", { name: "Collapse conversations panel" }).click();
+  await expect.poll(sidebarWidth).toBeLessThan(5);
+  await page.getByRole("button", { name: "Expand conversations panel" }).click();
+  await expect.poll(sidebarWidth).toBeGreaterThan(200);
+
+  await page.getByRole("button", { name: "Collapse artifacts panel" }).click();
+  await expect.poll(rightPaneWidth).toBeLessThan(5);
+  await page.getByRole("button", { name: "Expand artifacts panel" }).click();
+  await expect.poll(rightPaneWidth).toBeGreaterThan(200);
+});
+
 test("CV download endpoint returns a PDF", async ({ request }) => {
   const res = await request.get("/api/cv");
   expect(res.status()).toBe(200);

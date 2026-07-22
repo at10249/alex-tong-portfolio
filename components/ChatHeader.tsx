@@ -5,7 +5,16 @@ import { useAppState } from "@/context/AppStateContext";
 import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatHeader() {
-  const { content, downloadCV, toggleMobileSidebar, newChat } = useAppState();
+  const {
+    content,
+    downloadCV,
+    toggleMobileSidebar,
+    newChat,
+    sidebarCollapsed,
+    toggleSidebarCollapsed,
+    rightPaneCollapsed,
+    toggleRightPaneCollapsed,
+  } = useAppState();
   const { uiCopy } = content;
   const host = useCurrentHost();
 
@@ -64,6 +73,28 @@ export function ChatHeader() {
       >
         ⌂
       </motion.button>
+      {sidebarCollapsed && (
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          onClick={toggleSidebarCollapsed}
+          title={uiCopy.sidebarExpandTitle}
+          aria-label={uiCopy.sidebarExpandAria}
+          className="desktop-panel-toggle"
+          style={{
+            width: 30,
+            height: 30,
+            flex: "none",
+            borderRadius: "var(--r-sm)",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--muted)",
+            cursor: "pointer",
+            fontSize: "13px",
+          }}
+        >
+          »
+        </motion.button>
+      )}
       <button
         onClick={newChat}
         aria-label="Go to home"
@@ -93,7 +124,29 @@ export function ChatHeader() {
           {host}
         </span>
       </button>
-      <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
+      <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none", alignItems: "center" }}>
+        {rightPaneCollapsed && (
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleRightPaneCollapsed}
+            title={uiCopy.rightPaneExpandTitle}
+            aria-label={uiCopy.rightPaneExpandAria}
+            className="desktop-panel-toggle"
+            style={{
+              width: 30,
+              height: 30,
+              flex: "none",
+              borderRadius: "var(--r-sm)",
+              border: "1px solid var(--border)",
+              background: "transparent",
+              color: "var(--muted)",
+              cursor: "pointer",
+              fontSize: "13px",
+            }}
+          >
+            «
+          </motion.button>
+        )}
         <motion.a
           whileTap={{ scale: 0.95 }}
           href="https://www.linkedin.com/in/alexkevintong"

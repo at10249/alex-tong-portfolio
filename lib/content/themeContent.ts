@@ -17,6 +17,13 @@ export type UiCopy = {
   sidebarShowLess: string;
   sidebarArtifactsNav: string;
   sidebarSettingsNav: string;
+  // Desktop-only: collapse lives on Sidebar's own header, expand shows up
+  // in ChatHeader in its place once collapsed (mobile never uses these —
+  // it has its own off-canvas drawer mechanics instead).
+  sidebarCollapseTitle: string;
+  sidebarCollapseAria: string;
+  sidebarExpandTitle: string;
+  sidebarExpandAria: string;
   // Same order as lib/content/tools.ts's toolGroups (5 entries) — themed
   // headings only, the 37 tool/product names underneath stay literal.
   toolGroupNames: [string, string, string, string, string];
@@ -46,6 +53,13 @@ export type UiCopy = {
   artifactPanelRelatedLabel: string;
   artifactListHeader: string;
   artifactChipCta: string;
+  // Desktop-only, same collapse/expand split as the sidebar pair above —
+  // shown on ArtifactList/ArtifactPanel's own header and, once collapsed,
+  // in ChatHeader.
+  rightPaneCollapseTitle: string;
+  rightPaneCollapseAria: string;
+  rightPaneExpandTitle: string;
+  rightPaneExpandAria: string;
   photoLightboxCaption: string;
   settingsTitle: string;
   settingsCloseAria: string;
@@ -78,6 +92,10 @@ const defaultUiCopy: UiCopy = {
   sidebarShowLess: "Show less",
   sidebarArtifactsNav: "Artifacts",
   sidebarSettingsNav: "Settings",
+  sidebarCollapseTitle: "Collapse",
+  sidebarCollapseAria: "Collapse conversations panel",
+  sidebarExpandTitle: "Conversations",
+  sidebarExpandAria: "Expand conversations panel",
   toolGroupNames: ["AI & Automation", "Analytics & Research", "Sales, CRM & Growth", "Productivity & Docs", "Project & Ops"],
   chatHeaderMenuTitle: "Menu",
   chatHeaderMenuAria: "Open menu",
@@ -105,6 +123,10 @@ const defaultUiCopy: UiCopy = {
   artifactPanelRelatedLabel: "Related",
   artifactListHeader: "Artifacts",
   artifactChipCta: "Click to open →",
+  rightPaneCollapseTitle: "Collapse",
+  rightPaneCollapseAria: "Collapse artifacts panel",
+  rightPaneExpandTitle: "Artifacts",
+  rightPaneExpandAria: "Expand artifacts panel",
   photoLightboxCaption: "No more zooming, please. Personal space, thanks.",
   settingsTitle: "Settings",
   settingsCloseAria: "Close settings",

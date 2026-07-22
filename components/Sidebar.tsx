@@ -42,18 +42,21 @@ export function Sidebar() {
     mobileSidebarOpen,
     showArtifactList,
     openPhotoLightbox,
+    sidebarCollapsed,
+    toggleSidebarCollapsed,
   } = useAppState();
   const isMobile = useIsMobile();
   const { uiCopy } = content;
 
   return (
     <aside
-      className={`app-sidebar${mobileSidebarOpen ? " is-open" : ""}`}
+      className={`app-sidebar${mobileSidebarOpen ? " is-open" : ""}${sidebarCollapsed ? " is-collapsed" : ""}`}
       // Off-canvas via `transform`, not `display:none`, so it stays visible
       // to CSS transitions — but that also leaves it in the tab order and
       // accessibility tree. `inert` removes it from both while it's hidden
-      // on mobile; on desktop it's never inert since it's never off-canvas.
-      inert={isMobile && !mobileSidebarOpen}
+      // on mobile; on desktop it's never inert since it's never off-canvas
+      // — except when collapsed to a 0-width column, its own equivalent.
+      inert={isMobile ? !mobileSidebarOpen : sidebarCollapsed}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -121,6 +124,25 @@ export function Sidebar() {
           }}
         >
           +
+        </motion.button>
+        <motion.button
+          whileTap={{ scale: 0.88 }}
+          onClick={toggleSidebarCollapsed}
+          title={uiCopy.sidebarCollapseTitle}
+          aria-label={uiCopy.sidebarCollapseAria}
+          className="desktop-panel-toggle"
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: "var(--r-sm)",
+            border: "1px solid var(--border)",
+            background: "transparent",
+            color: "var(--muted)",
+            fontSize: "13px",
+            cursor: "pointer",
+          }}
+        >
+          «
         </motion.button>
       </div>
 
