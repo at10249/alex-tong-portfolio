@@ -535,17 +535,6 @@ const thronesConversations: Conversation[] = [
     )}, ${aLink("razor", "Razor Group")}.`,
   },
   {
-    id: "work",
-    title: "Where He Holds His Seat",
-    q: "Where does Prince Alex hold his seat, and where is he free to serve?",
-    artifacts: [],
-    a: `Prince Alex is ${em("based between Berlin and London")}, and takes his labor from ${em(
-      "California, Germany, and worldwide (remotely)"
-    )}. Yet who can say where he wanders next — he gathers time zones the way other men gather banners.<br><br>The surest way to reach him: the ${em(
-      "LinkedIn"
-    )} button set above, or take up the CV.`,
-  },
-  {
     id: "bonn",
     title: "His Formal Learning",
     q: "What is Prince Alex’s formal learning?",
@@ -564,6 +553,17 @@ const thronesConversations: Conversation[] = [
       "thesis",
       "abstract"
     )} →`,
+  },
+  {
+    id: "work",
+    title: "Where He Holds His Seat",
+    q: "Where does Prince Alex hold his seat, and where is he free to serve?",
+    artifacts: [],
+    a: `Prince Alex is ${em("based between Berlin and London")}, and takes his labor from ${em(
+      "California, Germany, and worldwide (remotely)"
+    )}. Yet who can say where he wanders next — he gathers time zones the way other men gather banners.<br><br>The surest way to reach him: the ${em(
+      "LinkedIn"
+    )} button set above, or take up the CV.`,
   },
 ];
 

@@ -537,17 +537,6 @@ const conversations: Conversation[] = [
     )}, ${aLink("razor", "Razor Group")}.`,
   },
   {
-    id: "work",
-    title: "Coordinates",
-    q: "Where’s ALX-TNG based, and where’s he open to running?",
-    artifacts: [],
-    a: `Alex is ${em("posted up between Berlin and London")}, and runs from ${em(
-      "California, Germany, and worldwide (remote)"
-    )}. But who knows where the next drop lands — he collects time zones the way other chooms collect fridge magnets.<br><br>Best way to ping him: the ${em(
-      "LinkedIn"
-    )} button up top, or grab the CV.`,
-  },
-  {
     id: "bonn",
     title: "Formal creds",
     q: "What are ALX-TNG’s formal creds?",
@@ -566,6 +555,17 @@ const conversations: Conversation[] = [
       "thesis",
       "abstract"
     )} →`,
+  },
+  {
+    id: "work",
+    title: "Coordinates",
+    q: "Where’s ALX-TNG based, and where’s he open to running?",
+    artifacts: [],
+    a: `Alex is ${em("posted up between Berlin and London")}, and runs from ${em(
+      "California, Germany, and worldwide (remote)"
+    )}. But who knows where the next drop lands — he collects time zones the way other chooms collect fridge magnets.<br><br>Best way to ping him: the ${em(
+      "LinkedIn"
+    )} button up top, or grab the CV.`,
   },
 ];
 

@@ -528,17 +528,6 @@ const medievalConversations: Conversation[] = [
     )}, ${aLink("razor", "Razor Group")}.`,
   },
   {
-    id: "work",
-    title: "Where He Bides",
-    q: "Where doth Sir Alex Tong bide, and where is he at liberty to serve?",
-    artifacts: [],
-    a: `Alex is ${em("based between Berlin and London")}, and takes his labour from ${em(
-      "California, Germany, and worldwide (remotely)"
-    )}. Yet who can say whither he wanders next — he gathers time zones as other folk gather trinkets upon the mantel.<br><br>The surest way to hail him: the ${em(
-      "LinkedIn"
-    )} button set above, or take up the CV.`,
-  },
-  {
     id: "bonn",
     title: "His Formal Schooling",
     q: "What is Sir Alex Tong’s formal schooling?",
@@ -557,6 +546,17 @@ const medievalConversations: Conversation[] = [
       "thesis",
       "summation"
     )} →`,
+  },
+  {
+    id: "work",
+    title: "Where He Bides",
+    q: "Where doth Sir Alex Tong bide, and where is he at liberty to serve?",
+    artifacts: [],
+    a: `Alex is ${em("based between Berlin and London")}, and takes his labour from ${em(
+      "California, Germany, and worldwide (remotely)"
+    )}. Yet who can say whither he wanders next — he gathers time zones as other folk gather trinkets upon the mantel.<br><br>The surest way to hail him: the ${em(
+      "LinkedIn"
+    )} button set above, or take up the CV.`,
   },
 ];
 

@@ -111,19 +111,6 @@ export const conversations: Conversation[] = [
     )}, ${link("razor", "Razor Group")}.`,
   },
   {
-    id: "work",
-    title: "Location",
-    q: "Where is Alex Tong based and open to working?",
-    // Purely about location/logistics — no company or education artifact
-    // is actually discussed here, so no chip.
-    artifacts: [],
-    a: `Alex is ${em("based between Berlin and London")}, and works from ${em(
-      "California, Germany, and worldwide (remotely)"
-    )}. But who knows where next — he collects time zones the way other people collect fridge magnets.<br><br>Best way to reach him: the ${em(
-      "LinkedIn"
-    )} button up top, or grab the CV.`,
-  },
-  {
     id: "bonn",
     title: "Formal education",
     q: "What is Alex Tong’s formal education?",
@@ -146,5 +133,18 @@ export const conversations: Conversation[] = [
       "thesis",
       "abstract"
     )} →`,
+  },
+  {
+    id: "work",
+    title: "Location",
+    q: "Where is Alex Tong based and open to working?",
+    // Purely about location/logistics — no company or education artifact
+    // is actually discussed here, so no chip.
+    artifacts: [],
+    a: `Alex is ${em("based between Berlin and London")}, and works from ${em(
+      "California, Germany, and worldwide (remotely)"
+    )}. But who knows where next — he collects time zones the way other people collect fridge magnets.<br><br>Best way to reach him: the ${em(
+      "LinkedIn"
+    )} button up top, or grab the CV.`,
   },
 ];
