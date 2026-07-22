@@ -156,7 +156,7 @@ function thesisHtml(): string {
       <div style="font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--text);margin-top:6px">Visual Attention and Consumer Valuation of Sustainability Labels: An Eye-Tracking Study in Food Markets</div>
       <div style="font-family:var(--font);font-weight:500;font-size:11px;color:var(--accent);margin-top:6px">Agricultural &amp; Food Economics — Market &amp; Consumer Research</div>
       <div style="${p};margin-top:4px">Grade: ${strongText("1.3 — sehr gut")}, Germany’s highest grade band.</div>
-      <div style="margin-top:12px;padding:9px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">TL;DR &darr;</span></div>
+      <div style="margin-top:12px;padding:9px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">TL;DR AT THE BOTTOM &darr;</span></div>
       <div style="${lab};margin:18px 0 6px">Abstract</div>
       <div style="${p}">This thesis examines how consumers visually process and value credible sustainability and ethical-certification labels on food packaging. Its core methodology is an innovative use of ${strongText(
         "eye-tracking technology"
@@ -283,9 +283,9 @@ export const artifacts: Record<string, Artifact> = {
         "UK launch"
       )} of LEGO Replay and set its long-range direction — serving as the lead point of contact for both the LEGO client and the project’s suppliers.`,
       [
-        "Led the blueprinting and roadmapping for the project’s 5-year development",
-        "Found and onboarded the operational partners — multi-stakeholder and supplier management end-to-end",
-        "Managed production while serving as the lead contact for the LEGO client and the project’s suppliers",
+        "Set the strategic direction and led the blueprinting and roadmapping for the project’s 5-year development",
+        "Found and onboarded the operational partners spanning reverse logistics, sorting and production — multi-stakeholder and supplier management end-to-end",
+        "Directed the engineering and manufacturing work through to production, serving as the lead contact for the LEGO client and the project’s suppliers throughout",
       ],
       "https://www.lego.com/en-us/aboutus/news/2024/january/lego-replay-uk",
       "LEGO® Replay UK — About Us",

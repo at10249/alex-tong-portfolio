@@ -56,6 +56,19 @@ export function PortfolioApp() {
           />
         )}
       </AnimatePresence>
+      <AnimatePresence>
+        {mobileView !== "chat" && (
+          <motion.div
+            key="artifact-backdrop"
+            className="app-artifact-backdrop is-open"
+            onClick={backToChat}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          />
+        )}
+      </AnimatePresence>
       <Sidebar />
       <ChatMain />
       <AnimatePresence mode="wait" initial={false}>

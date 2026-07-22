@@ -4,17 +4,24 @@ import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { conversations } from "@/lib/content/conversations";
 import { useCurrentHost } from "@/lib/useCurrentHost";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 export function ChatInput() {
   const { messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
   const host = useCurrentHost();
   const isEmpty = messages.length === 0;
   const isTerminal = theme === "terminal";
+  const isMobile = useIsMobile();
 
+  // Shorter on mobile so the placeholder never wraps within the single-row
+  // textarea — the full phrase reliably wraps to a second (hidden, scroll-
+  // only) line on narrow viewports.
   const placeholder = !llmAvailable
     ? "Live chat is paused — pick a conversation on the left, or ask via LinkedIn."
     : isEmpty
-      ? "Give me a braggadocious summary of Alex Tong."
+      ? isMobile
+        ? "Give me a braggadocious summary."
+        : "Give me a braggadocious summary of Alex Tong."
       : "Ask anything about Alex…";
 
   return (
@@ -25,6 +32,7 @@ export function ChatInput() {
             {conversations.map((c) => (
               <motion.button
                 key={c.id}
+                className="suggestion-chip"
                 whileTap={{ scale: 0.95 }}
                 whileHover={{ y: -1 }}
                 onClick={() => sendSuggestion(c)}

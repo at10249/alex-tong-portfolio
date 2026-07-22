@@ -54,8 +54,9 @@ export function ChatMain() {
             flexShrink: 0,
           }}
         >
-          <span>&lsaquo;&nbsp;Conversations</span>
-          <span>Artifacts&nbsp;&rsaquo;</span>
+          <span>Conversations</span>
+          <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;Swipe&nbsp;&rsaquo;</span>
+          <span>Artifacts</span>
         </div>
       )}
       <div

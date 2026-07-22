@@ -66,6 +66,9 @@ textarea.at-input {
 textarea.at-input::placeholder {
   color: var(--faint);
   font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 textarea.at-input:disabled {
@@ -114,7 +117,8 @@ button {
   position: relative;
 }
 
-.app-sidebar-backdrop {
+.app-sidebar-backdrop,
+.app-artifact-backdrop {
   display: none;
 }
 
@@ -171,30 +175,44 @@ button {
     display: flex;
   }
 
-  /* Always laid out full-screen on mobile (never `display: none`) — a
+  /* Always laid out full-height on mobile (never `display: none`) — a
      plain CSS transform slides it on/off screen instead, exactly like
-     .app-sidebar above. Deliberately NOT driven by Framer Motion/JS here:
-     a JS "is this mobile" check needs a post-mount effect to read
-     matchMedia, so it's briefly wrong on the very first render on an
-     actual mobile device — which either fought this same `position`
-     (when it was an inline style) or left an in-flight slide/fade
-     stranded at the wrong value (a visible flash before snapping to the
-     correct position). A CSS media query has no such lag: it's correct
-     from the very first paint, server-rendered HTML included. Off-screen
-     (100%) is fully outside the viewport, so it's inert without needing
-     pointer-events juggling. */
+     .app-sidebar above (same off-canvas-drawer treatment, mirrored from
+     the right edge, with a matching backdrop below so the chat stays
+     visible/dimmed behind it rather than being fully covered).
+     Deliberately NOT driven by Framer Motion/JS here: a JS "is this
+     mobile" check needs a post-mount effect to read matchMedia, so it's
+     briefly wrong on the very first render on an actual mobile device —
+     which either fought this same `position` (when it was an inline
+     style) or left an in-flight slide/fade stranded at the wrong value
+     (a visible flash before snapping to the correct position). A CSS
+     media query has no such lag: it's correct from the very first
+     paint, server-rendered HTML included. Off-screen (100%) is fully
+     outside the viewport, so it's inert without needing pointer-events
+     juggling. */
   .app-right-pane {
     display: flex;
     position: fixed;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
     z-index: 30;
-    width: 100%;
+    width: min(88vw, 360px);
     transform: translateX(100%);
     transition: transform 0.28s ease;
   }
 
   .app-right-pane.is-active {
     transform: translateX(0);
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .app-artifact-backdrop.is-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.42);
+    z-index: 25;
   }
 
   .resize-handle {
@@ -227,6 +245,11 @@ button {
 
   .chat-input-pad {
     padding: 10px 16px 18px !important;
+  }
+
+  .suggestion-chip {
+    font-size: 10px !important;
+    padding: 5px 10px !important;
   }
 
   .doc-card-pad {
