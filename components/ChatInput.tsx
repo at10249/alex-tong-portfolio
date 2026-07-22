@@ -102,32 +102,24 @@ export function ChatInput() {
             fontFamily: "var(--mono)",
             fontSize: "9.5px",
             color: "var(--faint)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "6px",
-            flexWrap: "wrap",
           }}
         >
-          <span>{uiCopy.chatInputDisclaimer.replace("{host}", host)}</span>
+          {uiCopy.chatInputDisclaimer.replace("{host}", host)}{" "}
           <motion.button
             whileTap={{ scale: 0.92 }}
             onClick={shuffleTheme}
+            title={uiCopy.shuffleThemeLabel}
+            aria-label={uiCopy.shuffleThemeLabel}
             style={{
               font: "inherit",
-              letterSpacing: "inherit",
               color: "var(--accent)",
               background: "transparent",
               border: "none",
               padding: 0,
               cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "4px",
             }}
           >
-            <span aria-hidden="true">🎲🎲</span>
-            {uiCopy.shuffleThemeLabel}
+            🎲🎲
           </motion.button>
         </div>
       </div>
