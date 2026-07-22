@@ -62,7 +62,11 @@ export function MessageThread() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            style={isBot ? { display: "flex", gap: "10px", maxWidth: "100%" } : { display: "flex", justifyContent: "flex-end" }}
+            style={
+              isBot
+                ? { display: "flex", gap: "10px", maxWidth: "100%", alignItems: "flex-start" }
+                : { display: "flex", justifyContent: "flex-end" }
+            }
           >
             {isBot && (
               <button
