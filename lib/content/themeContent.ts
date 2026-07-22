@@ -22,8 +22,8 @@ export type UiCopy = {
   toolGroupNames: [string, string, string, string, string];
   chatHeaderMenuTitle: string;
   chatHeaderMenuAria: string;
-  chatHeaderArtifactsTitle: string;
-  chatHeaderArtifactsAria: string;
+  chatHeaderHomeTitle: string;
+  chatHeaderHomeAria: string;
   chatHeaderDownloadCV: string;
   swipeHintConversations: string;
   swipeHintSwipe: string;
@@ -36,6 +36,7 @@ export type UiCopy = {
   chatInputSendTitle: string;
   // "{host}" is substituted at render time.
   chatInputDisclaimer: string;
+  shuffleThemeLabel: string;
   artifactPanelBackTitle: string;
   artifactListBackTitle: string;
   artifactPanelDownloadTitle: string;
@@ -80,8 +81,8 @@ const defaultUiCopy: UiCopy = {
   toolGroupNames: ["AI & Automation", "Analytics & Research", "Sales, CRM & Growth", "Productivity & Docs", "Project & Ops"],
   chatHeaderMenuTitle: "Menu",
   chatHeaderMenuAria: "Open menu",
-  chatHeaderArtifactsTitle: "Artifacts",
-  chatHeaderArtifactsAria: "Browse artifacts",
+  chatHeaderHomeTitle: "Home",
+  chatHeaderHomeAria: "Go to home",
   chatHeaderDownloadCV: "Download CV",
   swipeHintConversations: "Conversations",
   swipeHintSwipe: "Swipe",
@@ -94,6 +95,7 @@ const defaultUiCopy: UiCopy = {
   chatInputPlaceholderPaused: "Live chat is paused — pick a conversation on the left, or ask via LinkedIn.",
   chatInputSendTitle: "Send",
   chatInputDisclaimer: "{host} · responses are AI-generated from Alex Tong’s professional profile",
+  shuffleThemeLabel: "Shuffle theme",
   artifactPanelBackTitle: "Back to artifacts",
   artifactListBackTitle: "Back to chat",
   artifactPanelDownloadTitle: "Download",

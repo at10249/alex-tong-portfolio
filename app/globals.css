@@ -194,6 +194,7 @@ a:active {
 
 .mobile-menu-btn,
 .mobile-artifacts-nav,
+.mobile-home-nav,
 .back-to-chat-btn,
 .swipe-hint {
   display: none;
@@ -294,7 +295,8 @@ a:active {
     display: grid;
   }
 
-  .mobile-artifacts-nav {
+  .mobile-artifacts-nav,
+  .mobile-home-nav {
     display: flex;
   }
 

@@ -5,7 +5,7 @@ import { useAppState } from "@/context/AppStateContext";
 import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatHeader() {
-  const { content, downloadCV, toggleMobileSidebar, showArtifactList, newChat } = useAppState();
+  const { content, downloadCV, toggleMobileSidebar, newChat } = useAppState();
   const { uiCopy } = content;
   const host = useCurrentHost();
 
@@ -44,10 +44,10 @@ export function ChatHeader() {
       </motion.button>
       <motion.button
         whileTap={{ scale: 0.9 }}
-        onClick={showArtifactList}
-        title={uiCopy.chatHeaderArtifactsTitle}
-        aria-label={uiCopy.chatHeaderArtifactsAria}
-        className="mobile-artifacts-nav"
+        onClick={newChat}
+        title={uiCopy.chatHeaderHomeTitle}
+        aria-label={uiCopy.chatHeaderHomeAria}
+        className="mobile-home-nav"
         style={{
           width: 30,
           height: 30,
@@ -62,7 +62,7 @@ export function ChatHeader() {
           fontSize: "14px",
         }}
       >
-        ▤
+        ⌂
       </motion.button>
       <button
         onClick={newChat}

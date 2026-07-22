@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 import { ArtifactChip } from "./ArtifactChip";
@@ -9,8 +10,26 @@ export function ArtifactPanel() {
   const { content, openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, showArtifactList } =
     useAppState();
   const { uiCopy } = content;
-  if (!openArtifactId) return null;
-  const artifact = content.artifacts[openArtifactId];
+
+  // Frozen copy of the last non-null id, not the live `openArtifactId`
+  // straight from context. The parent's AnimatePresence ternary
+  // (PortfolioApp.tsx) keeps this component mounted for its exit
+  // animation after openArtifactId has already gone back to null (e.g.
+  // closeArtifactPanel/backToChat) — reading it live here would render
+  // the artifact's content as gone immediately, snapping the pane to
+  // blank instead of fading out with its last content still showing.
+  // Still updates instantly for a genuine id change (e.g. clicking a
+  // related-artifact chip below), since that's a truthy value coming in.
+  // (State, not a ref — adjusting state during render like this, guarded
+  // by a comparison, is React's own sanctioned pattern for "derive from a
+  // prop but keep the last value once it disappears"; it resolves within
+  // the same render pass, so there's no stale-frame flash.)
+  const [activeArtifactId, setActiveArtifactId] = useState<string | null>(openArtifactId);
+  if (openArtifactId && openArtifactId !== activeArtifactId) {
+    setActiveArtifactId(openArtifactId);
+  }
+
+  const artifact = activeArtifactId ? content.artifacts[activeArtifactId] : undefined;
   if (!artifact) return null;
 
   // The mobile slide (and the `position: fixed` full-screen overlay it
@@ -95,7 +114,7 @@ export function ArtifactPanel() {
           </div>
         </div>
         <div style={{ marginLeft: "auto", display: "flex", gap: "6px" }}>
-          {openArtifactId === "bio" && (
+          {activeArtifactId === "bio" && (
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={downloadCV}

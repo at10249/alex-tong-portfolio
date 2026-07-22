@@ -8,7 +8,7 @@ import { MessageThread } from "./MessageThread";
 import { ChatInput } from "./ChatInput";
 
 export function ChatMain() {
-  const { content, messages, loading } = useAppState();
+  const { content, messages, loading, openMobileSidebar, openMobileRightPane } = useAppState();
   const { uiCopy } = content;
   const isEmpty = messages.length === 0;
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -54,9 +54,37 @@ export function ChatMain() {
           flexShrink: 0,
         }}
       >
-        <span>{uiCopy.swipeHintConversations}</span>
+        <button
+          onClick={openMobileSidebar}
+          style={{
+            font: "inherit",
+            letterSpacing: "inherit",
+            textTransform: "inherit",
+            color: "inherit",
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+          }}
+        >
+          {uiCopy.swipeHintConversations}
+        </button>
         <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;{uiCopy.swipeHintSwipe}&nbsp;&rsaquo;</span>
-        <span>{uiCopy.swipeHintArtifacts}</span>
+        <button
+          onClick={openMobileRightPane}
+          style={{
+            font: "inherit",
+            letterSpacing: "inherit",
+            textTransform: "inherit",
+            color: "inherit",
+            background: "transparent",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+          }}
+        >
+          {uiCopy.swipeHintArtifacts}
+        </button>
       </div>
       <div
         ref={scrollRef}

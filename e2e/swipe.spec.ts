@@ -64,7 +64,7 @@ test("swipe left from chat opens the artifacts pane", async ({ page }) => {
 
 test("swipe right closes the artifacts pane back to chat", async ({ page }) => {
   const viewport = page.viewportSize()!;
-  await page.getByRole("button", { name: "Browse artifacts" }).click();
+  await page.getByRole("button", { name: "Artifacts", exact: true }).click();
   await expect.poll(() => isOnScreen(page, ".app-right-pane", "right")).toBe(true);
 
   await swipe(page, viewport.width / 2, viewport.height / 2, 260);

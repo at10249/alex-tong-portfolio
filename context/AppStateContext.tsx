@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { ThemeName, THEME_STORAGE_KEY } from "@/lib/theme";
+import { themeCanonicalPath } from "@/lib/themeSlugs";
 import { Conversation } from "@/lib/content/conversations";
 import { ChatMessage } from "@/lib/types";
 import { themeContent, type ThemeContent } from "@/lib/content/themeContent";
@@ -20,6 +21,7 @@ const MAX_PANEL_WIDTH = 760;
 const DEFAULT_PANEL_WIDTH = 460;
 const LIST_MODE_WIDTH = 300;
 const SCRIPTED_ANSWER_DELAY_MS = 420;
+const ALL_THEMES: ThemeName[] = ["warm", "terminal", "cyberpunk", "medieval", "thrones"];
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : () => {};
 
@@ -55,6 +57,7 @@ type AppStateValue = {
   openSettings: () => void;
   closeSettings: () => void;
   setTheme: (name: ThemeName) => void;
+  shuffleTheme: () => void;
   openArtifactById: (id: string) => void;
   closeArtifactPanel: () => void;
   startResize: (e: React.MouseEvent) => void;
@@ -71,8 +74,14 @@ type AppStateValue = {
 
 const AppStateContext = createContext<AppStateValue | null>(null);
 
-export function AppStateProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeName>("warm");
+export function AppStateProvider({
+  children,
+  initialTheme,
+}: {
+  children: ReactNode;
+  initialTheme?: ThemeName;
+}) {
+  const [theme, setThemeState] = useState<ThemeName>(initialTheme ?? "warm");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [draft, setDraft] = useState("");
   const [openArtifactId, setOpenArtifactId] = useState<string | null>(null);
@@ -91,6 +100,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const resizingRef = useRef(false);
 
   useIsomorphicLayoutEffect(() => {
+    // Arriving via a theme URL (e.g. /cyberpunk) always wins over whatever
+    // was previously saved — persist it so the choice sticks on later
+    // visits to the bare root, same as picking a theme from Settings.
+    if (initialTheme) {
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, initialTheme);
+      } catch {
+        // ignore write failures
+      }
+      return;
+    }
     try {
       const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
       if (saved === "warm" || saved === "terminal" || saved === "cyberpunk" || saved === "medieval" || saved === "thrones")
@@ -98,7 +118,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     } catch {
       // localStorage unavailable (private browsing, etc.) — fall back to default theme
     }
-  }, []);
+  }, [initialTheme]);
 
   useIsomorphicLayoutEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -125,7 +145,19 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     } catch {
       // ignore write failures
     }
+    // Plain History API, deliberately not next/navigation's router — a real
+    // route change would remount AppStateProvider and wipe the in-progress
+    // chat. This only ever updates the visible path on the current origin,
+    // so alextong.fyi / whoisalextong.com / claude.alextong.com each keep
+    // their own host when the theme changes.
+    window.history.replaceState(null, "", themeCanonicalPath[name]);
   }, []);
+
+  const shuffleTheme = useCallback(() => {
+    const choices = ALL_THEMES.filter((t) => t !== theme);
+    const next = choices[Math.floor(Math.random() * choices.length)];
+    setTheme(next);
+  }, [theme, setTheme]);
 
   const pushBotMessage = useCallback((html: string, artifacts: string[] = [], conversationId?: string) => {
     setMessages((prev) => [...prev, { role: "bot", html, artifacts, conversationId }]);
@@ -336,6 +368,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       openSettings,
       closeSettings,
       setTheme,
+      shuffleTheme,
       openArtifactById,
       closeArtifactPanel,
       startResize,
@@ -374,6 +407,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       openSettings,
       closeSettings,
       setTheme,
+      shuffleTheme,
       openArtifactById,
       closeArtifactPanel,
       startResize,

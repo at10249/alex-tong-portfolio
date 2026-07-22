@@ -4,9 +4,19 @@ import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
 
 export function ArtifactList() {
-  const { content, openArtifactId, openArtifactById, mobileView, backToChat } = useAppState();
+  const { content, openArtifactById, mobileView, backToChat } = useAppState();
   const { uiCopy, artifacts, railKeys } = content;
-  if (openArtifactId) return null;
+
+  // No `if (openArtifactId) return null` guard here — the parent's
+  // AnimatePresence ternary (PortfolioApp.tsx) already only renders this
+  // component when there's no open artifact. Adding a second, reactive
+  // check on the same value used to be redundant *and* actively broke the
+  // transition: while this component plays its exit animation (selecting
+  // an artifact swaps it for ArtifactPanel), it's still mounted and still
+  // subscribed to context — so the instant openArtifactId flipped truthy,
+  // this would re-render to null and the whole pane would vanish before
+  // its fade-out ever got to play, instead of fading smoothly. See the
+  // identical note in ArtifactPanel.tsx.
 
   // See ArtifactPanel's identical comment — the mobile slide is pure CSS
   // (`.app-right-pane.is-active`), not JS/Framer, so there's no

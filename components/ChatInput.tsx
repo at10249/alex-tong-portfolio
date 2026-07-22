@@ -5,7 +5,8 @@ import { useAppState } from "@/context/AppStateContext";
 import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatInput() {
-  const { content, messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
+  const { content, messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable, shuffleTheme } =
+    useAppState();
   const { uiCopy } = content;
   const host = useCurrentHost();
   const isEmpty = messages.length === 0;
@@ -94,8 +95,40 @@ export function ChatInput() {
             </motion.button>
           </div>
         </div>
-        <div style={{ textAlign: "center", marginTop: "9px", fontFamily: "var(--mono)", fontSize: "9.5px", color: "var(--faint)" }}>
-          {uiCopy.chatInputDisclaimer.replace("{host}", host)}
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "9px",
+            fontFamily: "var(--mono)",
+            fontSize: "9.5px",
+            color: "var(--faint)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
+            flexWrap: "wrap",
+          }}
+        >
+          <span>{uiCopy.chatInputDisclaimer.replace("{host}", host)}</span>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            onClick={shuffleTheme}
+            style={{
+              font: "inherit",
+              letterSpacing: "inherit",
+              color: "var(--accent)",
+              background: "transparent",
+              border: "none",
+              padding: 0,
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
+            <span aria-hidden="true">🎲🎲</span>
+            {uiCopy.shuffleThemeLabel}
+          </motion.button>
         </div>
       </div>
     </div>
