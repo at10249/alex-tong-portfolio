@@ -10,6 +10,7 @@ import { ChatMain } from "./ChatMain";
 import { ArtifactPanel } from "./ArtifactPanel";
 import { ArtifactList } from "./ArtifactList";
 import { SettingsModal } from "./SettingsModal";
+import { PhotoLightbox } from "./PhotoLightbox";
 
 export function PortfolioApp() {
   const {
@@ -42,7 +43,7 @@ export function PortfolioApp() {
   };
 
   return (
-    <div ref={rootRef} className="app-root" style={rootStyle}>
+    <div ref={rootRef} className={`app-root theme-${theme}`} style={rootStyle}>
       <AnimatePresence>
         {mobileSidebarOpen && (
           <motion.div
@@ -75,6 +76,7 @@ export function PortfolioApp() {
         {openArtifactId ? <ArtifactPanel key="panel" /> : <ArtifactList key="list" />}
       </AnimatePresence>
       <SettingsModal />
+      <PhotoLightbox />
     </div>
   );
 }

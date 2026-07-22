@@ -1,15 +1,15 @@
 "use client";
 
 import { useAppState } from "@/context/AppStateContext";
-import { artifacts } from "@/lib/content/artifacts";
 import type { CSSVarStyle } from "@/lib/theme";
 
 // Renders author-controlled HTML (bios, case studies, scripted answers) and
 // delegates clicks on inline entity links (`data-art="<id>"`) to open the
 // matching artifact in the right-hand panel — mirrors the reference's
-// event-delegated `node()` renderer.
+// event-delegated `node()` renderer. Also delegates clicks on the bio
+// artifact's embedded profile photo (`data-photo`) to the shared lightbox.
 export function RichHtml({ html, style }: { html: string; style?: CSSVarStyle }) {
-  const { openArtifactById } = useAppState();
+  const { content, openArtifactById, openPhotoLightbox } = useAppState();
 
   return (
     <div
@@ -22,10 +22,14 @@ export function RichHtml({ html, style }: { html: string; style?: CSSVarStyle })
       }}
       onClick={(e) => {
         const target = e.target as HTMLElement;
+        if (target.closest?.("[data-photo]")) {
+          openPhotoLightbox();
+          return;
+        }
         const el = target.closest?.("[data-art]");
         if (!el) return;
         const id = el.getAttribute("data-art");
-        if (id && artifacts[id]) openArtifactById(id);
+        if (id && content.artifacts[id]) openArtifactById(id);
       }}
       dangerouslySetInnerHTML={{ __html: html }}
     />

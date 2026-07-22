@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { artifacts } from "@/lib/content/artifacts";
 import { ArtifactChip } from "./ArtifactChip";
 import { RichHtml } from "./RichHtml";
 
@@ -17,8 +16,17 @@ const avatarStyle = {
   filter: "var(--photo-filter)",
 };
 
+const avatarButtonStyle = {
+  border: "none",
+  background: "transparent",
+  padding: 0,
+  cursor: "pointer",
+  flex: "none" as const,
+  lineHeight: 0,
+};
+
 export function MessageThread() {
-  const { messages, loading, openArtifactById } = useAppState();
+  const { content, messages, loading, openArtifactById, openPhotoLightbox } = useAppState();
 
   if (messages.length === 0) return null;
 
@@ -37,7 +45,16 @@ export function MessageThread() {
     >
       {messages.map((m, i) => {
         const isBot = m.role === "bot";
-        const msgArtifacts = isBot ? (m.artifacts ?? []).map((id) => ({ id, artifact: artifacts[id] })).filter((a) => a.artifact) : [];
+        const msgArtifacts = isBot
+          ? (m.artifacts ?? []).map((id) => ({ id, artifact: content.artifacts[id] })).filter((a) => a.artifact)
+          : [];
+        // Scripted answers re-derive their HTML live from the current
+        // theme's content on every render, so switching themes mid-
+        // conversation re-voices replies already on screen. Live
+        // LLM-generated replies (no conversationId) just use what's stored.
+        const displayHtml = m.conversationId
+          ? (content.conversations.find((c) => c.id === m.conversationId)?.a ?? m.html)
+          : m.html;
         return (
           <motion.div
             key={i}
@@ -47,7 +64,15 @@ export function MessageThread() {
             transition={{ duration: 0.28, ease: "easeOut" }}
             style={isBot ? { display: "flex", gap: "10px", maxWidth: "100%" } : { display: "flex", justifyContent: "flex-end" }}
           >
-            {isBot && <Image src="/assets/alex.jpeg" alt="Alex Tong" width={26} height={26} style={avatarStyle} />}
+            {isBot && (
+              <button
+                onClick={openPhotoLightbox}
+                aria-label={`View larger photo of ${content.displayName}`}
+                style={avatarButtonStyle}
+              >
+                <Image src={content.photoSrc} alt={content.displayName} width={26} height={26} style={avatarStyle} />
+              </button>
+            )}
             <div
               style={
                 isBot
@@ -64,7 +89,7 @@ export function MessageThread() {
                     }
               }
             >
-              {isBot ? <RichHtml html={m.html ?? ""} /> : m.text}
+              {isBot ? <RichHtml html={displayHtml ?? ""} /> : m.text}
               {msgArtifacts.length > 0 && (
                 <div style={{ marginTop: "12px", display: "flex", flexWrap: "wrap", gap: "8px" }}>
                   {msgArtifacts.map(({ id, artifact }) => (
@@ -79,7 +104,9 @@ export function MessageThread() {
 
       {loading && (
         <div style={{ display: "flex", gap: "9px", alignItems: "center" }}>
-          <Image src="/assets/alex.jpeg" alt="Alex Tong" width={26} height={26} style={avatarStyle} />
+          <button onClick={openPhotoLightbox} aria-label={`View larger photo of ${content.displayName}`} style={avatarButtonStyle}>
+            <Image src={content.photoSrc} alt={content.displayName} width={26} height={26} style={avatarStyle} />
+          </button>
           <div style={{ display: "flex", gap: "5px", color: "var(--muted)", padding: "8px 2px" }}>
             <span className="at-dot" />
             <span className="at-dot" style={{ animationDelay: ".2s" }} />

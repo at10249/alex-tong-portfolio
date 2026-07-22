@@ -2,14 +2,15 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { artifacts } from "@/lib/content/artifacts";
 import { ArtifactChip } from "./ArtifactChip";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
-  const { openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, showArtifactList } = useAppState();
+  const { content, openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, showArtifactList } =
+    useAppState();
+  const { uiCopy } = content;
   if (!openArtifactId) return null;
-  const artifact = artifacts[openArtifactId];
+  const artifact = content.artifacts[openArtifactId];
   if (!artifact) return null;
 
   // The mobile slide (and the `position: fixed` full-screen overlay it
@@ -56,8 +57,8 @@ export function ArtifactPanel() {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={showArtifactList}
-          title="Back to artifacts"
-          aria-label="Back to artifacts"
+          title={uiCopy.artifactPanelBackTitle}
+          aria-label={uiCopy.artifactPanelBackTitle}
           className="back-to-chat-btn"
           style={{
             width: 26,
@@ -98,8 +99,8 @@ export function ArtifactPanel() {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={downloadCV}
-              title="Download"
-              aria-label="Download CV"
+              title={uiCopy.artifactPanelDownloadTitle}
+              aria-label={uiCopy.artifactPanelDownloadAria}
               style={{
                 width: 26,
                 height: 26,
@@ -117,8 +118,8 @@ export function ArtifactPanel() {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={closeArtifactPanel}
-            title="Close"
-            aria-label="Close artifact"
+            title={uiCopy.artifactPanelCloseTitle}
+            aria-label={uiCopy.artifactPanelCloseAria}
             style={{
               width: 26,
               height: 26,
@@ -160,11 +161,11 @@ export function ArtifactPanel() {
                 marginBottom: "8px",
               }}
             >
-              Related
+              {uiCopy.artifactPanelRelatedLabel}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
               {artifact.related.map((id) => {
-                const related = artifacts[id];
+                const related = content.artifacts[id];
                 if (!related) return null;
                 return <ArtifactChip key={id} title={related.title} onClick={() => openArtifactById(id)} />;
               })}

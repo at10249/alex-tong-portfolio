@@ -2,27 +2,27 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { conversations } from "@/lib/content/conversations";
 import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatInput() {
-  const { messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
+  const { content, messages, draft, setDraft, onInputKeyDown, sendDraft, sendSuggestion, theme, llmAvailable } = useAppState();
+  const { uiCopy } = content;
   const host = useCurrentHost();
   const isEmpty = messages.length === 0;
   const isTerminal = theme === "terminal";
 
   const placeholder = !llmAvailable
-    ? "Live chat is paused — pick a conversation on the left, or ask via LinkedIn."
+    ? uiCopy.chatInputPlaceholderPaused
     : isEmpty
-      ? "Give me a braggadocious summary of Alex Tong."
-      : "Ask anything about Alex…";
+      ? uiCopy.chatInputPlaceholderEmpty
+      : uiCopy.chatInputPlaceholderFollowUp;
 
   return (
     <div className="chat-input-pad" style={{ padding: "12px 28px 22px", flexShrink: 0 }}>
       <div style={{ maxWidth: "760px", margin: "0 auto" }}>
         {isEmpty && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "12px", justifyContent: "center" }}>
-            {conversations.map((c) => (
+            {content.conversations.map((c) => (
               <motion.button
                 key={c.id}
                 className="suggestion-chip"
@@ -74,7 +74,7 @@ export function ChatInput() {
               whileTap={llmAvailable ? { scale: 0.88 } : undefined}
               onClick={sendDraft}
               disabled={!llmAvailable}
-              title="Send"
+              title={uiCopy.chatInputSendTitle}
               style={{
                 width: 32,
                 height: 32,
@@ -95,7 +95,7 @@ export function ChatInput() {
           </div>
         </div>
         <div style={{ textAlign: "center", marginTop: "9px", fontFamily: "var(--mono)", fontSize: "9.5px", color: "var(--faint)" }}>
-          {host} &middot; responses are AI-generated from Alex Tong&rsquo;s professional profile
+          {uiCopy.chatInputDisclaimer.replace("{host}", host)}
         </div>
       </div>
     </div>

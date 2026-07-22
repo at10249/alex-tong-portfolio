@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { useAppState } from "@/context/AppStateContext";
 
 export function EmptyState() {
-  const [photoOpen, setPhotoOpen] = useState(false);
+  const { content, openPhotoLightbox } = useAppState();
+  const { uiCopy } = content;
 
   return (
     <div
@@ -21,8 +21,8 @@ export function EmptyState() {
       }}
     >
       <button
-        onClick={() => setPhotoOpen(true)}
-        aria-label="View larger photo of Alex Tong"
+        onClick={openPhotoLightbox}
+        aria-label={`View larger photo of ${content.displayName}`}
         style={{
           border: "none",
           background: "transparent",
@@ -33,83 +33,22 @@ export function EmptyState() {
         }}
       >
         <Image
-          src="/assets/alex.jpeg"
-          alt="Alex Tong"
-          width={64}
-          height={64}
+          src={content.photoSrc}
+          alt={content.displayName}
+          width={120}
+          height={120}
           priority
+          className="empty-state-photo"
           style={{
-            width: 64,
-            height: 64,
-            borderRadius: "18px",
+            width: 120,
+            height: 120,
+            borderRadius: "22px",
             objectFit: "cover",
             objectPosition: "50% 12%",
             filter: "var(--photo-filter)",
           }}
         />
       </button>
-      <AnimatePresence>
-        {photoOpen && (
-          <motion.div
-            key="photo-backdrop"
-            onClick={() => setPhotoOpen(false)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.55)", display: "grid", placeItems: "center", zIndex: 60 }}
-          >
-            <motion.div
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.94, y: 8 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 8 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              style={{ position: "relative", maxWidth: "min(320px, 84vw)" }}
-            >
-              <Image
-                src="/assets/alex.jpeg"
-                alt="Alex Tong"
-                width={320}
-                height={320}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  aspectRatio: "1 / 1",
-                  borderRadius: "var(--r-lg)",
-                  objectFit: "cover",
-                  objectPosition: "50% 12%",
-                  filter: "var(--photo-filter)",
-                  boxShadow: "0 24px 60px -20px rgba(0,0,0,.5)",
-                  display: "block",
-                }}
-              />
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setPhotoOpen(false)}
-                aria-label="Close"
-                style={{
-                  position: "absolute",
-                  top: "-14px",
-                  right: "-14px",
-                  width: 30,
-                  height: 30,
-                  borderRadius: "50%",
-                  border: "1px solid var(--border)",
-                  background: "var(--panel)",
-                  color: "var(--text)",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
-                ×
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
       <div
         style={{
           fontFamily: "var(--display)",
@@ -121,11 +60,10 @@ export function EmptyState() {
           marginBottom: "12px",
         }}
       >
-        Ask me anything about Alex Tong.
+        {uiCopy.emptyStateHeading}
       </div>
       <div style={{ fontFamily: "var(--font)", fontSize: "13.5px", lineHeight: 1.6, color: "var(--muted)", maxWidth: "430px" }}>
-        Head of Technical Deployment Strategy at Pentatonic. Strategy brain, operator&rsquo;s hands, AI enthusiast. Pick a
-        conversation on the left or ask your own question.
+        {uiCopy.emptyStateSubcopy}
       </div>
     </div>
   );

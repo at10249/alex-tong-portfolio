@@ -30,7 +30,7 @@ test("homepage has no serious/critical accessibility violations", async ({ page 
 test("settings modal has no serious/critical accessibility violations", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(page.getByText("Switch the whole interface between two personalities.")).toBeVisible();
+  await expect(page.getByText("Switch the whole interface between 5 personalities.")).toBeVisible();
   await page.waitForTimeout(400); // let the framer-motion entrance animation settle before scanning
   await checkA11y(page);
 });

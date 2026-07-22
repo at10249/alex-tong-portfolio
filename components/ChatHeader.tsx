@@ -5,7 +5,8 @@ import { useAppState } from "@/context/AppStateContext";
 import { useCurrentHost } from "@/lib/useCurrentHost";
 
 export function ChatHeader() {
-  const { downloadCV, toggleMobileSidebar, showArtifactList } = useAppState();
+  const { content, downloadCV, toggleMobileSidebar, showArtifactList, newChat } = useAppState();
+  const { uiCopy } = content;
   const host = useCurrentHost();
 
   return (
@@ -23,8 +24,8 @@ export function ChatHeader() {
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={toggleMobileSidebar}
-        title="Menu"
-        aria-label="Open menu"
+        title={uiCopy.chatHeaderMenuTitle}
+        aria-label={uiCopy.chatHeaderMenuAria}
         className="mobile-menu-btn"
         style={{
           width: 30,
@@ -44,8 +45,8 @@ export function ChatHeader() {
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={showArtifactList}
-        title="Artifacts"
-        aria-label="Browse artifacts"
+        title={uiCopy.chatHeaderArtifactsTitle}
+        aria-label={uiCopy.chatHeaderArtifactsAria}
         className="mobile-artifacts-nav"
         style={{
           width: 30,
@@ -63,20 +64,35 @@ export function ChatHeader() {
       >
         ▤
       </motion.button>
-      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#3f9d6b", flex: "none" }} />
-      <span
+      <button
+        onClick={newChat}
+        aria-label="Go to home"
         style={{
-          fontFamily: "var(--mono)",
-          fontSize: "11.5px",
-          color: "var(--muted)",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
           minWidth: 0,
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
+          border: "none",
+          background: "transparent",
+          padding: 0,
+          cursor: "pointer",
         }}
       >
-        {host}
-      </span>
+        <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#3f9d6b", flex: "none" }} />
+        <span
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: "11.5px",
+            color: "var(--muted)",
+            minWidth: 0,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {host}
+        </span>
+      </button>
       <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none" }}>
         <motion.a
           whileTap={{ scale: 0.95 }}
@@ -115,7 +131,7 @@ export function ChatHeader() {
             flex: "none",
           }}
         >
-          Download CV
+          {uiCopy.chatHeaderDownloadCV}
         </motion.button>
       </div>
     </header>

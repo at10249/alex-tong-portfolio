@@ -34,7 +34,7 @@ test("an inline entity link swaps the open artifact", async ({ page }) => {
 test("settings modal switches the theme", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Settings" }).click();
-  await expect(page.getByText("Switch the whole interface between two personalities.")).toBeVisible();
+  await expect(page.getByText("Switch the whole interface between 5 personalities.")).toBeVisible();
 
   await page.getByRole("button", { name: /Terminal/ }).click();
   await page.getByRole("button", { name: "Close settings" }).click();

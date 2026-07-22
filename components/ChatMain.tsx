@@ -8,7 +8,8 @@ import { MessageThread } from "./MessageThread";
 import { ChatInput } from "./ChatInput";
 
 export function ChatMain() {
-  const { messages, loading } = useAppState();
+  const { content, messages, loading } = useAppState();
+  const { uiCopy } = content;
   const isEmpty = messages.length === 0;
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -53,9 +54,9 @@ export function ChatMain() {
           flexShrink: 0,
         }}
       >
-        <span>Conversations</span>
-        <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;Swipe&nbsp;&rsaquo;</span>
-        <span>Artifacts</span>
+        <span>{uiCopy.swipeHintConversations}</span>
+        <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;{uiCopy.swipeHintSwipe}&nbsp;&rsaquo;</span>
+        <span>{uiCopy.swipeHintArtifacts}</span>
       </div>
       <div
         ref={scrollRef}

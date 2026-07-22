@@ -2,10 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { artifacts, railKeys } from "@/lib/content/artifacts";
 
 export function ArtifactList() {
-  const { openArtifactId, openArtifactById, mobileView, backToChat } = useAppState();
+  const { content, openArtifactId, openArtifactById, mobileView, backToChat } = useAppState();
+  const { uiCopy, artifacts, railKeys } = content;
   if (openArtifactId) return null;
 
   // See ArtifactPanel's identical comment — the mobile slide is pure CSS
@@ -34,8 +34,8 @@ export function ArtifactList() {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={backToChat}
-          title="Back to chat"
-          aria-label="Back to chat"
+          title={uiCopy.artifactListBackTitle}
+          aria-label={uiCopy.artifactListBackTitle}
           className="back-to-chat-btn"
           style={{
             width: 26,
@@ -63,12 +63,12 @@ export function ArtifactList() {
             textTransform: "uppercase",
           }}
         >
-          Artifacts
+          {uiCopy.artifactListHeader}
         </div>
       </div>
       <div
         tabIndex={0}
-        aria-label="Artifact list"
+        aria-label={uiCopy.artifactListHeader}
         style={{ flex: 1, minHeight: 0, overflowY: "auto", display: "flex", flexDirection: "column", gap: "8px", padding: "0 12px 16px" }}
       >
         {railKeys.map((key) => {

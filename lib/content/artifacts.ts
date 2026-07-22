@@ -71,7 +71,7 @@ function bioHtml(): string {
     .join("");
 
   return `<div style="display:flex;align-items:center;gap:16px">
-        <img src="/assets/alex.jpeg" alt="Alex Tong" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter)">
+        <img src="/assets/alex.jpeg" alt="Alex Tong" data-photo="true" style="width:66px;height:66px;border-radius:14px;object-fit:cover;object-position:50% 12%;flex:none;filter:var(--photo-filter);cursor:pointer">
         <div>
           <div style="font-family:var(--display);font-weight:700;font-size:23px;color:var(--text)">Alex Tong</div>
           <div style="font-family:var(--font);font-weight:500;font-size:12px;color:var(--accent);margin-top:3px">Head of Technical Deployment Strategy, Pentatonic</div>

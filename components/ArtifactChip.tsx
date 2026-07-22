@@ -1,11 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useAppState } from "@/context/AppStateContext";
 
 // Shared chip UI for "here's a related artifact" — used both under a chat
 // message that discusses one, and inside an artifact document that
 // references others (its own `related` list).
 export function ArtifactChip({ title, onClick }: { title: string; onClick: () => void }) {
+  const { content } = useAppState();
   return (
     <motion.button
       whileTap={{ scale: 0.97 }}
@@ -54,7 +56,7 @@ export function ArtifactChip({ title, onClick }: { title: string; onClick: () =>
           {title}
         </span>
         <span style={{ display: "block", fontFamily: "var(--font)", fontSize: "10px", color: "var(--faint)" }}>
-          Click to open →
+          {content.uiCopy.artifactChipCta}
         </span>
       </span>
     </motion.button>

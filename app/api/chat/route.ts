@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
+import { themeContent, defaultContent } from "@/lib/content/themeContent";
+import type { ThemeName } from "@/lib/theme";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { isBalanceError, isDeepseekExhausted, markDeepseekExhausted } from "@/lib/deepseekCircuit";
 import { isAllowedOrigin } from "@/lib/originCheck";
@@ -8,6 +9,14 @@ export const runtime = "nodejs";
 
 const MAX_QUESTION_LENGTH = 800;
 const DEEPSEEK_TIMEOUT_MS = 15_000;
+
+function systemPromptForTheme(theme: unknown): string {
+  const known: ThemeName[] = ["warm", "terminal", "cyberpunk", "medieval", "thrones"];
+  if (typeof theme === "string" && (known as string[]).includes(theme)) {
+    return themeContent[theme as ThemeName].systemPrompt;
+  }
+  return defaultContent.systemPrompt;
+}
 
 function clientKey(req: NextRequest): string {
   const forwardedFor = req.headers.get("x-forwarded-for");
@@ -34,9 +43,11 @@ export async function POST(req: NextRequest) {
   }
 
   let question: unknown;
+  let theme: unknown;
   try {
     const body = await req.json();
     question = body?.question;
+    theme = body?.theme;
   } catch {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
@@ -45,6 +56,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_request" }, { status: 400 });
   }
   const trimmedQuestion = question.trim().slice(0, MAX_QUESTION_LENGTH);
+  const systemPrompt = systemPromptForTheme(theme);
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) {
@@ -66,7 +78,7 @@ export async function POST(req: NextRequest) {
         model: "deepseek-chat",
         max_tokens: 400,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: systemPrompt },
           { role: "user", content: trimmedQuestion },
         ],
       }),

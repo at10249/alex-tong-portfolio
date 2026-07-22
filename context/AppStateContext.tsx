@@ -11,9 +11,9 @@ import {
   type ReactNode,
 } from "react";
 import { ThemeName, THEME_STORAGE_KEY } from "@/lib/theme";
-import { Conversation, conversations } from "@/lib/content/conversations";
+import { Conversation } from "@/lib/content/conversations";
 import { ChatMessage } from "@/lib/types";
-import { LLM_UNAVAILABLE_MESSAGE, TRANSIENT_ERROR_MESSAGE } from "@/lib/systemPrompt";
+import { themeContent, type ThemeContent } from "@/lib/content/themeContent";
 
 const MIN_PANEL_WIDTH = 340;
 const MAX_PANEL_WIDTH = 760;
@@ -30,6 +30,7 @@ export type MobileView = "chat" | "artifact" | "artifact-list";
 
 type AppStateValue = {
   theme: ThemeName;
+  content: ThemeContent;
   messages: ChatMessage[];
   draft: string;
   openArtifactId: string | null;
@@ -42,6 +43,7 @@ type AppStateValue = {
   llmAvailable: boolean;
   mobileView: MobileView;
   mobileSidebarOpen: boolean;
+  photoLightboxOpen: boolean;
 
   setDraft: (v: string) => void;
   newChat: () => void;
@@ -63,6 +65,8 @@ type AppStateValue = {
   openMobileRightPane: () => void;
   showArtifactList: () => void;
   backToChat: () => void;
+  openPhotoLightbox: () => void;
+  closePhotoLightbox: () => void;
 };
 
 const AppStateContext = createContext<AppStateValue | null>(null);
@@ -80,13 +84,17 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [llmAvailable, setLlmAvailable] = useState(true);
   const [mobileView, setMobileView] = useState<MobileView>("chat");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [photoLightboxOpen, setPhotoLightboxOpen] = useState(false);
+
+  const content = themeContent[theme];
 
   const resizingRef = useRef(false);
 
   useIsomorphicLayoutEffect(() => {
     try {
       const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
-      if (saved === "warm" || saved === "terminal") setThemeState(saved);
+      if (saved === "warm" || saved === "terminal" || saved === "cyberpunk" || saved === "medieval" || saved === "thrones")
+        setThemeState(saved);
     } catch {
       // localStorage unavailable (private browsing, etc.) — fall back to default theme
     }
@@ -119,8 +127,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const pushBotMessage = useCallback((html: string, artifacts: string[] = []) => {
-    setMessages((prev) => [...prev, { role: "bot", html, artifacts }]);
+  const pushBotMessage = useCallback((html: string, artifacts: string[] = [], conversationId?: string) => {
+    setMessages((prev) => [...prev, { role: "bot", html, artifacts, conversationId }]);
     // Desktop's right pane auto-opens to the FIRST/primary artifact (it's
     // always visible, so this just updates its content) — the rest are
     // still reachable via their own chips. Mobile deliberately does NOT
@@ -137,29 +145,27 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: text }),
+          body: JSON.stringify({ question: text, theme }),
         });
 
         if (res.status === 503) {
           const body = await res.json().catch(() => ({}) as { error?: string });
           if (body.error === "insufficient_balance") {
             setLlmAvailable(false);
-            pushBotMessage(LLM_UNAVAILABLE_MESSAGE);
+            pushBotMessage(content.llmUnavailableMessage);
           } else {
-            pushBotMessage(TRANSIENT_ERROR_MESSAGE);
+            pushBotMessage(content.transientErrorMessage);
           }
           return;
         }
 
         if (res.status === 429) {
-          pushBotMessage(
-            "Whoa, lots of questions! Give it a minute and try again. You can contact Alex to ask him directly!"
-          );
+          pushBotMessage(content.rateLimitMessage);
           return;
         }
 
         if (!res.ok) {
-          pushBotMessage(TRANSIENT_ERROR_MESSAGE);
+          pushBotMessage(content.transientErrorMessage);
           return;
         }
 
@@ -171,12 +177,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
           .replace(/\n/g, "<br>");
         pushBotMessage(safe);
       } catch {
-        pushBotMessage(TRANSIENT_ERROR_MESSAGE);
+        pushBotMessage(content.transientErrorMessage);
       } finally {
         setLoading(false);
       }
     },
-    [pushBotMessage]
+    [pushBotMessage, theme, content]
   );
 
   const performSend = useCallback(
@@ -188,24 +194,24 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       setDraft("");
 
       const hit =
-        conversations.find((c) => c.q === text) ||
-        conversations.find((c) => c.title.toLowerCase() === text.toLowerCase());
+        content.conversations.find((c) => c.q === text) ||
+        content.conversations.find((c) => c.title.toLowerCase() === text.toLowerCase());
 
       if (hit) {
         window.setTimeout(() => {
-          pushBotMessage(hit.a, hit.artifacts);
+          pushBotMessage(hit.a, hit.artifacts, hit.id);
         }, SCRIPTED_ANSWER_DELAY_MS);
         return;
       }
 
       if (!llmAvailable) {
-        pushBotMessage(LLM_UNAVAILABLE_MESSAGE);
+        pushBotMessage(content.llmUnavailableMessage);
         return;
       }
 
       void askDeepSeek(text);
     },
-    [askDeepSeek, llmAvailable, pushBotMessage]
+    [askDeepSeek, llmAvailable, pushBotMessage, content]
   );
 
   const newChat = useCallback(() => {
@@ -288,6 +294,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     setMobileSidebarOpen(false);
   }, []);
   const backToChat = useCallback(() => setMobileView("chat"), []);
+  const openPhotoLightbox = useCallback(() => setPhotoLightboxOpen(true), []);
+  const closePhotoLightbox = useCallback(() => setPhotoLightboxOpen(false), []);
 
   const startResize = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -304,6 +312,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AppStateValue>(
     () => ({
       theme,
+      content,
       messages,
       draft,
       openArtifactId,
@@ -316,6 +325,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       llmAvailable,
       mobileView,
       mobileSidebarOpen,
+      photoLightboxOpen,
       setDraft,
       newChat,
       sendConversation,
@@ -336,9 +346,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       openMobileRightPane,
       showArtifactList,
       backToChat,
+      openPhotoLightbox,
+      closePhotoLightbox,
     }),
     [
       theme,
+      content,
       messages,
       draft,
       openArtifactId,
@@ -351,6 +364,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       llmAvailable,
       mobileView,
       mobileSidebarOpen,
+      photoLightboxOpen,
       newChat,
       sendConversation,
       sendSuggestion,
@@ -370,6 +384,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       openMobileRightPane,
       showArtifactList,
       backToChat,
+      openPhotoLightbox,
+      closePhotoLightbox,
     ]
   );
 

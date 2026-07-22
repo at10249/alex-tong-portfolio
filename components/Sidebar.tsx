@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppState } from "@/context/AppStateContext";
-import { conversations } from "@/lib/content/conversations";
 import { toolGroups, flatToolCount } from "@/lib/content/tools";
 import { useIsMobile } from "@/lib/useIsMobile";
 
@@ -32,9 +31,20 @@ const toggleChipStyle: React.CSSProperties = {
 };
 
 export function Sidebar() {
-  const { newChat, activeConvo, sendConversation, toolsOpen, toggleTools, openSettings, mobileSidebarOpen, showArtifactList } =
-    useAppState();
+  const {
+    content,
+    newChat,
+    activeConvo,
+    sendConversation,
+    toolsOpen,
+    toggleTools,
+    openSettings,
+    mobileSidebarOpen,
+    showArtifactList,
+    openPhotoLightbox,
+  } = useAppState();
   const isMobile = useIsMobile();
+  const { uiCopy } = content;
 
   return (
     <aside
@@ -53,22 +63,35 @@ export function Sidebar() {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "10px", padding: "16px 16px 14px" }}>
-        <Image
-          src="/assets/alex.jpeg"
-          alt="Alex Tong"
-          width={30}
-          height={30}
+        <button
+          onClick={openPhotoLightbox}
+          aria-label={`View larger photo of ${content.displayName}`}
+          style={{ border: "none", background: "transparent", padding: 0, cursor: "pointer", flex: "none", lineHeight: 0 }}
+        >
+          <Image
+            src={content.photoSrc}
+            alt={content.displayName}
+            width={30}
+            height={30}
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: "var(--r-sm)",
+              objectFit: "cover",
+              objectPosition: "50% 12%",
+              filter: "var(--photo-filter)",
+            }}
+          />
+        </button>
+        <button
+          onClick={newChat}
+          aria-label="Go to home"
           style={{
-            width: 30,
-            height: 30,
-            borderRadius: "var(--r-sm)",
-            objectFit: "cover",
-            objectPosition: "50% 12%",
-            filter: "var(--photo-filter)",
-          }}
-        />
-        <div
-          style={{
+            border: "none",
+            background: "transparent",
+            padding: 0,
+            cursor: "pointer",
+            textAlign: "left",
             fontFamily: "var(--display)",
             fontWeight: 600,
             fontSize: "14.5px",
@@ -76,13 +99,13 @@ export function Sidebar() {
             letterSpacing: ".2px",
           }}
         >
-          Alex Tong
-        </div>
+          {content.displayName}
+        </button>
         <motion.button
           whileTap={{ scale: 0.88, rotate: 90 }}
           onClick={newChat}
-          title="New chat"
-          aria-label="Start new chat"
+          title={uiCopy.sidebarNewChatTitle}
+          aria-label={uiCopy.sidebarNewChatAria}
           style={{
             marginLeft: "auto",
             width: 28,
@@ -112,14 +135,14 @@ export function Sidebar() {
           textTransform: "uppercase",
         }}
       >
-        Conversations
+        {uiCopy.sidebarConversationsLabel}
       </div>
       <nav
         tabIndex={0}
-        aria-label="Conversations"
+        aria-label={uiCopy.sidebarConversationsLabel}
         style={{ display: "flex", flexDirection: "column", gap: "2px", padding: "0 8px", overflowY: "auto", flexShrink: 0 }}
       >
-        {conversations.map((c) => {
+        {content.conversations.map((c) => {
           const active = activeConvo === c.id;
           return (
             <motion.button
@@ -188,7 +211,7 @@ export function Sidebar() {
               }}
             />
             <span style={{ fontFamily: "var(--mono)", fontWeight: 600, fontSize: "11px", color: "var(--text)", letterSpacing: ".3px" }}>
-              Available Tools
+              {uiCopy.sidebarAvailableTools}
             </span>
             <span style={{ marginLeft: "auto", fontFamily: "var(--mono)", fontSize: "10px", color: "var(--faint)" }}>
               {flatToolCount} tools
@@ -224,10 +247,10 @@ export function Sidebar() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15 }}
                 tabIndex={0}
-                aria-label="Available tools list"
+                aria-label={uiCopy.sidebarAvailableTools}
                 style={{ maxHeight: "48vh", overflowY: "auto", padding: "10px 12px 12px" }}
               >
-                {toolGroups.map((g) => (
+                {toolGroups.map((g, i) => (
                   <div key={g.name} style={{ marginTop: "11px" }}>
                     <div
                       style={{
@@ -239,7 +262,7 @@ export function Sidebar() {
                         textTransform: "uppercase",
                       }}
                     >
-                      {g.name}
+                      {uiCopy.toolGroupNames[i] ?? g.name}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "6px" }}>
                       {g.tools.map((t) => (
@@ -251,7 +274,7 @@ export function Sidebar() {
                   </div>
                 ))}
                 <motion.button whileTap={{ scale: 0.96 }} onClick={toggleTools} style={{ ...toggleChipStyle, marginTop: "12px", padding: "4px 9px" }}>
-                  Show less
+                  {uiCopy.sidebarShowLess}
                 </motion.button>
               </motion.div>
             )}
@@ -276,7 +299,7 @@ export function Sidebar() {
             fontWeight: 500,
           }}
         >
-          <span style={{ fontSize: "14px" }}>▤</span> Artifacts
+          <span style={{ fontSize: "14px" }}>▤</span> {uiCopy.sidebarArtifactsNav}
         </motion.button>
 
         <motion.button
@@ -297,7 +320,7 @@ export function Sidebar() {
             fontWeight: 500,
           }}
         >
-          <span style={{ fontSize: "14px" }}>⚙</span> Settings
+          <span style={{ fontSize: "14px" }}>⚙</span> {uiCopy.sidebarSettingsNav}
         </motion.button>
       </div>
     </aside>
