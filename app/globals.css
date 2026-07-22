@@ -120,7 +120,8 @@ button {
 
 .mobile-menu-btn,
 .mobile-artifacts-nav,
-.back-to-chat-btn {
+.back-to-chat-btn,
+.swipe-hint {
   display: none;
 }
 
@@ -206,6 +207,10 @@ button {
 
   .mobile-artifacts-nav {
     display: flex;
+  }
+
+  .swipe-hint {
+    display: inline-flex;
   }
 
   .back-to-chat-btn {

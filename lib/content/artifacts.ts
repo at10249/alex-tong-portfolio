@@ -156,6 +156,7 @@ function thesisHtml(): string {
       <div style="font-family:var(--display);font-weight:700;font-size:19px;line-height:1.25;color:var(--text);margin-top:6px">Visual Attention and Consumer Valuation of Sustainability Labels: An Eye-Tracking Study in Food Markets</div>
       <div style="font-family:var(--font);font-weight:500;font-size:11px;color:var(--accent);margin-top:6px">Agricultural &amp; Food Economics — Market &amp; Consumer Research</div>
       <div style="${p};margin-top:4px">Grade: ${strongText("1.3 — sehr gut")}, Germany’s highest grade band.</div>
+      <div style="margin-top:12px;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.5px;color:var(--faint)">tl;dr at the bottom &darr; if you want to skip to it</div>
       <div style="${lab};margin:18px 0 6px">Abstract</div>
       <div style="${p}">This thesis examines how consumers visually process and value credible sustainability and ethical-certification labels on food packaging. Its core methodology is an innovative use of ${strongText(
         "eye-tracking technology"
