@@ -125,28 +125,6 @@ export function ChatHeader() {
         </span>
       </button>
       <div style={{ marginLeft: "auto", display: "flex", gap: "8px", flex: "none", alignItems: "center" }}>
-        {rightPaneCollapsed && (
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleRightPaneCollapsed}
-            title={uiCopy.rightPaneExpandTitle}
-            aria-label={uiCopy.rightPaneExpandAria}
-            className="desktop-panel-toggle"
-            style={{
-              width: 30,
-              height: 30,
-              flex: "none",
-              borderRadius: "var(--r-sm)",
-              border: "1px solid var(--border)",
-              background: "transparent",
-              color: "var(--muted)",
-              cursor: "pointer",
-              fontSize: "13px",
-            }}
-          >
-            «
-          </motion.button>
-        )}
         <motion.a
           whileTap={{ scale: 0.95 }}
           href="https://www.linkedin.com/in/alexkevintong"
@@ -186,6 +164,28 @@ export function ChatHeader() {
         >
           {uiCopy.chatHeaderDownloadCV}
         </motion.button>
+        {rightPaneCollapsed && (
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleRightPaneCollapsed}
+            title={uiCopy.rightPaneExpandTitle}
+            aria-label={uiCopy.rightPaneExpandAria}
+            className="desktop-panel-toggle"
+            style={{
+              width: 30,
+              height: 30,
+              flex: "none",
+              borderRadius: "var(--r-sm)",
+              border: "1px solid var(--border)",
+              background: "transparent",
+              color: "var(--muted)",
+              cursor: "pointer",
+              fontSize: "13px",
+            }}
+          >
+            «
+          </motion.button>
+        )}
       </div>
     </header>
   );

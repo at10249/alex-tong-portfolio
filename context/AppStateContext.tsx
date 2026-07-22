@@ -181,7 +181,13 @@ export function AppStateProvider({
     // jump to the full-screen artifact view here — the visitor stays on
     // the chat response and taps a chip/entity link if they want to open
     // one (see openArtifactById, which does switch mobileView).
-    if (artifacts[0]) setOpenArtifactId(artifacts[0]);
+    if (artifacts[0]) {
+      setOpenArtifactId(artifacts[0]);
+      // A minimized pane doesn't auto-restore on its own — without this,
+      // "always visible" above stops being true and the new answer's
+      // artifact updates behind a collapsed column the visitor can't see.
+      setRightPaneCollapsed(false);
+    }
   }, []);
 
   const askDeepSeek = useCallback(
@@ -312,6 +318,10 @@ export function AppStateProvider({
     setOpenArtifactId(id);
     setMobileView("artifact");
     setMobileSidebarOpen(false);
+    // Same reasoning as pushBotMessage — clicking an artifact (a chip, an
+    // inline entity link, a related-artifact chip) should always reveal
+    // it, even if the desktop right pane was minimized at the time.
+    setRightPaneCollapsed(false);
   }, []);
   const closeArtifactPanel = useCallback(() => {
     setOpenArtifactId(null);

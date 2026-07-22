@@ -80,6 +80,29 @@ test("desktop collapse/expand buttons minimize and restore both side panels", as
   await expect.poll(rightPaneWidth).toBeGreaterThan(200);
 });
 
+test("opening an artifact un-minimizes a collapsed artifacts panel", async ({ page }) => {
+  await page.goto("/");
+  const rightPaneWidth = async () => (await page.locator(".app-right-pane").boundingBox())?.width ?? -1;
+
+  await page.getByRole("button", { name: "The braggadocious summary" }).first().click();
+  await expect(page.locator(".app-right-pane").getByText("Alex Tong — Bio / CV")).toBeVisible();
+
+  await page.getByRole("button", { name: "Collapse artifacts panel" }).click();
+  await expect.poll(rightPaneWidth).toBeLessThan(5);
+
+  // Clicking an inline entity link should reveal the panel again, not just
+  // update content behind a still-collapsed column.
+  await page.locator("[data-art='pentatonic']").first().click();
+  await expect.poll(rightPaneWidth).toBeGreaterThan(200);
+  await expect(page.locator(".app-right-pane").getByText("COMPANY · CURRENT")).toBeVisible();
+
+  // Same for a freshly-sent conversation that auto-opens an artifact.
+  await page.getByRole("button", { name: "Collapse artifacts panel" }).click();
+  await expect.poll(rightPaneWidth).toBeLessThan(5);
+  await page.getByRole("button", { name: "Current work @ Pentatonic" }).first().click();
+  await expect.poll(rightPaneWidth).toBeGreaterThan(200);
+});
+
 test("CV download endpoint returns a PDF", async ({ request }) => {
   const res = await request.get("/api/cv");
   expect(res.status()).toBe(200);
