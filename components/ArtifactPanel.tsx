@@ -7,7 +7,7 @@ import { ArtifactChip } from "./ArtifactChip";
 import { RichHtml } from "./RichHtml";
 
 export function ArtifactPanel() {
-  const { openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, backToChat } = useAppState();
+  const { openArtifactId, openArtifactById, closeArtifactPanel, startResize, downloadCV, mobileView, showArtifactList } = useAppState();
   if (!openArtifactId) return null;
   const artifact = artifacts[openArtifactId];
   if (!artifact) return null;
@@ -55,9 +55,9 @@ export function ArtifactPanel() {
       >
         <motion.button
           whileTap={{ scale: 0.9 }}
-          onClick={backToChat}
-          title="Back to chat"
-          aria-label="Back to chat"
+          onClick={showArtifactList}
+          title="Back to artifacts"
+          aria-label="Back to artifacts"
           className="back-to-chat-btn"
           style={{
             width: 26,

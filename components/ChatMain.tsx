@@ -37,28 +37,26 @@ export function ChatMain() {
       style={{ flexDirection: "column", minHeight: 0, minWidth: 0, background: "var(--bg)" }}
     >
       <ChatHeader />
-      {isEmpty && (
-        <div
-          className="swipe-hint"
-          style={{
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "9px 20px",
-            borderBottom: "1px solid var(--border)",
-            fontFamily: "var(--mono)",
-            fontWeight: 600,
-            fontSize: "9.5px",
-            letterSpacing: "1px",
-            textTransform: "uppercase",
-            color: "var(--faint)",
-            flexShrink: 0,
-          }}
-        >
-          <span>Conversations</span>
-          <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;Swipe&nbsp;&rsaquo;</span>
-          <span>Artifacts</span>
-        </div>
-      )}
+      <div
+        className="swipe-hint"
+        style={{
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "9px 20px",
+          borderBottom: "1px solid var(--border)",
+          fontFamily: "var(--mono)",
+          fontWeight: 600,
+          fontSize: "9.5px",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+          color: "var(--faint)",
+          flexShrink: 0,
+        }}
+      >
+        <span>Conversations</span>
+        <span style={{ color: "var(--accent)" }}>&lsaquo;&nbsp;Swipe&nbsp;&rsaquo;</span>
+        <span>Artifacts</span>
+      </div>
       <div
         ref={scrollRef}
         tabIndex={0}
