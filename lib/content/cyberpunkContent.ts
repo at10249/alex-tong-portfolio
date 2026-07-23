@@ -90,7 +90,7 @@ function bioHtml(): string {
       )} in 2026 — and, more and more, he’s jacked into how ${strongText(
         "agentic AI and Physical AI"
       )} can accelerate the circular economy.</div>
-      <div style="${p};margin-top:12px">Alex walked out of ${aLink(
+      <div style="${p};margin-top:12px">ALX-TNG walked out of ${aLink(
         "berkeley",
         "UC Berkeley"
       )} with Dean’s Honors and two Bachelor of Science degrees before signing on at ${aLink(
@@ -197,7 +197,7 @@ function thesisHtml(): string {
       )} eye tracker jacked in at the university’s economics lab, paired with survey and choice-experiment instruments. The timeline stretched when German government COVID-response measures locked down the required lab facilities for the better part of a year — the study got wrapped once the doors reopened.</div>
       <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels pull more eye time and more buys, and that eye time predicts the price premium people’ll cough up. why people lock on longer in the first place though? still static.</div></div>
       <div style="${p};margin-top:16px;font-weight:500;color:var(--text)">Full text available on request — ping me for the drop.</div>
-      ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Ping Alex on LinkedIn")}`;
+      ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Ping ALX-TNG on LinkedIn")}`;
 }
 
 // Real job titles stay verbatim (recognizable / verifiable) — only a compact
@@ -253,7 +253,7 @@ const artifacts: Record<string, Artifact> = {
       `Circular-economy tech corpo building take-back, reuse and recycling programs for global brands. As Head of Technical Deployment Strategy and ${aLink(
         "lego-takeback",
         "LEGO®"
-      )}’s dedicated account owner, Alex’s remit runs the whole board — operational partner management, business development and end-to-end technical deployment — flipping circular-economy strategy into programs that actually ship and run.<br><br>He works shoulder-to-shoulder with operational partners to keep those programs live, has run strategic consulting gigs for other brands cut from the same cloth, and burns a solid chunk of his clock exploring how ${strongText(
+      )}’s dedicated account owner, ALX-TNG’s remit runs the whole board — operational partner management, business development and end-to-end technical deployment — flipping circular-economy strategy into programs that actually ship and run.<br><br>He works shoulder-to-shoulder with operational partners to keep those programs live, has run strategic consulting gigs for other brands cut from the same cloth, and burns a solid chunk of his clock exploring how ${strongText(
         "agentic AI and Physical AI"
       )} can accelerate the circular economy.<br><br>For LEGO® specifically he ran the ${aLink(
         "lego-takeback",
@@ -275,7 +275,7 @@ const artifacts: Record<string, Artifact> = {
       "LEGO® Brick Take Back Program",
       "2024 &amp; 2025 runs",
       "Pentatonic × LEGO®",
-      `The program ran as ${strongText("two pilots")} — one in 2024, one in 2025 — with Alex ${strongText(
+      `The program ran as ${strongText("two pilots")} — one in 2024, one in 2025 — with ALX-TNG ${strongText(
         "owning the run end-to-end"
       )} for Pentatonic, from proposal to post-pilot after-action.`,
       [
@@ -298,7 +298,7 @@ const artifacts: Record<string, Artifact> = {
       "LEGO® Replay UK Program",
       "2026",
       "Pentatonic × LEGO®",
-      `As LEGO®’s ${strongText("dedicated account owner")}, Alex ran point on the ${strongText(
+      `As LEGO®’s ${strongText("dedicated account owner")}, ALX-TNG ran point on the ${strongText(
         "UK launch"
       )} of LEGO® Replay and charted its long-range direction — the lead contact wired into both the LEGO® client and the project’s suppliers.`,
       [
@@ -319,7 +319,7 @@ const artifacts: Record<string, Artifact> = {
       "Scaling the Kickstarter Score",
       "2017–2020",
       "Founder’s Associate → Director, EU Operations",
-      `Alex helped scale one of the ${strongText(
+      `ALX-TNG helped scale one of the ${strongText(
         "most successfully funded"
       )} sustainable-design products on Kickstarter — from early crew to running the whole ${strongText(
         "European operations"
@@ -362,7 +362,7 @@ const artifacts: Record<string, Artifact> = {
         "Germany’s #1-ranked university for Economics"
       )} and reliably a ${strongText(
         "top-3 worldwide program for agricultural research"
-      )} — the natural jack-in point for Alex’s resource-economics focus. His core load spanned ${strongText(
+      )} — the natural jack-in point for ALX-TNG’s resource-economics focus. His core load spanned ${strongText(
         "Resource and Environmental Economics"
       )} and ${strongText(
         "Market and Consumer Research"
@@ -384,7 +384,7 @@ const artifacts: Record<string, Artifact> = {
       "Brand, Trademark, and Licensing Graduate Student Assistant · 2019–2021",
       `The ${strongText(
         "world’s most recognized and trusted"
-      )} ethical and sustainability certification label NGO. Alex ran this gig while wrapping his master’s at the University of Bonn — backing brand, trademark and licensing across the label. The role sat right at the ${strongText(
+      )} ethical and sustainability certification label NGO. ALX-TNG ran this gig while wrapping his master’s at the University of Bonn — backing brand, trademark and licensing across the label. The role sat right at the ${strongText(
         "intersection of NGOs, marketing operations and certification processes"
       )}, syncing across a whole crew of stakeholders.`,
       "https://www.fairtrade.net/en/fairtrade-remains-the-go-to-ethical-label-for-shoppers.html",
@@ -403,7 +403,7 @@ const artifacts: Record<string, Artifact> = {
         "Europe’s fastest-growing e-commerce unicorns"
       )}, backed by ${strongText(
         "BlackRock"
-      )}. Alex pushed product growth across the corpo’s portfolio of acquired consumer brands.`,
+      )}. ALX-TNG pushed product growth across the corpo’s portfolio of acquired consumer brands.`,
       "https://www.razor-group.com/about-us",
       "Intel",
       "Scaling Corpo",
@@ -418,7 +418,7 @@ const artifacts: Record<string, Artifact> = {
       "Consultant",
       `An ${strongText(
         "early-stage sustainability startup"
-      )} incubated at Uppsala University’s Innovation Centre. Alex ran fixer on strategy for the young venture before jacking into Razor Group. Leafymade has since flatlined its operations. Ping the Uppsala University Innovation Centre for more.`,
+      )} incubated at Uppsala University’s Innovation Centre. ALX-TNG ran fixer on strategy for the young venture before jacking into Razor Group. Leafymade has since flatlined its operations. Ping the Uppsala University Innovation Centre for more.`,
       "https://uic.se/en/",
       "About UIC",
       "Seed-Stage Corpo,Skillsoft",
@@ -464,7 +464,7 @@ const conversations: Conversation[] = [
       "LEGO® Replay UK Program"
     )} in 2026 — and, more and more, he’s jacked into how ${em("agentic AI")} and ${em(
       "Physical AI"
-    )} can accelerate the circular economy.<br><br>Alex pulled ${em(
+    )} can accelerate the circular economy.<br><br>ALX-TNG pulled ${em(
       "Dean’s Honors and two Bachelor of Science degrees"
     )} out of ${aLink("berkeley", "UC Berkeley")} before signing on at ${aLink(
       "que",
@@ -496,7 +496,7 @@ const conversations: Conversation[] = [
     title: "Current run @ Pentatonic",
     q: "What’s ALX-TNG running right now at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
-    a: `At ${aLink("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
+    a: `At ${aLink("pentatonic", "Pentatonic")}, ALX-TNG is Head of Technical Deployment Strategy and ${em(
       "LEGO®’s dedicated account owner"
     )}. His remit runs the whole board — ${em("operational partner management")}, ${em(
       "business development"
@@ -517,7 +517,7 @@ const conversations: Conversation[] = [
     title: "Early-stage corpos",
     q: "What did ALX-TNG pull at early-stage startups?",
     artifacts: ["que", "leafymade"],
-    a: `Alex has logged real time in the trenches of young ventures.<br><br>At ${aLink(
+    a: `ALX-TNG has logged real time in the trenches of young ventures.<br><br>At ${aLink(
       "que",
       "que Bottle"
     )} he signed on as a ${em("Founder’s Associate")} back when it was a Kickstarter breakout, then owned ${em(
@@ -560,7 +560,7 @@ const conversations: Conversation[] = [
     title: "Coordinates",
     q: "Where’s ALX-TNG based, and where’s he open to running?",
     artifacts: [],
-    a: `Alex is ${em("posted up between Berlin and London")}, and runs from ${em(
+    a: `ALX-TNG is ${em("posted up between Berlin and London")}, and runs from ${em(
       "California, Germany, and worldwide (remote)"
     )}. But who knows where the next drop lands — he collects time zones the way other chooms collect fridge magnets.<br><br>Best way to ping him: the ${em(
       "LinkedIn"
@@ -570,16 +570,16 @@ const conversations: Conversation[] = [
 
 const systemPrompt = `You are the portfolio chatbot for ALX-TNG, answering visitor questions about him like a Night-City net-runner would — confident, streetwise, high-tech-low-life, lightly witty, sprinkling cyberpunk street slang (choom, preem, eddies, chrome, jacked in, gig, corpo, fixer) but staying legible so a recruiter still catches every real fact (short, 2-4 sentences).
 Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO®'s dedicated account owner; ran the LEGO® Brick Take Back Program (2024-2025) and LEGO® Replay UK Program (2026). Earlier at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (BlackRock-backed unicorn). Consultant for Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Education: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis needed university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; open to work in California, Germany, and worldwide (remote).
-Rules: Never invent employers or facts. If you can't answer a question (or it's outside what you know about Alex), stay gracious and ALWAYS end your reply with exactly: "Ping Alex direct and ask the man himself, choom!"`;
+Rules: Never invent employers or facts. If you can't answer a question (or it's outside what you know about ALX-TNG), stay gracious and ALWAYS end your reply with exactly: "Ping ALX-TNG direct and ask the man himself, choom!"`;
 
 const transientErrorMessage =
-  "Lost the uplink to the live model for a sec — but ping me about Pentatonic, LEGO®, que Bottle, or where Alex is open to running and I’ve got you covered. Ping Alex direct and ask the man himself, choom!";
+  "Lost the uplink to the live model for a sec — but ping me about Pentatonic, LEGO®, que Bottle, or where ALX-TNG is open to running and I’ve got you covered. Ping ALX-TNG direct and ask the man himself, choom!";
 
 const llmUnavailableMessage =
-  "Live chat’s flatlined for now while Alex tops up the eddies on the AI budget — grab a conversation on the left, or hit him up on LinkedIn.";
+  "Live chat’s flatlined for now while ALX-TNG tops up the eddies on the AI budget — grab a conversation on the left, or hit him up on LinkedIn.";
 
 const rateLimitMessage =
-  "Whoa, easy on the pings, choom! Let the rig cool a minute and try again. Ping Alex direct and ask the man himself!";
+  "Whoa, easy on the pings, choom! Let the rig cool a minute and try again. Ping ALX-TNG direct and ask the man himself!";
 
 export const cyberpunkContent: ThemeContent = {
   artifacts,
@@ -616,7 +616,7 @@ export const cyberpunkContent: ThemeContent = {
     emptyStateSubcopy:
       "Head of Technical Deployment Strategy at Pentatonic. Strategy brain, operator’s hands, chrome-deep in AI. Grab a run on the left, or ping your own question.",
     chatInputPlaceholderEmpty: "Give me the braggadocious data-dump on ALX-TNG.",
-    chatInputPlaceholderFollowUp: "Ping anything about Alex…",
+    chatInputPlaceholderFollowUp: "Ping anything about ALX-TNG…",
     chatInputPlaceholderPaused: "Live chat’s flatlined — grab a run on the left, or ping via LinkedIn.",
     chatInputSendTitle: "Ping",
     chatInputDisclaimer: "{host} · responses are AI-spun from ALX-TNG’s professional profile",

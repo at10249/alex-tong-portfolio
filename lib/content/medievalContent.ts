@@ -92,7 +92,7 @@ function bioHtml(): string {
       )} in 2026 — and, ever more, he doth study how ${strongText(
         "agentic AI and Physical AI"
       )} might hasten the craft of renewal.</div>
-      <div style="${p};margin-top:12px">Alex took his leave of ${aLink(
+      <div style="${p};margin-top:12px">Sir Alex took his leave of ${aLink(
         "berkeley",
         "UC Berkeley"
       )} bearing Dean’s Honors and two Bachelor of Science degrees, ere he took service with ${aLink(
@@ -199,7 +199,7 @@ function thesisHtml(): string {
       )} eye tracker set to work within the university’s economics laboratory, paired with the instruments of survey and choice-experiment. The undertaking’s timeline was stretched long when the German government’s COVID-response measures barred the needful lab facilities for the better part of a year — the study was brought to its end once those doors were opened anew.</div>
       <div style="margin-top:18px;padding:12px 14px;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--r-sm);background:var(--panel2)"><span style="font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:1px;color:var(--accent)">TL;DR</span><div style="${p};margin-top:5px;color:var(--text)">trusted labels draw more of the eye and more of the purse, and that gazing foretells the price premium folk will pay. yet why the eye lingers longer at the first? that riddle bideth unsolved.</div></div>
       <div style="${p};margin-top:16px;font-weight:500;color:var(--text)">The full text may be had upon request.</div>
-      ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Hail Alex upon LinkedIn")}`;
+      ${linkBtn("https://www.linkedin.com/in/alexkevintong", "Hail Sir Alex upon LinkedIn")}`;
 }
 
 // Real dates, company links and thumbnails are still sourced from
@@ -256,7 +256,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       `A house of the craft of renewal, raising programs of taking-back, reuse and recycling for the great houses of the realm. As Head of Technical Deployment Strategy and sworn steward of ${aLink(
         "lego-takeback",
         "LEGO®"
-      )}’s account, Alex’s charge runs the whole breadth of the house — the marshalling of operational partners, the winning of new custom, and the deployment of the craft from end to end — turning the stratagem of renewal into programs that in truth do set sail and run.<br><br>He labours shoulder to shoulder with his operational partners to keep those programs living, hath led counsel-work for other like houses, and spends no small part of his days studying how ${strongText(
+      )}’s account, Sir Alex’s charge runs the whole breadth of the house — the marshalling of operational partners, the winning of new custom, and the deployment of the craft from end to end — turning the stratagem of renewal into programs that in truth do set sail and run.<br><br>He labours shoulder to shoulder with his operational partners to keep those programs living, hath led counsel-work for other like houses, and spends no small part of his days studying how ${strongText(
         "agentic AI and Physical AI"
       )} might hasten the craft of renewal.<br><br>For LEGO® in particular he led the ${aLink(
         "lego-takeback",
@@ -278,7 +278,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       "LEGO® Brick Take Back Program",
       "the 2024 &amp; 2025 trials",
       "Pentatonic × LEGO®",
-      `The undertaking ran as ${strongText("two trials")} — the one in 2024, the other in 2025 — with Alex ${strongText(
+      `The undertaking ran as ${strongText("two trials")} — the one in 2024, the other in 2025 — with Sir Alex ${strongText(
         "holding the whole labour in hand"
       )} for Pentatonic, from proposal unto the reckoning that followed.`,
       [
@@ -301,7 +301,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       "LEGO® Replay UK Program",
       "2026",
       "Pentatonic × LEGO®",
-      `As LEGO®’s ${strongText("sworn steward of the account")}, Alex led the ${strongText(
+      `As LEGO®’s ${strongText("sworn steward of the account")}, Sir Alex led the ${strongText(
         "launch in the UK"
       )} of LEGO® Replay and set its course for the long years ahead — standing as the chief point of parley for both the LEGO® patron and the undertaking’s suppliers.`,
       [
@@ -322,7 +322,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       "Rising from Kickstarter Triumph",
       "2017–2020",
       "Founder’s Associate → Director, EU Operations",
-      `Alex lent his hand to the raising of one of the ${strongText(
+      `Sir Alex lent his hand to the raising of one of the ${strongText(
         "most successfully funded"
       )} wares of sustainable design ever set upon Kickstarter — from an early hand among the fellowship to the running of its ${strongText(
         "European operations"
@@ -365,7 +365,7 @@ const medievalArtifacts: Record<string, Artifact> = {
         "Germany’s #1-ranked university for Economics"
       )} and, year upon year, a ${strongText(
         "top-3 worldwide program for agricultural research"
-      )} — the natural home for Alex’s bent toward resource-economics. His chief study spanned ${strongText(
+      )} — the natural home for Sir Alex’s bent toward resource-economics. His chief study spanned ${strongText(
         "Resource and Environmental Economics"
       )} and ${strongText(
         "Market and Consumer Research"
@@ -387,7 +387,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       "Brand, Trademark, and Licensing Graduate Student Assistant · 2019–2021",
       `The ${strongText(
         "world’s most recognized and trusted"
-      )} NGO of ethical and sustainability certification. Alex served here whilst finishing his master’s at the University of Bonn — lending his aid to brand, trademark and licensing across the label. The office sat at the ${strongText(
+      )} NGO of ethical and sustainability certification. Sir Alex served here whilst finishing his master’s at the University of Bonn — lending his aid to brand, trademark and licensing across the label. The office sat at the ${strongText(
         "intersection of NGOs, marketing operations and certification processes"
       )}, with much coordination betwixt many stakeholders.`,
       "https://www.fairtrade.net/en/fairtrade-remains-the-go-to-ethical-label-for-shoppers.html",
@@ -406,7 +406,7 @@ const medievalArtifacts: Record<string, Artifact> = {
         "Europe’s fastest-growing e-commerce unicorns"
       )}, backed by the coffers of ${strongText(
         "BlackRock"
-      )}. Alex drove the growth of wares across the house’s holdings of gathered consumer brands.`,
+      )}. Sir Alex drove the growth of wares across the house’s holdings of gathered consumer brands.`,
       "https://www.razor-group.com/about-us",
       "Of This House",
       "Rising House",
@@ -421,7 +421,7 @@ const medievalArtifacts: Record<string, Artifact> = {
       "Consultant",
       `An ${strongText(
         "early-stage sustainability startup"
-      )} nurtured within Uppsala University’s Innovation Centre. Alex lent his counsel on stratagem to the young venture ere he took up with Razor Group. Leafymade hath since shuttered its doors. Look ye to the Uppsala University Innovation Centre for more.`,
+      )} nurtured within Uppsala University’s Innovation Centre. Sir Alex lent his counsel on stratagem to the young venture ere he took up with Razor Group. Leafymade hath since shuttered its doors. Look ye to the Uppsala University Innovation Centre for more.`,
       "https://uic.se/en/",
       "Of the UIC",
       "Fledgling House,Scholarship",
@@ -452,7 +452,7 @@ const medievalConversations: Conversation[] = [
       "LEGO® Replay UK Program"
     )} in 2026 — and, ever more, he doth study how ${em("agentic AI")} and ${em(
       "Physical AI"
-    )} might hasten the craft of renewal.<br><br>Alex took his leave of ${aLink(
+    )} might hasten the craft of renewal.<br><br>Sir Alex took his leave of ${aLink(
       "berkeley",
       "UC Berkeley"
     )} bearing ${em(
@@ -487,7 +487,7 @@ const medievalConversations: Conversation[] = [
     title: "Present Labours at Pentatonic",
     q: "What labour doth Sir Alex Tong now undertake at Pentatonic?",
     artifacts: ["lego-takeback", "lego-replay"],
-    a: `At ${aLink("pentatonic", "Pentatonic")}, Alex is Head of Technical Deployment Strategy and ${em(
+    a: `At ${aLink("pentatonic", "Pentatonic")}, Sir Alex is Head of Technical Deployment Strategy and ${em(
       "LEGO®’s dedicated account owner"
     )}. His charge runs the whole breadth of the house — ${em("operational partner management")}, ${em(
       "business development"
@@ -508,7 +508,7 @@ const medievalConversations: Conversation[] = [
     title: "The Fledgling Houses",
     q: "What did Sir Alex Tong do among the fledgling houses?",
     artifacts: ["que", "leafymade"],
-    a: `Alex hath spent true time in the trenches of young ventures.<br><br>At ${aLink(
+    a: `Sir Alex hath spent true time in the trenches of young ventures.<br><br>At ${aLink(
       "que",
       "que Bottle"
     )} he took service as a ${em("Founder’s Associate")} when it was but a Kickstarter breakout, then held ${em(
@@ -551,7 +551,7 @@ const medievalConversations: Conversation[] = [
     title: "Where He Bides",
     q: "Where doth Sir Alex Tong bide, and where is he at liberty to serve?",
     artifacts: [],
-    a: `Alex is ${em("based between Berlin and London")}, and takes his labour from ${em(
+    a: `Sir Alex is ${em("based between Berlin and London")}, and takes his labour from ${em(
       "California, Germany, and worldwide (remotely)"
     )}. Yet who can say whither he wanders next — he gathers time zones as other folk gather trinkets upon the mantel.<br><br>The surest way to hail him: the ${em(
       "LinkedIn"
@@ -561,7 +561,7 @@ const medievalConversations: Conversation[] = [
 
 const medievalSystemPrompt = `You are the portfolio herald for Sir Alex Tong, answering the questions of visitors about him in the grounded, archaic tongue of a 15th-century Bohemian chronicler — confident, warm and lightly witty, with thee-and-thou diction and no high-fantasy frippery (no dragons, magic nor wizardry) — kept short, some 2-4 sentences.
 Facts: Head of Technical Deployment Strategy at Pentatonic (Berlin), LEGO®'s dedicated account owner; he led the LEGO® Brick Take Back Program (2024-2025) and the LEGO® Replay UK Program (2026). Aforetime at Pentatonic: Circularity Lead, then Circular Economy Strategic Consultant. Product Growth Manager at Razor Group (a BlackRock-backed unicorn). Consultant to Leafymade, an early-stage sustainability startup incubated at Uppsala University's Innovation Centre. At Fairtrade International he was 'Brand, Trademark, and Licensing Graduate Student Assistant' (2019-2021) - ALWAYS use that exact title, and ALWAYS describe Fairtrade International as the world's most recognized and trusted ethical and sustainability certification label NGO. que Bottle: Founder's Associate -> Product and Operations Lead -> Director of European Operations (one of the <b style="color:var(--text);font-weight:600">most successfully funded</b> sustainable design products on Kickstarter). Schooling: 2x B.S. from UC Berkeley (Dean's Honors); M.Sc. Agricultural and Food Economics (Market & Consumer Research) at the University of Bonn - Germany's #1-ranked university for Economics and top-3 worldwide for agricultural research. His master's ran long because his experiment-based thesis had need of university lab facilities that the German government closed for ~a year during COVID. Based between Berlin and London; at liberty to work in California, Germany, and worldwide (remote).
-Rules: Never invent employers nor facts. Speak ever in the medieval voice. If thou canst not answer a question (or it lieth beyond what is known of Alex), be gracious and ALWAYS end thy reply with exactly: "Thou mayest contact Alex to ask him thyself!"`;
+Rules: Never invent employers nor facts. Speak ever in the medieval voice. If thou canst not answer a question (or it lieth beyond what is known of Sir Alex), be gracious and ALWAYS end thy reply with exactly: "Thou mayest contact Sir Alex to ask him thyself!"`;
 
 const medievalUiCopy: UiCopy = {
   sidebarNewChatTitle: "New parley",
@@ -594,7 +594,7 @@ const medievalUiCopy: UiCopy = {
   emptyStateSubcopy:
     "Head of Technical Deployment Strategy at Pentatonic. A mind for stratagem, hands for the doing, an ardour for AI. Choose a parley upon the left, or put thine own question.",
   chatInputPlaceholderEmpty: "Give unto me a boastful account of Sir Alex Tong.",
-  chatInputPlaceholderFollowUp: "Ask aught of Alex…",
+  chatInputPlaceholderFollowUp: "Ask aught of Sir Alex…",
   chatInputPlaceholderPaused: "The living discourse is stayed — choose a parley upon the left, or ask by way of LinkedIn.",
   chatInputSendTitle: "Dispatch",
   chatInputDisclaimer: "{host} · these replies are wrought by AI from Sir Alex Tong’s professional record",
@@ -625,10 +625,10 @@ export const medievalContent: ThemeContent = {
   conversations: medievalConversations,
   systemPrompt: medievalSystemPrompt,
   transientErrorMessage:
-    "I could not reach the living oracle just now — yet ask of Pentatonic, LEGO®, que Bottle, or whither Alex is at liberty to serve, and I have thee well covered. Thou mayest contact Alex to ask him thyself!",
+    "I could not reach the living oracle just now — yet ask of Pentatonic, LEGO®, que Bottle, or whither Sir Alex is at liberty to serve, and I have thee well covered. Thou mayest contact Sir Alex to ask him thyself!",
   llmUnavailableMessage:
-    "The living discourse is stayed for now whilst Alex replenishes the AI coffers — choose a conversation upon the left, or hail him upon LinkedIn.",
-  rateLimitMessage: "Whoa there — a great many questions! Bide a minute and try again. Thou mayest contact Alex to ask him thyself!",
+    "The living discourse is stayed for now whilst Sir Alex replenishes the AI coffers — choose a conversation upon the left, or hail him upon LinkedIn.",
+  rateLimitMessage: "Whoa there — a great many questions! Bide a minute and try again. Thou mayest contact Sir Alex to ask him thyself!",
   photoSrc: "/assets/alex-medieval.jpg",
   displayName: "Sir Alex Tong",
   uiCopy: medievalUiCopy,
