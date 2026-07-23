@@ -278,16 +278,15 @@ const medievalArtifacts: Record<string, Artifact> = {
       "LEGO® Brick Take Back Program",
       "the 2024 &amp; 2025 trials",
       "Pentatonic × LEGO®",
-      `The undertaking ran as ${strongText("two trials")} — the one in 2024, the other in 2025. Alex ${strongText(
-        "led the charge and won the contested RFP"
-      )}, then held the whole labour in hand across both trials, from the first proposal unto the reckoning that followed.`,
+      `The undertaking ran as ${strongText("two trials")} — the one in 2024, the other in 2025 — with Alex ${strongText(
+        "holding the whole labour in hand"
+      )} for Pentatonic, from proposal unto the reckoning that followed.`,
       [
-        "Led the charge and won the contested RFP to secure the undertaking",
-        "Drew up the design of the trial proposal",
-        "Sought out and swore in the operational partners — the marshalling of many stakeholders and suppliers throughout",
-        "Steered the roll-out",
-        "Held the ongoing stewardship of the program",
-        "Led the reckoning that followed the trials and charted the road ahead",
+        "Drew up the design of the trial proposal and won the contested RFP that secured the undertaking",
+        "Sought out and swore in the operational partners, marshalling many stakeholders and suppliers across both trials",
+        "Steered the roll-out — the dealings of the marketplace, the raising of the program’s website, the ordering of the warehouses, and the aid given to petitioners",
+        "Held the ongoing stewardship of the program as the chief go-between for LEGO® and Pentatonic’s operational partners",
+        "Delivered the reckoning that followed the trials and charted a road for the undertaking’s growth",
       ],
       "https://legobricktakeback.com/en-US",
       "LEGO® Brick Take Back",

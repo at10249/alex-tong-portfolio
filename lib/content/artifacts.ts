@@ -255,16 +255,15 @@ export const artifacts: Record<string, Artifact> = {
       "LEGO® Brick Take Back Program",
       "2024 &amp; 2025 pilots",
       "Pentatonic × LEGO®",
-      `The program ran as ${strongText("two pilots")} — one in 2024 and one in 2025. Alex ${strongText(
-        "spearheaded and won the competitive RFP"
-      )}, then owned the work end-to-end across both pilots, from the initial proposal to post-pilot analysis.`,
+      `The program ran as ${strongText("two pilots")} — one in 2024 and one in 2025 — with Alex ${strongText(
+        "owning the work end-to-end"
+      )} for Pentatonic, from proposal through post-pilot roadmapping.`,
       [
-        "Spearheaded and won the competitive RFP to land the program",
-        "Led the design of the pilot proposal",
-        "Found and onboarded operational partners — multi-stakeholder and supplier management throughout",
-        "Ran the roll-out",
-        "Owned ongoing program management",
-        "Led the post-pilot analysis and roadmapping",
+        "Designed the pilot proposal and won the competitive RFP that landed the program",
+        "Found and onboarded operational partners, coordinating multiple stakeholders and suppliers across both pilots",
+        "Managed the pilot roll-out — retail operations, website design and development, warehouse processes, and customer support",
+        "Owned day-to-day program management as the lead point of contact between LEGO® and Pentatonic’s operational partners",
+        "Delivered the post-pilot analysis and a roadmap for scaling the program",
       ],
       "https://legobricktakeback.com/en-US",
       "LEGO® Brick Take Back",

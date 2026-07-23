@@ -285,16 +285,15 @@ const thronesArtifacts: Record<string, Artifact> = {
       "LEGO® Brick Take Back Program",
       "the 2024 &amp; 2025 trials",
       "Pentatonic × LEGO®",
-      `The campaign ran as ${strongText("two trials")} — one in 2024, the other in 2025. Prince Alex ${strongText(
-        "led the charge and won the contested RFP"
-      )}, then held the whole of the work in hand across both trials, from the first proposal to the reckoning that followed.`,
+      `The campaign ran as ${strongText("two trials")} — one in 2024, the other in 2025 — with Prince Alex ${strongText(
+        "holding the whole of the work in hand"
+      )} for Pentatonic, from the first proposal to the reckoning that followed.`,
       [
-        "Led the charge and won the contested RFP that secured the campaign",
-        "Designed the proposal that opened the trials",
-        "Sought out and bound the operational partners to the cause — the marshalling of many houses and suppliers, start to finish",
-        "Commanded the roll-out",
-        "Held the ongoing stewardship of the program",
-        "Led the reckoning after the trials and charted the road that followed",
+        "Designed the proposal that opened the trials and won the contested RFP that secured the campaign",
+        "Sought out and bound the operational partners to the cause, marshalling many houses and suppliers across both trials",
+        "Commanded the roll-out — the markets and the merchant houses, the raising of the campaign’s website, the ordering of the granaries and stores, and the hearing of the smallfolk’s petitions",
+        "Held the ongoing stewardship of the program, standing as the chief envoy between LEGO® and Pentatonic’s operational partners",
+        "Delivered the reckoning after the trials and charted a road for the campaign’s growth",
       ],
       "https://legobricktakeback.com/en-US",
       "LEGO® Brick Take Back",
