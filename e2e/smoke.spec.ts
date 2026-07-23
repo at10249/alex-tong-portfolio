@@ -109,6 +109,25 @@ test("opening an artifact un-minimizes a collapsed artifacts panel", async ({ pa
   await expect.poll(rightPaneWidth).toBeGreaterThan(200);
 });
 
+test("mobile suggestion chips wrap to at most 2 rows on a narrow phone", async ({ browser }) => {
+  // 320px is the classic smallest-supported-phone width (original iPhone
+  // SE) — chip text length varies a lot by theme, so this checks the
+  // narrowest realistic case across all four rather than just the default.
+  for (const path of ["/", "/cyberpunk", "/medieval", "/asoiaf"]) {
+    const page = await browser.newPage({ viewport: { width: 320, height: 700 } });
+    await page.goto(path);
+    const chips = page.locator(".suggestion-chip");
+    const count = await chips.count();
+    const rowYs = new Set<number>();
+    for (let i = 0; i < count; i++) {
+      const box = await chips.nth(i).boundingBox();
+      if (box) rowYs.add(Math.round(box.y));
+    }
+    expect(rowYs.size, `${path} suggestion chips should wrap to at most 2 rows at 320px`).toBeLessThanOrEqual(2);
+    await page.close();
+  }
+});
+
 test("CV download endpoint returns a PDF", async ({ request }) => {
   const res = await request.get("/api/cv");
   expect(res.status()).toBe(200);

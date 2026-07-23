@@ -370,9 +370,13 @@ a:active {
     font-size: 12px;
   }
 
+  .suggestion-chip-row {
+    gap: 4px !important;
+  }
+
   .suggestion-chip {
-    font-size: 10px !important;
-    padding: 5px 10px !important;
+    font-size: 9.5px !important;
+    padding: 4px 6px !important;
   }
 
   .doc-card-pad {

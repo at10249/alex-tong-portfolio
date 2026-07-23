@@ -22,29 +22,39 @@ export function ChatInput() {
     <div className="chat-input-pad" style={{ padding: "12px 28px 22px", flexShrink: 0 }}>
       <div style={{ maxWidth: "760px", margin: "0 auto" }}>
         {isEmpty && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "12px", justifyContent: "center" }}>
-            {content.conversations.map((c) => (
-              <motion.button
-                key={c.id}
-                className="suggestion-chip"
-                whileTap={{ scale: 0.95 }}
-                whileHover={{ y: -1 }}
-                onClick={() => sendSuggestion(c)}
-                style={{
-                  fontFamily: "var(--font)",
-                  fontSize: "11.5px",
-                  fontWeight: 500,
-                  padding: "7px 12px",
-                  borderRadius: "999px",
-                  border: "1px solid var(--border)",
-                  background: "var(--panel2)",
-                  color: "var(--muted)",
-                  cursor: "pointer",
-                }}
-              >
-                {c.title}
-              </motion.button>
-            ))}
+          <div
+            className="suggestion-chip-row"
+            style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "12px", justifyContent: "center" }}
+          >
+            {/* Longest-first, not conversation order — order doesn't matter
+                here, and packing the widest chips while a full row's width
+                is still available lets flex-wrap fit more per row than
+                DOM order does, which is what keeps this to 2 rows on
+                narrow phones instead of 3. */}
+            {[...content.conversations]
+              .sort((a, b) => b.title.length - a.title.length)
+              .map((c) => (
+                <motion.button
+                  key={c.id}
+                  className="suggestion-chip"
+                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ y: -1 }}
+                  onClick={() => sendSuggestion(c)}
+                  style={{
+                    fontFamily: "var(--font)",
+                    fontSize: "11.5px",
+                    fontWeight: 500,
+                    padding: "7px 12px",
+                    borderRadius: "999px",
+                    border: "1px solid var(--border)",
+                    background: "var(--panel2)",
+                    color: "var(--muted)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {c.title}
+                </motion.button>
+              ))}
           </div>
         )}
 
